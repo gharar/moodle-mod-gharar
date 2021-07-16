@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xmldb path="mod/gharar/db" version="20210716"
+    comment="XMLDB file for Moodle mod/gharar"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+    <tables>
+        <table name="gharar" comment="Information of all Gharar meetings">
+            <fields>
+                <field name="id" type="int" length="10" notnull="true" unsigned="true"
+                    sequence="true"/>
+                <field name="course" type="int" length="10" notnull="true" unsigned="true"
+                    sequence="false" comment="The course the activity belongs to"/>
+                <field name="name" type="char" length="256" notnull="true" sequence="false"/>
+                <field name="intro" type="text" notnull="true" sequence="false"/>
+            </fields>
+            <keys>
+                <key name="primary" type="primary" fields="id"/>
+            </keys>
+            <indexes>
+                <index name="course" unique="false" fields="course"/>
+            </indexes>
+        </table>
+    </tables>
+</xmldb>
