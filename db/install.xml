@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xmldb path="mod/gharar/db" version="20210716"
+<xmldb path="mod/gharar/db" version="20210718"
     comment="XMLDB file for Moodle mod/gharar"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
@@ -12,7 +12,7 @@
                 <field name="course" type="int" length="10" notnull="true" unsigned="true"
                     sequence="false" comment="The course the activity belongs to"/>
                 <field name="name" type="char" length="256" notnull="true" sequence="false"/>
-                <field name="intro" type="text" notnull="true" sequence="false"/>
+                <field name="link" type="char" length="512" notnull="true" sequence="false"/>
             </fields>
             <keys>
                 <key name="primary" type="primary" fields="id"/>
