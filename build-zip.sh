@@ -13,7 +13,7 @@ mkdir "$tmpDir"
 cd "$tmpDir"
 
 # Make sure the resulting file includes only one directory matching the plugin's name
-rsync -av "$mainRepoDir/" "./$pluginName" --exclude ".git" > /dev/null
+rsync -av "$mainRepoDir/" "./$pluginName" --exclude 'git' --exclude '.gitignore' > /dev/null
 
 # Create the zip file in the current directory
 zip -r "$mainRepoDir/$outputFilename" "./$pluginName" > /dev/null
