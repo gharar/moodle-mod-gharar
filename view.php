@@ -1,6 +1,7 @@
 <?php
 
 use mod_gharar\util;
+use mod_gharar\moodle_vars;
 
 require_once __DIR__ . '/../../config.php';
 
