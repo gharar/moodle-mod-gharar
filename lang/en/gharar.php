@@ -4,12 +4,12 @@ use mod_gharar\util;
 
 util::forbid_access_if_not_from_moodle();
 
-$_pluginName = 'Gharar';
+const PLUGIN_NAME = 'Gharar';
 
-$string['modulename'] = '{$_pluginName}';
+$string['modulename'] = PLUGIN_NAME;
 
-$string['plugin_name'] = '{$_pluginName}';
-$string['plugin_name_plural'] = "{$_pluginName}s";
+$string['plugin_name'] = PLUGIN_NAME;
+$string['plugin_name_plural'] = PLUGIN_NAME . 's';
 
 $string['meeting_name'] = 'Name';
 $string['meeting_link'] = 'Link';
