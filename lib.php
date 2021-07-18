@@ -5,20 +5,20 @@ use mod_gharar\moodle_vars;
 
 util::forbid_access_if_not_from_moodle();
 
-function gharar_add_instance($ghararRecord)
+function gharar_add_instance($record)
 {
     $moodle = moodle_vars::get_instance();
 
-    $id = $moodle->get_database()->insert_record('gharar', $ghararRecordData);
+    $id = $moodle->get_database()->insert_record('gharar', $record);
 
     return $id;
 }
 
-function gharar_update_instance($ghararRecord)
+function gharar_update_instance($record)
 {
     $moodle = moodle_vars::get_instance();
 
-    $id = $moodle->get_database()->update_record('gharar', $ghararRecordData);
+    $id = $moodle->get_database()->update_record('gharar', $record);
 
     return true;
 }
