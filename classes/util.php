@@ -6,7 +6,7 @@ class util
 {
     public static function forbid_access_if_not_from_moodle()
     {
-        if (!\defined(MOODLE_INTERNAL::class)) {
+        if (!\defined(\MOODLE_INTERNAL::class)) {
             exit("Access forbidden");
         }
     }
