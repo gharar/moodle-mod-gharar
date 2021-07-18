@@ -1,10 +1,12 @@
 <?php
 
-defined('MOODLE_INTERNAL') || exit();
+use mod_gharar\util;
+
+util::forbid_access_if_not_from_moodle();
 
 $_pluginName = 'قرار';
 
-$string['plugin_name'] = 'قرار';
+$string['plugin_name'] = '{$_pluginName}';
 $string['plugin_name_plural'] = "{$_pluginName}ها";
 
 $string['meeting_name'] = 'نام';
