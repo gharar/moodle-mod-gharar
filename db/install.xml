@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xmldb path="mod/gharar/db" version="20210718"
-    comment="XMLDB file for Moodle mod/gharar"
+<XMLDB PATH="mod/gharar/db" VERSION="20210718"
+    COMMENT="XMLDB file for Moodle mod/gharar"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
-    <tables>
-        <table name="gharar" comment="Information of all Gharar meetings">
-            <fields>
-                <field name="id" type="int" length="10" notnull="true" unsigned="true"
-                    sequence="true"/>
-                <field name="course" type="int" length="10" notnull="true" unsigned="true"
-                    sequence="false" comment="The course the activity belongs to"/>
-                <field name="name" type="char" length="256" notnull="true" sequence="false"/>
-                <field name="link" type="char" length="512" notnull="true" sequence="false"/>
-            </fields>
-            <keys>
-                <key name="primary" type="primary" fields="id"/>
-            </keys>
-            <indexes>
-                <index name="course" unique="false" fields="course"/>
-            </indexes>
-        </table>
-    </tables>
-</xmldb>
+    <TABLES>
+        <TABLE NAME="gharar" COMMENT="Information of all Gharar meetings">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true"
+                    SEQUENCE="true"/>
+                <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true"
+                    SEQUENCE="false" COMMENT="The course the activity belongs to"/>
+                <FIELD NAME="name" TYPE="char" LENGTH="256" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="link" TYPE="char" LENGTH="512" NOTNULL="true" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+            </INDEXES>
+        </TABLE>
+    </TABLES>
+</XMLDB>
