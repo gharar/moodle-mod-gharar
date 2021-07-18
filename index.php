@@ -5,14 +5,12 @@ use mod_gharar\moodle_vars;
 
 require_once __DIR__ . '/../../config.php';
 
-// Get id parameter, using GET (as in GET and POST) method
 $courseId = required_param('id', PARAM_INT);
 
 $course = $DB->get_record('course', ['id' => $courseId], '*', MUST_EXIST);
 
 require_login($course);
 
-// TODO: Make these more dynamic, e.g. use get_string for set_title
 $PAGE->set_url('/mod/gharar/index.php', ['id' => $courseId]);
 $PAGE->set_title(util::get_string('plugin_name_plural'));
 $PAGE->set_heading($course->fullname);
