@@ -9,15 +9,6 @@ require_once "{$CFG->dirroot}/course/moodleform_mod.php";
 
 class mod_gharar_mod_form extends moodleform_mod
 {
-    private $moodle;
-
-    public function __construct($current, $section, $courseModule, $course)
-    {
-        $this->moodle = new moodle_vars();
-
-        parent::__construct($current, $section, $courseModule, $course);
-    }
-
     public function definition()
     {
         $this->add_name_field();
