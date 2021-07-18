@@ -10,4 +10,9 @@ class util
             exit("Access forbidden");
         }
     }
+
+    public static function get_string($which, ...$otherArgs)
+    {
+        return get_string($which, plugin::NAME, ...$otherArgs);
+    }
 }
