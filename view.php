@@ -21,6 +21,6 @@ $PAGE->set_cacheable(false);
 echo $OUTPUT->header();
 echo $OUTPUT->heading(util::get_string('plugin_name_plural'));
 
-echo html_writer::link($instance->name, 'Enter');
+echo html_writer::link($instance->name, util::get_string('enter_meeting_link'));
 
 echo $OUTPUT->footer();

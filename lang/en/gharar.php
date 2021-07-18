@@ -15,3 +15,5 @@ $string['plugin_name_plural'] = PLUGIN_NAME . 's';
 
 $string['meeting_name'] = 'Name';
 $string['meeting_link'] = 'Link';
+
+$string['enter_meeting_link'] = 'Enter';

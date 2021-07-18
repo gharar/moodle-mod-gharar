@@ -15,3 +15,5 @@ $string['plugin_name_plural'] = PLUGIN_NAME . 'ها';
 
 $string['meeting_name'] = 'نام';
 $string['meeting_link'] = 'پیوند';
+
+$string['enter_meeting_link'] = 'ورود';
