@@ -21,11 +21,10 @@ class moodle_vars
 
     public static function get_instance()
     {
-        if ($this->instance === null) {
-            $this->instance = new self();
+        if (self::$instance === null) {
+            self::$instance = new self();
         }
-
-        return $this->instance;
+        return self::$instance;
     }
 
     public function get_database()
