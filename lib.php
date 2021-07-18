@@ -18,9 +18,12 @@ function gharar_update_instance($record)
 {
     $moodle = moodle_vars::get_instance();
 
-    $id = $moodle->get_database()->update_record('gharar', $record);
+    // Important: The id is not stored in the 'id' field, but the 'instance' one
+    $record->id = $record->instance;
 
-    return true;
+    $result = $moodle->get_database()->update_record('gharar', $record);
+
+    return $result;
 }
 
 function gharar_delete_instance($recordId)
@@ -32,7 +35,7 @@ function gharar_delete_instance($recordId)
     }
 
     if (!$moodle->get_database()->delete_records('gharar', ['id' => $recordId])) {
-        $result = false;
+        return false;
     }
     return true;
 }
