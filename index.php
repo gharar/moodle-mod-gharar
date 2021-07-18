@@ -36,7 +36,7 @@ $instances = moodle_vars::get_instance()->get_database()->get_records('gharar', 
     'course' => $courseId
 ]);
 
-foreach ($instances as $instace) {
+foreach ($instances as $instance) {
     $row = [
         html_writer::link(new moodle_url('view.php', ['id' => $courseId]), $instance->name),
         $instance->link,
