@@ -13,6 +13,9 @@ class mod_gharar_mod_form extends moodleform_mod
     {
         $this->add_name_field();
         $this->add_link_field();
+
+        $this->standard_coursemodule_elements();
+        $this->add_action_buttons();
     }
 
     private function add_name_field()
@@ -30,6 +33,6 @@ class mod_gharar_mod_form extends moodleform_mod
             'meeting_link'
         ), ['size' => 512]);
         $this->_form->setType('link', PARAM_TEXT);
-        $this->_form->addRule('name', null, 'required', null, 'client');
+        $this->_form->addRule('link', null, 'required', null, 'client');
     }
 }
