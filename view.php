@@ -14,13 +14,13 @@ $instance = $DB->get_record('gharar', ['id'=> $courseModule->instance], '*', MUS
 require_login($course, true, $courseModule);
 
 $PAGE->set_url('/mod/gharar/view.php', ['id' => $courseModuleId]);
-$PAGE->set_title($instance->fullname);
+$PAGE->set_title($instance->name);
 $PAGE->set_heading($course->fullname);
 $PAGE->set_cacheable(false);
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading(util::get_string('plugin_name_plural'));
 
-echo html_writer::link($instance->name, util::get_string('enter_meeting_link'));
+echo html_writer::link($instance->link, util::get_string('enter_meeting_link'));
 
 echo $OUTPUT->footer();
