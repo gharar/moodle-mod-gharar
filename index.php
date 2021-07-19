@@ -12,7 +12,7 @@ $course = $DB->get_record('course', ['id' => $courseId], '*', MUST_EXIST);
 require_login($course);
 
 $PAGE->set_url('/mod/gharar/index.php', ['id' => $courseId]);
-$PAGE->set_title(util::get_string('plugin_name_plural'));
+$PAGE->set_title("$course->shortname " . util::get_string('plugin_name_plural'));
 $PAGE->set_heading($course->fullname);
 $PAGE->set_cacheable(false);
 $PAGE->set_pagelayout('incourse');
