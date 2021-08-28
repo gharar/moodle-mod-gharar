@@ -14,5 +14,10 @@
     },
     "require-dev": {
         "vimeo/psalm": "^4.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "MAChitgarha\\MoodleModGharar\\": "src"
+        }
     }
 }
