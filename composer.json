@@ -1,0 +1,18 @@
+{
+    "name": "machitgarha/moodle-mod-gharar",
+    "description": "Gharar plugin for Moodle",
+    "type": "library",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Mohammad Amin Chitgarha",
+            "email": "machitgarha@outlook.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2"
+    },
+    "require-dev": {
+        "vimeo/psalm": "^4.9"
+    }
+}
