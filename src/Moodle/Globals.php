@@ -1,8 +1,8 @@
 <?php
 
-namespace mod_gharar;
+namespace MAChitgarha\MoodleModGharar\Moodle;
 
-class moodle_vars
+class Globals
 {
     private static $instance = null;
 
@@ -19,7 +19,7 @@ class moodle_vars
         $this->output = $OUTPUT;
     }
 
-    public static function get_instance()
+    public static function getInstance()
     {
         if (self::$instance === null) {
             self::$instance = new self();
@@ -27,17 +27,17 @@ class moodle_vars
         return self::$instance;
     }
 
-    public function get_database()
+    public function getDatabase()
     {
         return $this->database;
     }
 
-    public function get_config()
+    public function getConfig()
     {
         return $this->config;
     }
 
-    public function get_output()
+    public function getOutput()
     {
         return $this->output;
     }
