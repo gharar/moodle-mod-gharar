@@ -1,8 +1,10 @@
 <?php
 
-use \mod_gharar\util;
+require __DIR__ . "/vendor/autoload.php";
 
-util::forbid_access_if_not_from_moodle();
+use MAChitgarha\MoodleModGharar\Util;
+
+Util::forbidNonMoodleAccess();
 
 $plugin->component = 'mod_gharar';
 $plugin->version = 2021071603;
