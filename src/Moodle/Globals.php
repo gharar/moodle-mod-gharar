@@ -2,10 +2,6 @@
 
 namespace MAChitgarha\MoodleModGharar\Moodle;
 
-use moodle_page;
-use mysqli_native_moodle_database;
-use core_renderer;
-
 // For using $CFG global
 require_once __DIR__ . "/../../../../config.php";
 
@@ -17,7 +13,7 @@ class Globals
     private $database;
     /** @var \stdClass */
     private $config;
-    /** @var \core_renderer */
+    /** @var \bootstrap_renderer */
     private $output;
     /** @var \moodle_page */
     private $page;
@@ -50,7 +46,7 @@ class Globals
         return $this->config;
     }
 
-    public function getOutput(): \core_renderer
+    public function getOutput(): \bootstrap_renderer
     {
         return $this->output;
     }
