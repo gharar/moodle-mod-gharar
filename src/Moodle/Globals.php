@@ -15,11 +15,11 @@ class Globals
 
     /** @var mysqli_native_moodle_database */
     private $database;
-    /** @var stdClass */
+    /** @var \stdClass */
     private $config;
-    /** @var core_renderer */
+    /** @var \core_renderer */
     private $output;
-    /** @var moodle_page */
+    /** @var \moodle_page */
     private $page;
 
     private function __construct()
@@ -40,22 +40,22 @@ class Globals
         return self::$instance;
     }
 
-    public function getDatabase(): mysqli_native_moodle_database
+    public function getDatabase(): \mysqli_native_moodle_database
     {
         return $this->database;
     }
 
-    public function getConfig(): stdClass
+    public function getConfig(): \stdClass
     {
         return $this->config;
     }
 
-    public function getOutput(): core_renderer
+    public function getOutput(): \core_renderer
     {
         return $this->output;
     }
 
-    public function getPage(): moodle_page
+    public function getPage(): \moodle_page
     {
         return $this->page;
     }
