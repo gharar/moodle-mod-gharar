@@ -13,6 +13,6 @@ class Util
 
     public static function getString($which, ...$otherArgs)
     {
-        return get_string($which, plugin::NAME, ...$otherArgs);
+        return \get_string($which, Plugin::COMPONENT_NAME, ...$otherArgs);
     }
 }
