@@ -2,8 +2,8 @@
 
 namespace MAChitgarha\MoodleModGharar;
 
+use MAChitgarha\MoodleModGharar\Plugin;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
-
 use MAChitgarha\MoodleModGharar\PageBuilding\ViewPageBuilder;
 
 class IndexPageBuilder

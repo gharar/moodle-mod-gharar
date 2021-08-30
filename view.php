@@ -2,8 +2,8 @@
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-use MAChitgarha\MoodleModGharar\ViewPageBuilder;
+use MAChitgarha\MoodleModGharar\PageBuilding\ViewPageBuilder;
 
-$x = (new ViewPageBuilder())
+echo (new ViewPageBuilder())
     ->build()
     ->getOutput();

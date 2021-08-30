@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-use MAChitgarha\MoodleModGharar\IndexPageBuilder;
+use MAChitgarha\MoodleModGharar\PageBuilding\IndexPageBuilder;
 
 echo (new IndexPageBuilder())
     ->build()
