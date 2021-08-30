@@ -2,9 +2,9 @@
 
 # Config
 # Create a temporary directory to prevent conflictions
-tmpDirname='.tmp'
-pluginName='gharar'
-outputFilename='moodle-mod-gharar.zip'
+tmpDirname=".tmp"
+pluginName="gharar"
+outputFilename="moodle-mod-gharar.zip"
 
 mainRepoDir="$(pwd)"
 tmpDir="$mainRepoDir/../$tmpDirname"
@@ -12,9 +12,9 @@ tmpDir="$mainRepoDir/../$tmpDirname"
 mkdir "$tmpDir"
 cd "$tmpDir"
 
-# Make sure the resulting file includes only one directory matching the plugin's name
+# Make sure the resulting file includes only one directory matching plugin's name
 rsync -av "$mainRepoDir/" "./$pluginName" \
-    --exclude '.git' --exclude '.gitignore' --exclude 'build-zip.sh' > /dev/null
+    --exclude ".git" --exclude ".gitignore" --exclude "build-zip.sh" > /dev/null
 
 # Remove previous zip file to prevent files to remain there
 # TODO: Remove this?

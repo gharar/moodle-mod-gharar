@@ -26,7 +26,7 @@ class IndexPageBuilder
 
     private function initParams(): self
     {
-        $this->courseId = \required_param('id', \PARAM_INT);
+        $this->courseId = \required_param("id", \PARAM_INT);
 
         return $this;
     }

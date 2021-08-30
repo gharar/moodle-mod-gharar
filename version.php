@@ -9,4 +9,4 @@ Util::forbidNonMoodleAccess();
 
 $plugin->component = Plugin::COMPONENT_NAME;
 $plugin->version = 2021071603;
-$plugin->release = '0.1.0-beta.2';
+$plugin->release = "0.1.0-beta.2";
