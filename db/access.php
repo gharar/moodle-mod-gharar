@@ -8,7 +8,7 @@ Util::forbidNonMoodleAccess();
 
 $capabilities = [
     // Ability to add a new Gharar instance
-    "mod/gharar:add_instance" => [
+    "mod/gharar:addinstance" => [
         "riskbitmask" => RISK_XSS,
         "captype" => "write",
         "contextlevel" => CONTEXT_COURSE,
@@ -20,7 +20,7 @@ $capabilities = [
     ],
 
     // Ability to view instances, regardless of the type
-    "mod/gharar:view_instance" => [
+    "mod/gharar:view" => [
         "captype" => "read",
         "contextlevel" => CONTEXT_MODULE,
         "archetypes" => [

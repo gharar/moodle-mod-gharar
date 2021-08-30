@@ -11,7 +11,7 @@ Util::forbidNonMoodleAccess();
 /**
  * @return true|int
  */
-function gharar_add_instance(object $record): mixed
+function gharar_add_instance(object $record)
 {
     $id = Globals::getInstance()
         ->getDatabase()
