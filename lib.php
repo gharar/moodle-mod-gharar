@@ -1,41 +1,53 @@
 <?php
 
-use mod_gharar\util;
-use mod_gharar\moodle_vars;
+require __DIR__ . "/vendor/autoload.php";
 
-util::forbid_access_if_not_from_moodle();
+use MAChitgarha\MoodleModGharar\Util;
+use MAChitgarha\MoodleModGharar\Plugin;
+use MAChitgarha\MoodleModGharar\Moodle\Globals;
 
-function gharar_add_instance($record)
+Util::forbidNonMoodleAccess();
+
+/**
+ * @return true|int
+ */
+function gharar_add_instance(object $record): mixed
 {
-    $moodle = moodle_vars::get_instance();
-
-    $id = $moodle->get_database()->insert_record('gharar', $record);
+    $id = Globals::getInstance()
+        ->getDatabase()
+        ->insert_record(Plugin::DATABASE_MAIN_TABLE_NAME, $record);
 
     return $id;
 }
 
-function gharar_update_instance($record)
+function gharar_update_instance(object $record): bool
 {
-    $moodle = moodle_vars::get_instance();
-
-    // Important: The id is not stored in the 'id' field, but the 'instance' one
+    // Important: The id is not stored in the "id" field, but the "instance" one
     $record->id = $record->instance;
 
-    $result = $moodle->get_database()->update_record('gharar', $record);
+    $result = Globals::getInstance()
+        ->getDatabase()
+        ->update_record(Plugin::DATABASE_MAIN_TABLE_NAME, $record);
 
     return $result;
 }
 
-function gharar_delete_instance($recordId)
+function gharar_delete_instance(int $recordId): bool
 {
-    $moodle = moodle_vars::get_instance();
+    $database = Globals::getInstance()->getDatabase();
 
-    if (!$moodle->get_database()->get_record('gharar', ['id' => $recordId])) {
+    if (
+        !$database->get_record(
+            Plugin::DATABASE_MAIN_TABLE_NAME,
+            ["id" => $recordId]
+        ) ||
+        !$database->delete_records(
+            Plugin::DATABASE_MAIN_TABLE_NAME,
+            ["id" => $recordId]
+        )
+    ) {
         return false;
     }
 
-    if (!$moodle->get_database()->delete_records('gharar', ['id' => $recordId])) {
-        return false;
-    }
     return true;
 }
