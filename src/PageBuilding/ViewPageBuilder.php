@@ -6,7 +6,7 @@ use MAChitgarha\MoodleModGharar\Moodle\Globals;
 
 class ViewPageBuilder extends AbstractPageBuilder
 {
-    private const URL = Plugin::RELATIVE_PATH . "/view.php";
+    public const URL = Plugin::RELATIVE_PATH . "/view.php";
 
     /** @var int */
     private $courseModuleId = null;
