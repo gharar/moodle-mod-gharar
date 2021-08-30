@@ -1,12 +1,13 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar;
+namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
+use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\PageBuilding\ViewPageBuilder;
 
-class IndexPageBuilder
+class IndexPageBuilder extends AbstractPageBuilder
 {
     private const URL = Plugin::RELATIVE_PATH . "/index.php";
 
@@ -33,12 +34,14 @@ class IndexPageBuilder
 
     private function initCourse(): self
     {
-        $this->course = $DB->get_record(
-            "course",
-            ["id" => $this->courseId],
-            "*",
-            \MUST_EXIST
-        );
+        $this->course = Globals::getInstance()
+            ->getDatabase()
+            ->get_record(
+                "course",
+                ["id" => $this->courseId],
+                "*",
+                \MUST_EXIST
+            );
 
         return $this;
     }
@@ -64,6 +67,8 @@ class IndexPageBuilder
         $page->set_pagelayout("incourse");
 
         $page->navbar->add($page->title, $page->url);
+
+        return $this;
     }
 
     protected function generateOutputHeading(): string

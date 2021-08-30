@@ -2,6 +2,7 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
+use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 
