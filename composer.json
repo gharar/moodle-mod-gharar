@@ -6,7 +6,9 @@
     "authors": [
         {
             "name": "Mohammad Amin Chitgarha",
-            "email": "machitgarha@outlook.com"
+            "email": "machitgarha@outlook.com",
+            "homepage": "https://github.com/machitgarha",
+            "role": "Creator"
         }
     ],
     "require": {
