@@ -9,6 +9,11 @@ outputFilename="moodle-mod-gharar.zip"
 mainRepoDir="$(pwd)"
 tmpDir="$mainRepoDir/../$tmpDirname"
 
+# Remove dev dependencies from vendor/ directory. Otherwise, the resulting file
+# will be huge in size. For example, 80KB versus 17MB for the directory alone.
+# At last, we will revert this change back.
+composer --no-dev install > /dev/null
+
 mkdir "$tmpDir"
 cd "$tmpDir"
 
@@ -25,5 +30,9 @@ zip -r "$mainRepoDir/$outputFilename" "./$pluginName" > /dev/null
 # Cleanup
 cd "$mainRepoDir"
 rm -r "$tmpDir"
+
+# Revert Composer dev dependencies back
+cd "$mainRepoDir"
+composer install > /dev/null
 
 echo "Zip file created successfully."
