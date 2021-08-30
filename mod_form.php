@@ -1,38 +1,10 @@
 <?php
 
-use \mod_gharar\util;
-use \mod_gharar\moodle_vars;
+require_once __DIR__ . "/vendor/autoload.php";
 
-util::forbid_access_if_not_from_moodle();
+use MAChitgarha\MoodleModGharar\Util;
+use MAChitgarha\MoodleModGharar\InstanceDataForm;
 
-require_once "{$CFG->dirroot}/course/moodleform_mod.php";
+Util::forbidNonMoodleAccess();
 
-class mod_gharar_mod_form extends moodleform_mod
-{
-    public function definition()
-    {
-        $this->add_name_field();
-        $this->add_link_field();
-
-        $this->standard_coursemodule_elements();
-        $this->add_action_buttons();
-    }
-
-    private function add_name_field()
-    {
-        $this->_form->addElement('text', 'name', util::get_string(
-            'meeting_name'
-        ), ['size' => 256]);
-        $this->_form->setType('name', PARAM_TEXT);
-        $this->_form->addRule('name', null, 'required', null, 'client');
-    }
-
-    private function add_link_field()
-    {
-        $this->_form->addElement('text', 'link', util::get_string(
-            'meeting_link'
-        ), ['size' => 512]);
-        $this->_form->setType('link', PARAM_TEXT);
-        $this->_form->addRule('link', null, 'required', null, 'client');
-    }
-}
+class_alias(InstanceDataForm::class, mod_gharar_mod_form::class);
