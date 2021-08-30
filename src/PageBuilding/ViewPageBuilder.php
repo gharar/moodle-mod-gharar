@@ -1,12 +1,12 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar;
+namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 
-class ViewPageBuilder
+class ViewPageBuilder extends AbstractPageBuilder
 {
-    private const URL = "/mod/" . Plugin::MODULE_NAME . "/view.php";
+    private const URL = Plugin::RELATIVE_PATH . "/view.php";
 
     /** @var int */
     private $courseModuleId = null;
@@ -18,9 +18,6 @@ class ViewPageBuilder
 
     /** @var object */
     private $moduleInstance = null;
-
-    /** @var string */
-    private $output = "";
 
     public function __construct()
     {
@@ -72,16 +69,7 @@ class ViewPageBuilder
         return $this;
     }
 
-    public function build(): self
-    {
-        $this
-            ->buildPage()
-            ->buildOutput();
-
-        return $this;
-    }
-
-    private function buildPage(): self
+    protected function buildPage(): self
     {
         $page = Globals::getInstance()->getPage();
 
@@ -95,28 +83,16 @@ class ViewPageBuilder
         return $this;
     }
 
-    private function buildOutput(): self
+    protected function generateOutputHeading(): string
     {
-        $output = Globals::getInstance()->getOutput();
-
-        $this->output .= $output->header();
-        $this->output .= $output->heading($this->moduleInstance->name);
-        $this->output .= $this->generateMainContent();
-        $this->output .= $output->footer();
-
-        return $this;
+        return $this->moduleInstance->name;
     }
 
-    private function generateMainContent(): string
+    protected function generateOutputMainContent(): string
     {
         return \html_writer::link(
             $this->moduleInstance->link,
-            Util::getString('enter_meeting_link')
+            Util::getString("enter_meeting_link")
         );
-    }
-
-    public function getOutput(): string
-    {
-        return $this->output;
     }
 }
