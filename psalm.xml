@@ -15,4 +15,9 @@
     <stubs>
         <file name="vendor/machitgarha/bimoo/stubs.php" />
     </stubs>
+
+    <issueHandlers>
+        <!-- TODO: Fix undefined constant references -->
+        <UndefinedConstant errorLevel="info" />
+    </issueHandlers>
 </psalm>

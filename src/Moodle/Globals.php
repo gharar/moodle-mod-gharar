@@ -2,7 +2,10 @@
 
 namespace MAChitgarha\MoodleModGharar\Moodle;
 
-// For using $CFG global
+/**
+ * For using $CFG global.
+ * @psalm-suppress MissingFile
+ */
 require_once __DIR__ . "/../../../../config.php";
 
 class Globals

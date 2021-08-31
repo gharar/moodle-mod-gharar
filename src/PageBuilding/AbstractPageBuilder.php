@@ -4,7 +4,7 @@ namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 
-/*
+/**
  * Bootstrap include file.
  *
  * The config.php file is not limited to providing $CFG global (although the
@@ -16,6 +16,8 @@ use MAChitgarha\MoodleModGharar\Moodle\Globals;
  * obvious, reaching the root of the plugin; so we must go up two more levels
  * to reach the Moodle root. The $CFG or Globals::getConfig() function cannot
  * be used either: They rely on the same file we are including.
+ *
+ * @psalm-suppress MissingFile
  */
 require_once __DIR__ . "/../../../../config.php";
 
