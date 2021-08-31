@@ -9,7 +9,7 @@ class Globals
 {
     private static $instance = null;
 
-    /** @var mysqli_native_moodle_database */
+    /** @var \mysqli_native_moodle_database */
     private $database;
     /** @var \stdClass */
     private $config;

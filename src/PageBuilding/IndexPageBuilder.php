@@ -12,10 +12,10 @@ class IndexPageBuilder extends AbstractPageBuilder
     private const URL = Plugin::RELATIVE_PATH . "/index.php";
 
     /** @var int */
-    private $courseId = null;
+    private $courseId;
 
     /** @var \stdClass */
-    private $course = null;
+    private $course;
 
     public function __construct()
     {

@@ -11,15 +11,15 @@ class ViewPageBuilder extends AbstractPageBuilder
     public const URL = Plugin::RELATIVE_PATH . "/view.php";
 
     /** @var int */
-    private $courseModuleId = null;
+    private $courseModuleId;
 
     /** @var \stdClass */
-    private $course = null;
+    private $course;
     /** @var \cm_info */
-    private $courseModule = null;
+    private $courseModule;
 
     /** @var object */
-    private $moduleInstance = null;
+    private $moduleInstance;
 
     public function __construct()
     {
