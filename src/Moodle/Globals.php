@@ -10,6 +10,7 @@ require_once __DIR__ . "/../../../../config.php";
 
 class Globals
 {
+    /** @var ?self */
     private static $instance = null;
 
     /** @var \mysqli_native_moodle_database */
