@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "253a8172c9d583771272d6f226ad72d8",
+    "content-hash": "0a1137ab21a04656a4a2e777df408b9a",
     "packages": [],
     "packages-dev": [
         {
@@ -531,16 +531,16 @@
         },
         {
             "name": "machitgarha/bimoo",
-            "version": "3.11.1.0",
+            "version": "3.11.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/machitgarha/bimoo.git",
-                "reference": "b78fbbdb19b02c706bad6bc9a7d93f5450aabe37"
+                "reference": "4878e3641c57afd9a4a5953a3d9c0b68a360a2d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/machitgarha/bimoo/zipball/b78fbbdb19b02c706bad6bc9a7d93f5450aabe37",
-                "reference": "b78fbbdb19b02c706bad6bc9a7d93f5450aabe37",
+                "url": "https://api.github.com/repos/machitgarha/bimoo/zipball/4878e3641c57afd9a4a5953a3d9c0b68a360a2d5",
+                "reference": "4878e3641c57afd9a4a5953a3d9c0b68a360a2d5",
                 "shasum": ""
             },
             "require-dev": {
@@ -562,9 +562,9 @@
             "description": "Moodle declaration stubs, helping IDEs and static analyzers",
             "support": {
                 "issues": "https://github.com/machitgarha/bimoo/issues",
-                "source": "https://github.com/machitgarha/bimoo/tree/3.11.1.0"
+                "source": "https://github.com/machitgarha/bimoo/tree/3.11.1.1"
             },
-            "time": "2021-08-31T12:40:07+00:00"
+            "time": "2021-08-31T13:09:40+00:00"
         },
         {
             "name": "netresearch/jsonmapper",
