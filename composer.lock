@@ -531,22 +531,32 @@
         },
         {
             "name": "machitgarha/bimoo",
-            "version": "3.11.1.1",
+            "version": "3.11.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/machitgarha/bimoo.git",
-                "reference": "4878e3641c57afd9a4a5953a3d9c0b68a360a2d5"
+                "reference": "4fb87dc7b5efc1a28d81caf65fb6bd2641767fcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/machitgarha/bimoo/zipball/4878e3641c57afd9a4a5953a3d9c0b68a360a2d5",
-                "reference": "4878e3641c57afd9a4a5953a3d9c0b68a360a2d5",
+                "url": "https://api.github.com/repos/machitgarha/bimoo/zipball/4fb87dc7b5efc1a28d81caf65fb6bd2641767fcc",
+                "reference": "4fb87dc7b5efc1a28d81caf65fb6bd2641767fcc",
                 "shasum": ""
             },
+            "require": {
+                "php": "^7.4|^8.0"
+            },
             "require-dev": {
-                "php-stubs/generator": "^0.6.0"
+                "php-stubs/generator": "^0.6.0",
+                "symfony/console": "^5.3",
+                "webmozart/path-util": "^2.3"
             },
             "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MAChitgarha\\Bimoo\\": "src"
+                }
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
@@ -562,9 +572,9 @@
             "description": "Moodle declaration stubs, helping IDEs and static analyzers",
             "support": {
                 "issues": "https://github.com/machitgarha/bimoo/issues",
-                "source": "https://github.com/machitgarha/bimoo/tree/3.11.1.1"
+                "source": "https://github.com/machitgarha/bimoo/tree/3.11.1.2"
             },
-            "time": "2021-08-31T13:09:40+00:00"
+            "time": "2021-08-31T15:08:27+00:00"
         },
         {
             "name": "netresearch/jsonmapper",
