@@ -92,10 +92,10 @@ class ViewPageBuilder extends AbstractPageBuilder
 
     protected function generateOutputMainContent(): string
     {
-        // TODO: Open in a new tab
         return \html_writer::link(
             $this->moduleInstance->link,
-            Util::getString("enter_meeting_link")
+            Util::getString("enter_meeting_link"),
+            ["target" => "_blank"],
         );
     }
 }

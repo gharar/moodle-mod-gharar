@@ -102,7 +102,8 @@ class IndexPageBuilder extends AbstractPageBuilder
                         ViewPageBuilder::URL,
                         ["id" => $this->courseId]
                     ),
-                    $instance->name
+                    $instance->name,
+                    ["target" => "_blank"],
                 ),
                 $instance->link,
             ];
