@@ -14,6 +14,8 @@ class Farsi
         "modulenameplural" => self::PLUGIN_NAME_PLURAL,
 
         "pluginadministration" => "مدیریت " . self::PLUGIN_NAME,
+
+        // TODO: Add modulename_help
         // }
 
         "plugin_name" => self::PLUGIN_NAME,
