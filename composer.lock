@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f3bfaa6d4f297d147a8f3a762687560",
+    "content-hash": "253a8172c9d583771272d6f226ad72d8",
     "packages": [],
     "packages-dev": [
         {
@@ -528,6 +528,43 @@
                 "source": "https://github.com/felixfbecker/php-language-server-protocol/tree/1.5.1"
             },
             "time": "2021-02-22T14:02:09+00:00"
+        },
+        {
+            "name": "machitgarha/bimoo",
+            "version": "3.11.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/machitgarha/bimoo.git",
+                "reference": "b78fbbdb19b02c706bad6bc9a7d93f5450aabe37"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/machitgarha/bimoo/zipball/b78fbbdb19b02c706bad6bc9a7d93f5450aabe37",
+                "reference": "b78fbbdb19b02c706bad6bc9a7d93f5450aabe37",
+                "shasum": ""
+            },
+            "require-dev": {
+                "php-stubs/generator": "^0.6.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Mohammad Amin Chitgarha",
+                    "email": "machitgarha@outlook.com",
+                    "homepage": "https://github.com/machitgarha",
+                    "role": "Creator"
+                }
+            ],
+            "description": "Moodle declaration stubs, helping IDEs and static analyzers",
+            "support": {
+                "issues": "https://github.com/machitgarha/bimoo/issues",
+                "source": "https://github.com/machitgarha/bimoo/tree/3.11.1.0"
+            },
+            "time": "2021-08-31T12:40:07+00:00"
         },
         {
             "name": "netresearch/jsonmapper",

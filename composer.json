@@ -15,7 +15,8 @@
         "php": "^7.2"
     },
     "require-dev": {
-        "vimeo/psalm": "^4.9"
+        "vimeo/psalm": "^4.9",
+        "machitgarha/bimoo": "^3.11"
     },
     "autoload": {
         "psr-4": {
