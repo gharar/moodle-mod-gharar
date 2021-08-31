@@ -57,7 +57,7 @@ class IndexPageBuilder extends AbstractPageBuilder
     {
         $page = Globals::getInstance()->getPage();
 
-        $page->set_url(self::URL, ["id" => $courseId]);
+        $page->set_url(self::URL, ["id" => $this->courseId]);
         $page->set_title(
             "{$this->course->shortname} " .
             Util::getString("plugin_name_plural")
