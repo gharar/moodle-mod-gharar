@@ -1,9 +1,16 @@
 <?php
 
-use \mod_gharar\util;
+require_once __DIR__ . "/vendor/autoload.php";
 
-util::forbid_access_if_not_from_moodle();
+use MAChitgarha\MoodleModGharar\Util;
 
-$plugin->component = 'mod_gharar';
-$plugin->version = 2021071603;
-$plugin->release = '0.1.0-beta.2';
+Util::forbidNonMoodleAccess();
+
+$plugin->component = "mod_gharar";
+$plugin->version = 2021071604;
+$plugin->release = "0.1.0-beta.3";
+$plugin->maturity = MATURITY_BETA;
+
+// Minimum Moodle version is 3.9.0
+$plugin->requires = 2020061500;
+$plugin->supported = [39, 311];

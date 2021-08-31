@@ -1,38 +1,80 @@
 <?php
 
-use \mod_gharar\util;
-use \mod_gharar\moodle_vars;
+require_once __DIR__ . "/vendor/autoload.php";
 
-util::forbid_access_if_not_from_moodle();
+use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use MAChitgarha\MoodleModGharar\Util;
 
-require_once "{$CFG->dirroot}/course/moodleform_mod.php";
+Util::forbidNonMoodleAccess();
 
-class mod_gharar_mod_form extends moodleform_mod
+$moodleRootDir = Globals::getInstance()->getConfig()->dirroot;
+require_once "{$moodleRootDir}/course/moodleform_mod.php";
+
+class mod_gharar_mod_form extends \moodleform_mod
 {
-    public function definition()
+    private const FIELD_NAME_NAME = "name";
+    private const FIELD_NAME_TYPE = "text";
+    private const FIELD_NAME_LENGTH = 256;
+
+    private const FIELD_LINK_NAME = "link";
+    private const FIELD_LINK_TYPE = "text";
+    private const FIELD_LINK_LENGTH = 512;
+
+    public function definition(): void
     {
-        $this->add_name_field();
-        $this->add_link_field();
+        $this
+            ->addNameField()
+            ->addLinkField();
 
         $this->standard_coursemodule_elements();
         $this->add_action_buttons();
     }
 
-    private function add_name_field()
+    private function addNameField(): self
     {
-        $this->_form->addElement('text', 'name', util::get_string(
-            'meeting_name'
-        ), ['size' => 256]);
-        $this->_form->setType('name', PARAM_TEXT);
-        $this->_form->addRule('name', null, 'required', null, 'client');
+        $this->_form->addElement(
+            self::FIELD_NAME_TYPE,
+            self::FIELD_NAME_NAME,
+            Util::getString("meeting_name"),
+            ["size" => self::FIELD_NAME_LENGTH],
+        );
+
+        $this->_form->setType(
+            self::FIELD_NAME_NAME,
+            \PARAM_TEXT,
+        );
+        $this->_form->addRule(
+            self::FIELD_NAME_NAME,
+            null,
+            "required",
+            null,
+            "client",
+        );
+
+        return $this;
     }
 
-    private function add_link_field()
+    private function addLinkField(): self
     {
-        $this->_form->addElement('text', 'link', util::get_string(
-            'meeting_link'
-        ), ['size' => 512]);
-        $this->_form->setType('link', PARAM_TEXT);
-        $this->_form->addRule('link', null, 'required', null, 'client');
+        $this->_form->addElement(
+            self::FIELD_LINK_TYPE,
+            self::FIELD_LINK_NAME,
+            Util::getString("meeting_link"),
+            ["size" => self::FIELD_NAME_LENGTH],
+        );
+
+        $this->_form->setType(
+            self::FIELD_LINK_NAME,
+            \PARAM_TEXT,
+        );
+        $this->_form->addRule(
+            self::FIELD_LINK_NAME,
+            null,
+            "required",
+            null,
+            "client",
+        );
+
+        return $this;
     }
 }

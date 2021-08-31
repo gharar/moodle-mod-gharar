@@ -1,19 +1,10 @@
 <?php
 
-use mod_gharar\util;
+require_once __DIR__ . "/../../vendor/autoload.php";
 
-util::forbid_access_if_not_from_moodle();
+use MAChitgarha\MoodleModGharar\Util;
+use MAChitgarha\MoodleModGharar\LanguageString\English;
 
-const PLUGIN_NAME = 'Gharar';
+Util::forbidNonMoodleAccess();
 
-// Moodle-specific
-$string['modulename'] = PLUGIN_NAME;
-$string['pluginname'] = PLUGIN_NAME;
-
-$string['plugin_name'] = PLUGIN_NAME;
-$string['plugin_name_plural'] = PLUGIN_NAME . 's';
-
-$string['meeting_name'] = 'Name';
-$string['meeting_link'] = 'Link';
-
-$string['enter_meeting_link'] = 'Enter';
+$string = English::STRING;
