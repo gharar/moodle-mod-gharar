@@ -35,7 +35,10 @@ abstract class AbstractPageBuilder
         return $this;
     }
 
-    abstract protected function buildPage(): self;
+    /**
+     * @return static
+     */
+    abstract protected function buildPage();
 
     protected function buildOutput(): self
     {
