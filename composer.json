@@ -16,7 +16,8 @@
     },
     "require-dev": {
         "vimeo/psalm": "^4.9",
-        "machitgarha/bimoo": "^3.11.1"
+        "machitgarha/bimoo": "^3.11.1",
+        "phan/phan": "^5.2"
     },
     "autoload": {
         "psr-4": {
