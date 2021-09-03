@@ -1,25 +1,21 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
+namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Room;
 
 use Webmozart\Assert\Assert;
 
-class Room
+/**
+ * A room that is supposed to be available and exist. In other words, you can
+ * retrieve its information using {@link API::retrieveRoom()}.
+ */
+class AvailableRoom extends AbstractRoom
 {
-    /** @var string */
-    public const NAME = "name";
-    /** @var string */
-    public const IS_PRIVATE = "is_private";
     /** @var string */
     public const ADDRESS = "address";
     /** @var string */
     public const SHARE_URL = "share_url";
-
     /** @var string */
-    private $name;
-
-    /** @var bool */
-    private $isPrivate;
+    public const IS_ACTIVE = "is_active";
 
     /** @var string|null */
     private $address = null;
@@ -27,14 +23,8 @@ class Room
     /** @var string|null */
     private $shareUrl = null;
 
-    public function __construct(
-        string $name,
-        bool $isPrivate
-    ) {
-        $this
-            ->setName($name)
-            ->setIsPrivate($isPrivate);
-    }
+    /** @var bool */
+    private $isActive;
 
     public static function fromRawObject(object $object): self
     {
@@ -50,18 +40,6 @@ class Room
         return $room;
     }
 
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    public function setIsPrivate(bool $isPrivate): self
-    {
-        $this->isPrivate = $isPrivate;
-        return $this;
-    }
-
     private function setAddress(string $address): self
     {
         $this->address = $address;
@@ -74,14 +52,10 @@ class Room
         return $this;
     }
 
-    public function getName(): string
+    private function setIsActive(bool $isActive): self
     {
-        return $this->name;
-    }
-
-    public function isPrivate(): bool
-    {
-        return $this->isPrivate;
+        $this->isActive = $isActive;
+        return $this;
     }
 
     public function getAddress(): string
@@ -92,10 +66,13 @@ class Room
 
     public function getShareUrl(): string
     {
-        if ($this->shareUrl !== null) {
-            return $this->shareUrl;
-        }
-        return "https://room.gharar.ir/" . $this->getAddress();
+        return $this->shareUrl ??
+            "https://room.gharar.ir/" . $this->getAddress();
+    }
+
+    public function isActive(): bool
+    {
+        return $this->isActive ?? true;
     }
 
     private function assertPropertyIsNotNull(string $propertyName): void
