@@ -3,6 +3,7 @@
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
 use Webmozart\Json\JsonDecoder;
 use Psr\Http\Message\ResponseInterface;
 
@@ -35,8 +36,8 @@ class API
     {
         $this->client = new Client([
             "base_uri" => self::BASE_URI,
-            "timeout" => self::REQUEST_TIMEOUT,
-            "headers" => [
+            RequestOptions::TIMEOUT => self::REQUEST_TIMEOUT,
+            RequestOptions::HEADERS => [
                 "Authorization" => self::generateAuthorizationHeader($token),
             ],
         ]);
@@ -54,13 +55,26 @@ class API
         return $this;
     }
 
+    private static function getRoomsRelativeUri(): string
+    {
+        return "rooms";
+    }
+
+    private static function getSpecificRoomRelativeUri(
+        string $roomAddress
+    ): string {
+        return self::getRoomsRelativeUri() . "/$roomAddress";
+    }
+
     /**
      * @return Room[]
      */
     public function listRooms(): array
     {
         $roomListRaw = $this->getSuccessfulJsonResponseDecodedContents(
-            $this->client->get("rooms")
+            $this->client->get(
+                self::getRoomsRelativeUri()
+            )
         );
 
         $roomList = [];
@@ -71,10 +85,25 @@ class API
         return $roomList;
     }
 
+    public function createRoom(Room $roomInfo): Room
+    {
+        $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
+            $this->client->post(
+                self::getRoomsRelativeUri(),
+                [RequestOptions::FORM_PARAMS => [
+                    Room::NAME => $roomInfo->getName(),
+                    Room::IS_PRIVATE => $roomInfo->isPrivate(),
+                ],
+            ])
+        );
+
+        return Room::fromRawObject($roomRaw);
+    }
+
     /**
      * @return object|array
      */
-    private static function getSuccessfulJsonResponseDecodedContents(
+    private function getSuccessfulJsonResponseDecodedContents(
         ResponseInterface $response
     ) {
         return $this->jsonDecoder->decode(
