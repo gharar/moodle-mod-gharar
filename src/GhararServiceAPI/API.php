@@ -3,6 +3,7 @@
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
 
 use GuzzleHttp\Client;
+use Webmozart\Json\JsonDecoder;
 use Psr\Http\Message\ResponseInterface;
 
 class API
@@ -20,9 +21,14 @@ class API
     /** @var Client */
     private $client;
 
+    /** @var JsonDecoder */
+    private $jsonDecoder;
+
     public function __construct(string $token)
     {
-        $this->initClient($token);
+        $this
+            ->initClient($token)
+            ->initJsonDecoder();
     }
 
     private function initClient(string $token): self
@@ -40,6 +46,12 @@ class API
     private static function generateAuthorizationHeader(string $token): string
     {
         return "Token $token";
+    }
+
+    private function initJsonDecoder(): self
+    {
+        $this->jsonDecoder = new JsonDecoder();
+        return $this;
     }
 
     /**
@@ -65,9 +77,9 @@ class API
     private static function getSuccessfulJsonResponseDecodedContents(
         ResponseInterface $response
     ) {
-        var_dump(\json_decode(
+        return $this->jsonDecoder->decode(
             self::getSuccessfulResponseContents($response)
-        ));
+        );
     }
 
     private static function getSuccessfulResponseContents(
