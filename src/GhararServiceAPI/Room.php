@@ -2,8 +2,19 @@
 
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
 
+use Webmozart\Assert\Assert;
+
 class Room
 {
+    /** @var string */
+    public const NAME = "name";
+    /** @var string */
+    public const IS_PRIVATE = "is_private";
+    /** @var string */
+    public const ADDRESS = "address";
+    /** @var string */
+    public const SHARE_URL = "share_url";
+
     /** @var string */
     private $name;
 
@@ -89,10 +100,9 @@ class Room
 
     private function assertPropertyIsNotNull(string $propertyName): void
     {
-        if ($this->$propertyName === null) {
-            throw new \Exception(
-                "Property '$propertyName' must not be null"
-            );
-        }
+        Assert::notNull(
+            $this->$propertyName,
+            "Property '$propertyName' must not be null"
+        );
     }
 }
