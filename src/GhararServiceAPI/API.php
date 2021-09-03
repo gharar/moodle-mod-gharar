@@ -15,7 +15,6 @@ class API
     private const STATUS_CODE_CREATED = 201;
     /** @var int */
     private const STATUS_CODE_ACCEPTED = 202;
-
     /** @var int */
     private const STATUS_CODE_UNAUTHORIZED = 401;
 
@@ -99,6 +98,17 @@ class API
                     Room::NAME => $roomInfo->getName(),
                     Room::IS_PRIVATE => $roomInfo->isPrivate(),
                 ]]
+            )
+        );
+
+        return Room::fromRawObject($roomRaw);
+    }
+
+    public function retrieveRoom(string $roomAddress): Room
+    {
+        $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
+            $this->client->get(
+                self::getSpecificRoomRelativeUri($roomAddress)
             )
         );
 
