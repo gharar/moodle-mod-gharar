@@ -10,7 +10,12 @@ use Psr\Http\Message\ResponseInterface;
 class API
 {
     /** @var int */
-    private const STATUS_CODE_SUCCESS = 200;
+    private const STATUS_CODE_OK = 200;
+    /** @var int */
+    private const STATUS_CODE_CREATED = 201;
+    /** @var int */
+    private const STATUS_CODE_ACCEPTED = 202;
+
     /** @var int */
     private const STATUS_CODE_UNAUTHORIZED = 401;
 
@@ -57,13 +62,13 @@ class API
 
     private static function getRoomsRelativeUri(): string
     {
-        return "rooms";
+        return "rooms/";
     }
 
     private static function getSpecificRoomRelativeUri(
         string $roomAddress
     ): string {
-        return self::getRoomsRelativeUri() . "/$roomAddress";
+        return self::getRoomsRelativeUri() . "$roomAddress/";
     }
 
     /**
@@ -93,8 +98,8 @@ class API
                 [RequestOptions::FORM_PARAMS => [
                     Room::NAME => $roomInfo->getName(),
                     Room::IS_PRIVATE => $roomInfo->isPrivate(),
-                ],
-            ])
+                ]]
+            )
         );
 
         return Room::fromRawObject($roomRaw);
@@ -121,11 +126,25 @@ class API
     private static function assertSuccessfulResponse(
         ResponseInterface $response
     ): void {
-        $statusCode = $response->getStatusCode();
-
-        if ($statusCode === self::STATUS_CODE_SUCCESS) {
+        if (self::isStatusCodeSuccessful($response->getStatusCode())) {
             return;
         }
+        self::handleUnsuccessfulResponse($response);
+    }
+
+    private static function isStatusCodeSuccessful(int $statusCode): bool
+    {
+        return
+            $statusCode === self::STATUS_CODE_OK ||
+            $statusCode === self::STATUS_CODE_CREATED ||
+            $statusCode === self::STATUS_CODE_ACCEPTED;
+    }
+
+    private static function handleUnsuccessfulResponse(
+        ResponseInterface $response
+    ): void {
+        $statusCode = $response->getStatusCode();
+
         if ($statusCode === self::STATUS_CODE_UNAUTHORIZED) {
             // TODO: Convert it to a custom exception
             throw new \InvalidArgumentException(
@@ -137,7 +156,8 @@ class API
         // TODO: Improve and specialize it
         throw new \Exception(
             "Request to Gharar API failed; reason: '" .
-            $response->getReasonPhrase() . "'"
+            $response->getReasonPhrase() . "', status code: " .
+            $response->getStatusCode()
         );
     }
 }
