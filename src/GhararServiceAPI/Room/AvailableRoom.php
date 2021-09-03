@@ -29,13 +29,14 @@ class AvailableRoom extends AbstractRoom
     public static function fromRawObject(object $object): self
     {
         $room = new self(
-            $object->name,
-            $object->is_private
+            $object->{self::NAME},
+            $object->{self::IS_PRIVATE}
         );
 
         $room
-            ->setAddress($object->address)
-            ->setShareUrl($object->share_url);
+            ->setAddress($object->{self::ADDRESS})
+            ->setShareUrl($object->{self::SHARE_URL})
+            ->setIsActive($object->{self::IS_ACTIVE});
 
         return $room;
     }

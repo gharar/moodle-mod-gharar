@@ -4,6 +4,8 @@ namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 use Webmozart\Json\JsonDecoder;
 use Psr\Http\Message\ResponseInterface;
 
@@ -83,25 +85,25 @@ class API
 
         $roomList = [];
         foreach ($roomListRaw as $roomRaw) {
-            $roomList[] = Room::fromRawObject($roomRaw);
+            $roomList[] = AvailableRoom::fromRawObject($roomRaw);
         }
 
         return $roomList;
     }
 
-    public function createRoom(Room $roomInfo): Room
+    public function createRoom(ToBeCreatedRoom $newRoomInfo): Room
     {
         $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
             $this->client->post(
                 self::getRoomsRelativeUri(),
                 [RequestOptions::FORM_PARAMS => [
-                    Room::NAME => $roomInfo->getName(),
-                    Room::IS_PRIVATE => $roomInfo->isPrivate(),
+                    ToBeCreatedRoom::NAME => $newRoomInfo->getName(),
+                    ToBeCreatedRoom::IS_PRIVATE => $newRoomInfo->isPrivate(),
                 ]]
             )
         );
 
-        return Room::fromRawObject($roomRaw);
+        return AvailableRoom::fromRawObject($roomRaw);
     }
 
     public function retrieveRoom(string $roomAddress): Room
@@ -112,7 +114,7 @@ class API
             )
         );
 
-        return Room::fromRawObject($roomRaw);
+        return AvailableRoom::fromRawObject($roomRaw);
     }
 
     /**
