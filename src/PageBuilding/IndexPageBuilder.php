@@ -84,7 +84,7 @@ class IndexPageBuilder extends AbstractPageBuilder
 
         $table->head = [
             Util::getString("meeting_name"),
-            Util::getString("meeting_link")
+            Util::getString("meeting_link"),
         ];
         $table->align = ["center", "center"];
 
@@ -103,7 +103,7 @@ class IndexPageBuilder extends AbstractPageBuilder
                         ["id" => $this->courseId]
                     ),
                     $instance->name,
-                    ["target" => "_blank"],
+                    ["target" => "_blank"]
                 ),
                 $instance->link,
             ];

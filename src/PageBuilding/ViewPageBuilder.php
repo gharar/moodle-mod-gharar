@@ -44,7 +44,7 @@ class ViewPageBuilder extends AbstractPageBuilder
             $this->courseModule,
         ] = \get_course_and_cm_from_cmid(
             $this->courseModuleId,
-            Plugin::MODULE_NAME,
+            Plugin::MODULE_NAME
         );
 
         return $this;
@@ -58,7 +58,7 @@ class ViewPageBuilder extends AbstractPageBuilder
                 Plugin::DATABASE_MAIN_TABLE_NAME,
                 ["id" => $this->courseModule->instance],
                 "*",
-                \MUST_EXIST,
+                \MUST_EXIST
             );
 
         return $this;
@@ -95,7 +95,7 @@ class ViewPageBuilder extends AbstractPageBuilder
         return \html_writer::link(
             $this->moduleInstance->link,
             Util::getString("enter_meeting_link"),
-            ["target" => "_blank"],
+            ["target" => "_blank"]
         );
     }
 }
