@@ -18,7 +18,7 @@ require_once "{$CFG->dirroot}/course/moodleform_mod.php";
  *
  * The class is abstract, because if it is instantiated directly, then its
  * parent will complain about the class name, because it must be in the form of:
- * mod_xx_mod_form, which xx is the name of the module (gharar here). That's
+ * mod_xx_mod_form, where xx is the name of the module (gharar here). That's
  * unfortunate, but unpreventable.
  */
 abstract class InstanceDataForm extends \moodleform_mod

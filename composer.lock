@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc84c888ebe18438d25f1ccbb410928e",
+    "content-hash": "83fc286b843e3743115ff972f3552ebe",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -1263,16 +1263,16 @@
         },
         {
             "name": "machitgarha/bimoo",
-            "version": "3.11.1.2",
+            "version": "3.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/machitgarha/bimoo.git",
-                "reference": "4fb87dc7b5efc1a28d81caf65fb6bd2641767fcc"
+                "reference": "a2fb83cd1f0b11033bc133b9ac63458e75986ba0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/machitgarha/bimoo/zipball/4fb87dc7b5efc1a28d81caf65fb6bd2641767fcc",
-                "reference": "4fb87dc7b5efc1a28d81caf65fb6bd2641767fcc",
+                "url": "https://api.github.com/repos/machitgarha/bimoo/zipball/a2fb83cd1f0b11033bc133b9ac63458e75986ba0",
+                "reference": "a2fb83cd1f0b11033bc133b9ac63458e75986ba0",
                 "shasum": ""
             },
             "require": {
@@ -1302,7 +1302,7 @@
                 }
             ],
             "description": "Moodle declaration stubs, helping IDEs and static analyzers",
-            "time": "2021-08-31T15:08:27+00:00"
+            "time": "2021-09-04T15:59:38+00:00"
         },
         {
             "name": "microsoft/tolerant-php-parser",
