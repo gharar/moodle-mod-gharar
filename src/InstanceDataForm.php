@@ -2,7 +2,7 @@
 
 namespace MAChitgarha\MoodleModGharar;
 
-use MAChitgarha\MoodleModGharar\Moodle\Util;
+use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 
 /*
@@ -47,19 +47,19 @@ abstract class InstanceDataForm extends \moodleform_mod
             self::FIELD_NAME_TYPE,
             self::FIELD_NAME_NAME,
             Util::getString("meeting_name"),
-            ["size" => self::FIELD_NAME_LENGTH],
+            ["size" => self::FIELD_NAME_LENGTH]
         );
 
         $this->_form->setType(
             self::FIELD_NAME_NAME,
-            \PARAM_TEXT,
+            \PARAM_TEXT
         );
         $this->_form->addRule(
             self::FIELD_NAME_NAME,
             null,
             "required",
             null,
-            "client",
+            "client"
         );
 
         return $this;
@@ -71,19 +71,19 @@ abstract class InstanceDataForm extends \moodleform_mod
             self::FIELD_LINK_TYPE,
             self::FIELD_LINK_NAME,
             Util::getString("meeting_link"),
-            ["size" => self::FIELD_NAME_LENGTH],
+            ["size" => self::FIELD_NAME_LENGTH]
         );
 
         $this->_form->setType(
             self::FIELD_LINK_NAME,
-            \PARAM_TEXT,
+            \PARAM_TEXT
         );
         $this->_form->addRule(
             self::FIELD_LINK_NAME,
             null,
             "required",
             null,
-            "client",
+            "client"
         );
 
         return $this;

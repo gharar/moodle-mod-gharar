@@ -9,12 +9,9 @@ use const CONTEXT_MODULE;
 
 class Plugin
 {
-    /** @var string */
     public const MODULE_NAME = "gharar";
-    /** @var string */
     public const COMPONENT_NAME = "mod_gharar";
 
-    /** @var string */
     public const DATABASE_MAIN_TABLE_NAME = "gharar";
 
     /**
@@ -24,7 +21,6 @@ class Plugin
      */
     public const RELATIVE_PATH = "/mod/" . self::MODULE_NAME;
 
-    /** @var string */
     public const CAPABILITIES = [
         // Ability to add a new Gharar instance
         "mod/gharar:addinstance" => [
