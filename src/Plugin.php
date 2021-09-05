@@ -17,7 +17,6 @@ class Plugin
     /**
      * Path of the plugin, relative to Moodle root directory, without no
      * trailing slashes.
-     * @var string
      */
     public const RELATIVE_PATH = "/mod/" . self::MODULE_NAME;
 

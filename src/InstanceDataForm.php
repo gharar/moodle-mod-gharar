@@ -2,8 +2,9 @@
 
 namespace MAChitgarha\MoodleModGharar;
 
-use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
+use MAChitgarha\MoodleModGharar\Util;
 
 /*
  * Defining this global variable is necessary here, because the moodleform_mod
@@ -41,7 +42,7 @@ abstract class InstanceDataForm extends \moodleform_mod
 
     public const FIELD_ACCESS_TOKEN_NAME = "access_token";
     private const FIELD_ACCESS_TOKEN_TYPE = \PARAM_TEXT;
-    private const FIELD_ACCESS_TOKEN_REGEX = "/^[0-9a-f]{45}$/i";
+    private const FIELD_ACCESS_TOKEN_REGEX = API::REGEX_ACCESS_TOKEN;
 
     public const FIELD_ROOM_NAME_NAME = "room_name";
     private const FIELD_ROOM_NAME_TYPE = \PARAM_TEXT;

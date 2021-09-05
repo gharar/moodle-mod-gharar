@@ -4,9 +4,7 @@ namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Room;
 
 abstract class AbstractRoom
 {
-    /** @var string */
     public const NAME = "name";
-    /** @var string */
     public const IS_PRIVATE = "is_private";
 
     /** @var string */

@@ -10,19 +10,18 @@ use Webmozart\Json\JsonDecoder;
 use Psr\Http\Message\ResponseInterface;
 
 class API
-{
-    /** @var int */
+{    
+    public const REGEX_ACCESS_TOKEN =
+        "/^[\da-f]{40}\$/i";
+    public const REGEX_ROOM_ADDRESS =
+        "/^[\da-f]{8}(-[\da-f]{4}){3}-[\da-f]{12}\$/i";
+
     private const STATUS_CODE_OK = 200;
-    /** @var int */
     private const STATUS_CODE_CREATED = 201;
-    /** @var int */
     private const STATUS_CODE_ACCEPTED = 202;
-    /** @var int */
     private const STATUS_CODE_UNAUTHORIZED = 401;
 
-    /** @var string */
     private const BASE_URI = "https://gharar.ir/api/v1/service/";
-    /** @var double */
     private const REQUEST_TIMEOUT = 4.0;
 
     /** @var Client */

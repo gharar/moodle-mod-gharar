@@ -10,11 +10,8 @@ use Webmozart\Assert\Assert;
  */
 class AvailableRoom extends AbstractRoom
 {
-    /** @var string */
     public const ADDRESS = "address";
-    /** @var string */
     public const SHARE_URL = "share_url";
-    /** @var string */
     public const IS_ACTIVE = "is_active";
 
     /** @var string|null */
