@@ -2,6 +2,11 @@
 
 namespace MAChitgarha\MoodleModGharar\LanguageString;
 
+/**
+ * As a Moodle plugin must have the English language string to be able to be
+ * installed, this class exists. But, it is more like a stub file, and it is not
+ * regularly updated (as English is not supported).
+ */
 class English
 {
     private const PLUGIN_NAME = "Gharar";
@@ -12,16 +17,6 @@ class English
         "modulename" => self::PLUGIN_NAME,
         "pluginname" => self::PLUGIN_NAME,
         "modulenameplural" => self::PLUGIN_NAME_PLURAL,
-
-        "pluginadministration" => self::PLUGIN_NAME . " administration",
         // }
-
-        "plugin_name" => self::PLUGIN_NAME,
-        "plugin_name_plural" => self::PLUGIN_NAME_PLURAL,
-
-        "meeting_name" => "Name",
-        "meeting_link" => "Link",
-
-        "enter_meeting_link" => "Enter",
     ];
 }
