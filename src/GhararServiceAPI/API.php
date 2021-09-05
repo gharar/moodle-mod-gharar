@@ -133,6 +133,13 @@ class API
         return AvailableRoom::fromRawObject($roomRaw);
     }
 
+    public function destroyRoom(AvailableRoom $room): void
+    {
+        $this->client->delete(
+            self::getSpecificRoomRelativeUri($room->getAddress())
+        );
+    }
+
     /**
      * @return object|array
      */
