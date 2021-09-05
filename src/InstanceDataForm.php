@@ -20,22 +20,34 @@ require_once "{$CFG->dirroot}/course/moodleform_mod.php";
  * parent will complain about the class name, because it must be in the form of:
  * mod_xx_mod_form, where xx is the name of the module (gharar here). That's
  * unfortunate, but unpreventable.
+ *
+ * @todo Add messages for MoodleQuickForm::addRule() calls, getString method of
+ * Util class.
  */
 abstract class InstanceDataForm extends \moodleform_mod
 {
-    private const FIELD_NAME_NAME = "name";
-    private const FIELD_NAME_TYPE = "text";
+    protected const RULE_TYPE_REQUIRED = "required";
+
+    protected const RULE_VALIDATION_CLIENT = "client";
+    protected const RULE_VALIDATION_SERVER = "server";
+
+    public const FIELD_NAME_NAME = "name";
+    private const FIELD_NAME_TYPE = \PARAM_TEXT;
     private const FIELD_NAME_LENGTH = 256;
 
-    private const FIELD_LINK_NAME = "link";
-    private const FIELD_LINK_TYPE = "text";
-    private const FIELD_LINK_LENGTH = 512;
+    public const FIELD_ROOM_NAME_NAME = "room_name";
+    private const FIELD_ROOM_NAME_TYPE = \PARAM_TEXT;
+    private const FIELD_NAME_LENGTH = 256;
+
+    public const FIELD_IS_PRIVATE_NAME = "is_private";
+    private const FIELD_IS_PRIVATE_TYPE = \PARAM_CHECKBOX;
 
     public function definition(): void
     {
         $this
             ->addNameField()
-            ->addLinkField();
+            ->addRoomNameField()
+            ->addIsPrivateField();
 
         $this->standard_coursemodule_elements();
         $this->add_action_buttons();
@@ -46,44 +58,59 @@ abstract class InstanceDataForm extends \moodleform_mod
         $this->_form->addElement(
             self::FIELD_NAME_TYPE,
             self::FIELD_NAME_NAME,
-            Util::getString("meeting_name"),
+            Util::getString("name"),
             ["size" => self::FIELD_NAME_LENGTH]
         );
 
-        $this->_form->setType(
-            self::FIELD_NAME_NAME,
-            \PARAM_TEXT
-        );
         $this->_form->addRule(
             self::FIELD_NAME_NAME,
             null,
-            "required",
+            self::RULE_TYPE_REQUIRED,
             null,
-            "client"
+            self::RULE_VALIDATION_CLIENT
         );
 
         return $this;
     }
 
-    private function addLinkField(): self
+    private function addRoomNameField(): self
     {
         $this->_form->addElement(
-            self::FIELD_LINK_TYPE,
-            self::FIELD_LINK_NAME,
-            Util::getString("meeting_link"),
-            ["size" => self::FIELD_NAME_LENGTH]
+            self::FIELD_ROOM_NAME_TYPE,
+            self::FIELD_ROOM_NAME_NAME,
+            Util::getString("room_name"),
+            ["size" => self::FIELD_ROOM_NAME_LENGTH]
         );
 
-        $this->_form->setType(
-            self::FIELD_LINK_NAME,
-            \PARAM_TEXT
-        );
         $this->_form->addRule(
-            self::FIELD_LINK_NAME,
+            self::FIELD_ROOM_NAME_NAME,
             null,
-            "required",
+            self::RULE_TYPE_REQUIRED,
             null,
-            "client"
+            self::RULE_VALIDATION_CLIENT
+        );
+
+        return $this;
+    }
+
+    private function addIsPrivateField(): self
+    {
+        $this->_form->addElement(
+            self::FIELD_IS_PRIVATE_TYPE,
+            self::FIELD_IS_PRIVATE_NAME,
+            Util::getString("is_private"),
+        );
+
+        $this->_form->addRule(
+            self::FIELD_IS_PRIVATE_NAME,
+            null,
+            self::RULE_TYPE_REQUIRED,
+            null,
+            self::RULE_VALIDATION_CLIENT
+        );
+        $this->_form->setDefault(
+            self::FIELD_IS_PRIVATE_NAME,
+            true
         );
 
         return $this;

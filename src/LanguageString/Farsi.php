@@ -2,6 +2,8 @@
 
 namespace MAChitgarha\MoodleModGharar\LanguageString;
 
+use MAChitgarha\MoodleModGharar\InstanceDataForm;
+
 class Farsi
 {
     private const PLUGIN_NAME = "قرار";
@@ -21,8 +23,9 @@ class Farsi
         "plugin_name" => self::PLUGIN_NAME,
         "plugin_name_plural" => self::PLUGIN_NAME_PLURAL,
 
-        "meeting_name" => "نام",
-        "meeting_link" => "پیوند",
+        "name" => "نام",
+        "room_name" => "نام اتاق",
+        "is_private" => "خصوصی بودن",
 
         "enter_meeting_link" => "ورود",
     ];
