@@ -7,7 +7,7 @@ use MAChitgarha\MoodleModGharar\PluginManager;
 
 Util::forbidNonMoodleAccess();
 
-function xmldb_mod_gharar_uninstall(): bool
+function xmldb_gharar_uninstall(): bool
 {
     return PluginManager::uninstall();
 }

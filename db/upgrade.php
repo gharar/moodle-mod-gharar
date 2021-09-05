@@ -7,7 +7,7 @@ use MAChitgarha\MoodleModGharar\PluginManager;
 
 Util::forbidNonMoodleAccess();
 
-function xmldb_mod_gharar_upgrade(int $oldVersion = 0): bool
+function xmldb_gharar_upgrade(int $oldVersion = 0): bool
 {
     return PluginManager::upgrade($oldVersion);
 }
