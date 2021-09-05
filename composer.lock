@@ -1263,16 +1263,16 @@
         },
         {
             "name": "machitgarha/bimoo",
-            "version": "3.11.3",
+            "version": "3.11.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/machitgarha/bimoo.git",
-                "reference": "76e6673379ea07f93f58a8749cae61435177c3bf"
+                "reference": "7e883f42625c58efa53cadf9df8ae9f4c1c0b068"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/machitgarha/bimoo/zipball/76e6673379ea07f93f58a8749cae61435177c3bf",
-                "reference": "76e6673379ea07f93f58a8749cae61435177c3bf",
+                "url": "https://api.github.com/repos/machitgarha/bimoo/zipball/7e883f42625c58efa53cadf9df8ae9f4c1c0b068",
+                "reference": "7e883f42625c58efa53cadf9df8ae9f4c1c0b068",
                 "shasum": ""
             },
             "require": {
@@ -1302,7 +1302,7 @@
                 }
             ],
             "description": "Moodle declaration stubs, helping IDEs and static analyzers",
-            "time": "2021-09-05T09:54:39+00:00"
+            "time": "2021-09-05T21:40:46+00:00"
         },
         {
             "name": "microsoft/tolerant-php-parser",

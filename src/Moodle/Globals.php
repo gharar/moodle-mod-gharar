@@ -6,6 +6,7 @@ use mysqli_native_moodle_database;
 use stdClass;
 use bootstrap_renderer;
 use moodle_page;
+use admin_root;
 
 /**
  * For using $CFG global.
@@ -26,6 +27,8 @@ class Globals
     private $output;
     /** @var moodle_page */
     private $page;
+    /** @var admin_root */
+    private $adminPage;
 
     private function __construct()
     {
@@ -63,5 +66,10 @@ class Globals
     public function getPage(): moodle_page
     {
         return $this->page;
+    }
+
+    public function getAdminPage(): admin_root
+    {
+        return $this->adminPage;
     }
 }
