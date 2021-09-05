@@ -93,6 +93,10 @@ abstract class InstanceDataForm extends \moodleform_mod
             Util::getString("access_token")
         );
 
+        $this->_form->setType(
+            self::FIELD_ACCESS_TOKEN_NAME,
+            self::FIELD_ACCESS_TOKEN_TYPE
+        );
         $this->_form->addRule(
             self::FIELD_ACCESS_TOKEN_NAME,
             "",
@@ -127,6 +131,10 @@ abstract class InstanceDataForm extends \moodleform_mod
             ["size" => self::FIELD_ROOM_NAME_LENGTH]
         );
 
+        $this->_form->setType(
+            self::FIELD_ROOM_NAME_NAME,
+            self::FIELD_ROOM_NAME_TYPE
+        );
         $this->_form->addRule(
             self::FIELD_ROOM_NAME_NAME,
             "",
@@ -146,6 +154,10 @@ abstract class InstanceDataForm extends \moodleform_mod
             Util::getString("is_private"),
         );
 
+        $this->_form->setType(
+            self::FIELD_IS_PRIVATE_NAME,
+            self::FIELD_IS_PRIVATE_TYPE
+        );
         $this->_form->addRule(
             self::FIELD_IS_PRIVATE_NAME,
             "",
