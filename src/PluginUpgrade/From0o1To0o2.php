@@ -35,6 +35,10 @@ class From0o1To0o2 extends AbstractBase
         self::FIELD_ATTR_SEQUENCE => false,
     ];
 
+    private const NEW_INDEX_ROOM_NAME = [
+        self::FIELD_INDEX_NAME => "room_name",
+        self::FIELD_INDEX_UNIQUE => true,
+    ];
     private const NEW_INDEX_ADDRESS = [
         self::FIELD_INDEX_NAME => "address",
         self::FIELD_INDEX_UNIQUE => true,
@@ -50,6 +54,7 @@ class From0o1To0o2 extends AbstractBase
     ];
 
     protected const TABLE_MAIN_NEW_INDEXES = [
+        self::NEW_INDEX_ROOM_NAME,
         self::NEW_INDEX_ADDRESS,
     ];
 

@@ -23,6 +23,7 @@
             </KEYS>
             <INDEXES>
                 <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+                <INDEX NAME="room_name" UNIQUE="true" FIELDS="room_name"/>
                 <INDEX NAME="address" UNIQUE="true" FIELDS="address"/>
             </INDEXES>
         </TABLE>
