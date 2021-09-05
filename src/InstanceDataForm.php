@@ -77,9 +77,9 @@ abstract class InstanceDataForm extends \moodleform_mod
 
         $this->_form->addRule(
             self::FIELD_NAME_NAME,
-            "",
+            null,
             self::RULE_TYPE_REQUIRED,
-            "",
+            null,
             self::RULE_VALIDATION_CLIENT
         );
 
@@ -101,14 +101,14 @@ abstract class InstanceDataForm extends \moodleform_mod
         );
         $this->_form->addRule(
             self::FIELD_ACCESS_TOKEN_NAME,
-            "",
+            null,
             self::RULE_TYPE_REQUIRED,
-            "",
+            null,
             self::RULE_VALIDATION_CLIENT
         );
         $this->_form->addRule(
             self::FIELD_ACCESS_TOKEN_NAME,
-            "",
+            null,
             self::RULE_TYPE_REGEX,
             self::FIELD_ACCESS_TOKEN_REGEX
         );
@@ -146,9 +146,9 @@ abstract class InstanceDataForm extends \moodleform_mod
         );
         $this->_form->addRule(
             self::FIELD_ROOM_NAME_NAME,
-            "",
+            null,
             self::RULE_TYPE_REQUIRED,
-            "",
+            null,
             self::RULE_VALIDATION_CLIENT
         );
 
@@ -169,9 +169,9 @@ abstract class InstanceDataForm extends \moodleform_mod
         );
         $this->_form->addRule(
             self::FIELD_IS_PRIVATE_NAME,
-            "",
+            null,
             self::RULE_TYPE_REQUIRED,
-            "",
+            null,
             self::RULE_VALIDATION_CLIENT
         );
         $this->_form->setDefault(
