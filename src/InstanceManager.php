@@ -3,6 +3,7 @@
 namespace MAChitgarha\MoodleModGharar;
 
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\Database;
@@ -34,14 +35,15 @@ class InstanceManager
     /**
      * @return true|int
      */
-    public function add(object $record)
+    public function add(object $instance)
     {
         $room = $api->createRoom(new ToBeCreatedRoom(
-            $record->name,
-            $record->is_private
+            $instance->name,
+            $instance->is_private
         ));
 
-        $record->address = $room->getAddress();
+        $newRecord = $instance;
+        $newRecord->address = $room->getAddress();
 
         /*
          * Here, if a record with the same "room_name" or "address" exists,
@@ -49,20 +51,43 @@ class InstanceManager
          */
         $id = Globals::getInstance()
             ->getDatabase()
-            ->insert_record(Database::TABLE_MAIN, $record);
+            ->insert_record(Database::TABLE_MAIN, $newRecord);
 
         return $id;
     }
 
-    public function update(object $record): bool
+    /**
+     * @todo Split into more functions.
+     */
+    public function update(object $instance): bool
     {
         // Important: The id is not stored in the "id" field, but the
         // "instance" one
-        $record->id = $record->instance;
+        $instance->id = $instance->instance;
+
+        $oldRecord = Globals::getInstance()
+            ->getDatabase()
+            ->get_record(
+                Database::TABLE_MAIN,
+                ["id" => $instance->id],
+                "*",
+                \MUST_EXIST
+            );
+
+        $room = new AvailableRoom(
+            $instance->name,
+            $instance->is_private,
+            $oldRecord->address
+        );
+
+        $room = $this->api->updateRoom($room);
+
+        $newRecord = $instance;
+        $newRecord->address = $room->getAddress();
 
         $result = Globals::getInstance()
             ->getDatabase()
-            ->update_record(Database::TABLE_MAIN, $record);
+            ->update_record(Database::TABLE_MAIN, $instance);
 
         return $result;
     }
