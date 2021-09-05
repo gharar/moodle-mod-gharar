@@ -18,4 +18,13 @@ class Util
     {
         return \get_string($which, Plugin::COMPONENT_NAME, ...$otherArgs);
     }
+
+    /**
+     * @todo Throw exceptions in the case of config name not found?
+     * @return mixed|false
+     */
+    public static function getConfig(string $which)
+    {
+        return \get_config(Plugin::COMPONENT_NAME, $which);
+    }
 }
