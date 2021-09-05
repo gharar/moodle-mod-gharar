@@ -75,6 +75,10 @@ abstract class InstanceDataForm extends \moodleform_mod
             ["size" => self::FIELD_NAME_LENGTH]
         );
 
+        $this->_form->setType(
+            self::FIELD_NAME_NAME,
+            self::FIELD_NAME_TYPE
+        );
         $this->_form->addRule(
             self::FIELD_NAME_NAME,
             null,
