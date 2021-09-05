@@ -24,6 +24,7 @@ class Farsi
         "plugin_name_plural" => self::PLUGIN_NAME_PLURAL,
 
         "name" => "نام",
+        "access_token" => "توکن دسترسی",
         "room_name" => "نام اتاق",
         "is_private" => "خصوصی بودن",
 
