@@ -2,6 +2,8 @@
 
 namespace MAChitgarha\MoodleModGharar;
 
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\Database;
 
@@ -27,6 +29,19 @@ class InstanceManager
      */
     public function add(object $record)
     {
+        $api = new API($record->access_token);
+
+        $room = $api->createRoom(new ToBeCreatedRoom(
+            $record->name,
+            $record->is_private
+        ));
+
+        $record->address = $room->getAddress();
+
+        /*
+         * Here, if a record with the same "room_name" or "address" exists,
+         * because of them being unique fields, an error is occurred.
+         */
         $id = Globals::getInstance()
             ->getDatabase()
             ->insert_record(Database::TABLE_MAIN, $record);

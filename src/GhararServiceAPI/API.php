@@ -90,7 +90,7 @@ class API
         return $roomList;
     }
 
-    public function createRoom(ToBeCreatedRoom $newRoomInfo): Room
+    public function createRoom(ToBeCreatedRoom $newRoomInfo): AvailableRoom
     {
         $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
             $this->client->post(
