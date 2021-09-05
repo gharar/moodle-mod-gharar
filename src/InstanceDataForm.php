@@ -27,6 +27,7 @@ require_once "{$CFG->dirroot}/course/moodleform_mod.php";
 abstract class InstanceDataForm extends \moodleform_mod
 {
     protected const RULE_TYPE_REQUIRED = "required";
+    protected const RULE_TYPE_REGEX = "regex";
 
     protected const RULE_VALIDATION_CLIENT = "client";
     protected const RULE_VALIDATION_SERVER = "server";
@@ -37,6 +38,10 @@ abstract class InstanceDataForm extends \moodleform_mod
     public const FIELD_NAME_NAME = "name";
     private const FIELD_NAME_TYPE = \PARAM_TEXT;
     private const FIELD_NAME_LENGTH = 256;
+
+    public const FIELD_ACCESS_TOKEN_NAME = "access_token";
+    private const FIELD_ACCESS_TOKEN_TYPE = \PARAM_TEXT;
+    private const FIELD_ACCESS_TOKEN_REGEX = "/^[0-9a-f]{45}$/i";
 
     public const FIELD_ROOM_NAME_NAME = "room_name";
     private const FIELD_ROOM_NAME_TYPE = \PARAM_TEXT;
@@ -49,6 +54,7 @@ abstract class InstanceDataForm extends \moodleform_mod
     {
         $this
             ->addNameField()
+            ->addAccessTokenField()
             ->addRoomSettingsBlock();
 
         $this->standard_coursemodule_elements();
@@ -70,6 +76,24 @@ abstract class InstanceDataForm extends \moodleform_mod
             self::RULE_TYPE_REQUIRED,
             null,
             self::RULE_VALIDATION_CLIENT
+        );
+
+        return $this;
+    }
+
+    private function addAccessTokenField(): self
+    {
+        $this->_form->addElement(
+            self::FIELD_ACCESS_TOKEN_TYPE,
+            self::FIELD_ACCESS_TOKEN_NAME,
+            Util::getString("access_token")
+        );
+
+        $this->_form->addRule(
+            self::FIELD_ACCESS_TOKEN_NAME,
+            null,
+            self::RULE_TYPE_REGEX,
+            self::FIELD_ACCESS_TOKEN_REGEX
         );
 
         return $this;
