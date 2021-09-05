@@ -9,7 +9,7 @@ use MAChitgarha\MoodleModGharar\Util;
 
 class AdminSettingsBuilder
 {
-    private const CONFIG_ACCESS_TOKEN_NAME = "mod_gharar/access_token";
+    public const CONFIG_ACCESS_TOKEN_NAME = "mod_gharar/access_token";
 
     /**
      * The root of the admin settings.

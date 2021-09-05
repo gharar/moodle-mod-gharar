@@ -6,14 +6,21 @@ use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\Database;
+use MAChitgarha\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
 
 class InstanceManager
 {
     /** @var self */
     private static $instance = null;
 
+    /** @var API */
+    private $api;
+
     private function __construct()
     {
+        $this->api = new API(
+            Util::getConfig(AdminSettingsBuilder::CONFIG_ACCESS_TOKEN_NAME)
+        );
     }
 
     public static function getInstance(): self
@@ -29,8 +36,6 @@ class InstanceManager
      */
     public function add(object $record)
     {
-        $api = new API($record->access_token);
-
         $room = $api->createRoom(new ToBeCreatedRoom(
             $record->name,
             $record->is_private
