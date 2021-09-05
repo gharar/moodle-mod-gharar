@@ -10,7 +10,7 @@ use Webmozart\Json\JsonDecoder;
 use Psr\Http\Message\ResponseInterface;
 
 class API
-{    
+{
     public const REGEX_ACCESS_TOKEN =
         "/^[\da-f]{40}\$/i";
     public const REGEX_ROOM_ADDRESS =
