@@ -45,6 +45,7 @@ abstract class InstanceDataForm extends \moodleform_mod
 
     public const FIELD_ACCESS_TOKEN_NAME = "access_token";
     private const FIELD_ACCESS_TOKEN_TYPE = self::FIELD_TYPE_TEXT;
+    private const FIELD_ACCESS_TOKEN_LENGTH = 40;
     private const FIELD_ACCESS_TOKEN_REGEX = API::REGEX_ACCESS_TOKEN;
 
     public const FIELD_ROOM_NAME_NAME = "room_name";
@@ -90,12 +91,20 @@ abstract class InstanceDataForm extends \moodleform_mod
         $this->_form->addElement(
             self::FIELD_ACCESS_TOKEN_TYPE,
             self::FIELD_ACCESS_TOKEN_NAME,
-            Util::getString("access_token")
+            Util::getString("access_token"),
+            ["size" => self::FIELD_ACCESS_TOKEN_LENGTH]
         );
 
         $this->_form->setType(
             self::FIELD_ACCESS_TOKEN_NAME,
             self::FIELD_ACCESS_TOKEN_TYPE
+        );
+        $this->_form->addRule(
+            self::FIELD_ACCESS_TOKEN_NAME,
+            "",
+            self::RULE_TYPE_REQUIRED,
+            "",
+            self::RULE_VALIDATION_CLIENT
         );
         $this->_form->addRule(
             self::FIELD_ACCESS_TOKEN_NAME,
