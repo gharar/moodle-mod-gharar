@@ -4,6 +4,7 @@ namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
+use MAChitgarha\MoodleModGharar\Database;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\PageBuilding\ViewPageBuilder;
 
@@ -91,7 +92,7 @@ class IndexPageBuilder extends AbstractPageBuilder
         $instances = Globals::getInstance()
             ->getDatabase()
             ->get_records(
-                Plugin::DATABASE_MAIN_TABLE_NAME,
+                Database::TABLE_MAIN,
                 ["course" => $this->courseId]
             );
 

@@ -3,6 +3,7 @@
 namespace MAChitgarha\MoodleModGharar;
 
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use MAChitgarha\MoodleModGharar\Database;
 
 class InstanceManager
 {
@@ -13,7 +14,7 @@ class InstanceManager
     {
         $id = Globals::getInstance()
             ->getDatabase()
-            ->insert_record(Plugin::DATABASE_MAIN_TABLE_NAME, $record);
+            ->insert_record(Database::TABLE_MAIN, $record);
 
         return $id;
     }
@@ -26,7 +27,7 @@ class InstanceManager
 
         $result = Globals::getInstance()
             ->getDatabase()
-            ->update_record(Plugin::DATABASE_MAIN_TABLE_NAME, $record);
+            ->update_record(Database::TABLE_MAIN, $record);
 
         return $result;
     }
@@ -37,11 +38,11 @@ class InstanceManager
 
         if (
             !$database->get_record(
-                Plugin::DATABASE_MAIN_TABLE_NAME,
+                Database::TABLE_MAIN,
                 ["id" => $recordId]
             ) ||
             !$database->delete_records(
-                Plugin::DATABASE_MAIN_TABLE_NAME,
+                Database::TABLE_MAIN,
                 ["id" => $recordId]
             )
         ) {
