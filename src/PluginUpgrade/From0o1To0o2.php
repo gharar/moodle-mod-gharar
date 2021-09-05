@@ -35,13 +35,22 @@ class From0o1To0o2 extends AbstractBase
         self::FIELD_ATTR_SEQUENCE => false,
     ];
 
+    private const NEW_INDEX_ADDRESS = [
+        self::FIELD_INDEX_NAME => "address",
+        self::FIELD_INDEX_UNIQUE => true,
+    ];
+
     protected const TABLE_MAIN_NEW_FIELDS = [
         self::NEW_FIELD_ROOM_NAME,
         self::NEW_FIELD_ADDRESS,
         self::NEW_FIELD_NEEDS_UPDATE,
     ];
     protected const TABLE_MAIN_OLD_FIELDS = [
-        self::OLD_FIELD_LINK
+        self::OLD_FIELD_LINK,
+    ];
+
+    protected const TABLE_MAIN_NEW_INDEXES = [
+        self::NEW_INDEX_ADDRESS,
     ];
 
     protected function upgradeRecord(\stdClass $record): \stdClass
