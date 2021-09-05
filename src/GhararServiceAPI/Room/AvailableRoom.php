@@ -14,8 +14,8 @@ class AvailableRoom extends AbstractRoom
     public const SHARE_URL = "share_url";
     public const IS_ACTIVE = "is_active";
 
-    /** @var string|null */
-    private $address = null;
+    /** @var string */
+    private $address;
 
     /** @var string|null */
     private $shareUrl = null;
@@ -23,15 +23,27 @@ class AvailableRoom extends AbstractRoom
     /** @var bool */
     private $isActive;
 
+    public function __construct(
+        string $name,
+        bool $isPrivate,
+        string $address
+    ) {
+        parent::__construct($name, $isPrivate);
+        $this->setAddress($address);
+    }
+
+    /**
+     * @param object $object The decoded JSON, grabbed from the API call.
+     */
     public static function fromRawObject(object $object): self
     {
         $room = new self(
             $object->{self::NAME},
-            $object->{self::IS_PRIVATE}
+            $object->{self::IS_PRIVATE},
+            $object->{self::ADDRESS}
         );
 
         $room
-            ->setAddress($object->{self::ADDRESS})
             ->setShareUrl($object->{self::SHARE_URL})
             ->setIsActive($object->{self::IS_ACTIVE});
 
@@ -58,7 +70,6 @@ class AvailableRoom extends AbstractRoom
 
     public function getAddress(): string
     {
-        $this->assertPropertyIsNotNull("address");
         return $this->address;
     }
 

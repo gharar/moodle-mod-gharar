@@ -14,6 +14,9 @@ use admin_root;
  */
 require_once __DIR__ . "/../../../../config.php";
 
+/**
+ * @todo Convert to static class instead of a singleton.
+ */
 class Globals
 {
     /** @var ?self */
