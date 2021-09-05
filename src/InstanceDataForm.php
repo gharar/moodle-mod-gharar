@@ -27,6 +27,9 @@ require_once "{$CFG->dirroot}/course/moodleform_mod.php";
  */
 abstract class InstanceDataForm extends \moodleform_mod
 {
+    protected const FIELD_TYPE_TEXT = "text";
+    protected const FIELD_TYPE_CHECKBOX = "checkbox";
+
     protected const RULE_TYPE_REQUIRED = "required";
     protected const RULE_TYPE_REGEX = "regex";
 
@@ -37,19 +40,19 @@ abstract class InstanceDataForm extends \moodleform_mod
     public const BLOCK_ROOM_SETTINGS_NAME = "room_settings";
 
     public const FIELD_NAME_NAME = "name";
-    private const FIELD_NAME_TYPE = \PARAM_TEXT;
+    private const FIELD_NAME_TYPE = self::FIELD_TYPE_TEXT;
     private const FIELD_NAME_LENGTH = 256;
 
     public const FIELD_ACCESS_TOKEN_NAME = "access_token";
-    private const FIELD_ACCESS_TOKEN_TYPE = \PARAM_TEXT;
+    private const FIELD_ACCESS_TOKEN_TYPE = self::FIELD_TYPE_TEXT;
     private const FIELD_ACCESS_TOKEN_REGEX = API::REGEX_ACCESS_TOKEN;
 
     public const FIELD_ROOM_NAME_NAME = "room_name";
-    private const FIELD_ROOM_NAME_TYPE = \PARAM_TEXT;
+    private const FIELD_ROOM_NAME_TYPE = self::FIELD_TYPE_TEXT;
     private const FIELD_ROOM_NAME_LENGTH = 256;
 
     public const FIELD_IS_PRIVATE_NAME = "is_private";
-    private const FIELD_IS_PRIVATE_TYPE = \PARAM_CHECKBOX;
+    private const FIELD_IS_PRIVATE_TYPE = self::FIELD_TYPE_CHECKBOX;
 
     public function definition(): void
     {
