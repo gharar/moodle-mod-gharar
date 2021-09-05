@@ -28,7 +28,7 @@ class Globals
     /** @var moodle_page */
     private $page;
     /** @var admin_root */
-    private $adminPage;
+    private $adminSettings;
 
     private function __construct()
     {
@@ -68,8 +68,8 @@ class Globals
         return $this->page;
     }
 
-    public function getAdminPage(): admin_root
+    public function getAdminSettings(): admin_root
     {
-        return $this->adminPage;
+        return $this->adminSettings;
     }
 }

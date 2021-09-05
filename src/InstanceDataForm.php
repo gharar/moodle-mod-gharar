@@ -44,12 +44,6 @@ abstract class InstanceDataForm extends \moodleform_mod
     private const FIELD_NAME_LENGTH = 256;
     private const FIELD_NAME_PARAM_TYPE = \PARAM_TEXT;
 
-    public const FIELD_ACCESS_TOKEN_NAME = "access_token";
-    private const FIELD_ACCESS_TOKEN_TYPE = self::FIELD_TYPE_TEXT;
-    private const FIELD_ACCESS_TOKEN_LENGTH = 40;
-    private const FIELD_ACCESS_TOKEN_PARAM_TYPE = \PARAM_ALPHANUM;
-    private const FIELD_ACCESS_TOKEN_REGEX = API::REGEX_ACCESS_TOKEN;
-
     public const FIELD_ROOM_NAME_NAME = "room_name";
     private const FIELD_ROOM_NAME_TYPE = self::FIELD_TYPE_TEXT;
     private const FIELD_ROOM_NAME_LENGTH = 256;
@@ -63,7 +57,6 @@ abstract class InstanceDataForm extends \moodleform_mod
     {
         $this
             ->addNameField()
-            ->addAccessTokenField()
             ->addRoomSettingsBlock();
 
         $this->standard_coursemodule_elements();
@@ -89,36 +82,6 @@ abstract class InstanceDataForm extends \moodleform_mod
             self::RULE_TYPE_REQUIRED,
             null,
             self::RULE_VALIDATION_CLIENT
-        );
-
-        return $this;
-    }
-
-    private function addAccessTokenField(): self
-    {
-        $this->_form->addElement(
-            self::FIELD_ACCESS_TOKEN_TYPE,
-            self::FIELD_ACCESS_TOKEN_NAME,
-            Util::getString("access_token"),
-            ["size" => self::FIELD_ACCESS_TOKEN_LENGTH]
-        );
-
-        $this->_form->setType(
-            self::FIELD_ACCESS_TOKEN_NAME,
-            self::FIELD_ACCESS_TOKEN_PARAM_TYPE
-        );
-        $this->_form->addRule(
-            self::FIELD_ACCESS_TOKEN_NAME,
-            null,
-            self::RULE_TYPE_REQUIRED,
-            null,
-            self::RULE_VALIDATION_CLIENT
-        );
-        $this->_form->addRule(
-            self::FIELD_ACCESS_TOKEN_NAME,
-            Util::getString("error_bad_access_token"),
-            self::RULE_TYPE_REGEX,
-            self::FIELD_ACCESS_TOKEN_REGEX
         );
 
         return $this;
