@@ -96,19 +96,22 @@ class InstanceManager
     {
         $database = Globals::getInstance()->getDatabase();
 
-        if (
-            !$database->get_record(
-                Database::TABLE_MAIN,
-                ["id" => $recordId]
-            ) ||
-            !$database->delete_records(
-                Database::TABLE_MAIN,
-                ["id" => $recordId]
-            )
-        ) {
+        $record = $database->get_record(
+            Database::TABLE_MAIN,
+            ["id" => $recordId]
+        );
+
+        if (!$record) {
             return false;
         }
 
-        return true;
+        $deleteResult = $database->delete_records(
+            Database::TABLE_MAIN,
+            ["id" => $recordId]
+        );
+
+        $this->api->destroyRoom(new AvailableRoom());
+
+        return $deleteResult;
     }
 }
