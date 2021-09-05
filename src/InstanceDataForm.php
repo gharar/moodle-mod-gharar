@@ -175,13 +175,6 @@ abstract class InstanceDataForm extends \moodleform_mod
             self::FIELD_IS_PRIVATE_NAME,
             self::FIELD_IS_PRIVATE_PARAM_TYPE
         );
-        $this->_form->addRule(
-            self::FIELD_IS_PRIVATE_NAME,
-            null,
-            self::RULE_TYPE_REQUIRED,
-            null,
-            self::RULE_VALIDATION_CLIENT
-        );
         $this->_form->setDefault(
             self::FIELD_IS_PRIVATE_NAME,
             true
