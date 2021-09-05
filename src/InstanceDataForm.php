@@ -116,7 +116,7 @@ abstract class InstanceDataForm extends \moodleform_mod
         );
         $this->_form->addRule(
             self::FIELD_ACCESS_TOKEN_NAME,
-            null,
+            Util::getString("error_bad_access_token"),
             self::RULE_TYPE_REGEX,
             self::FIELD_ACCESS_TOKEN_REGEX
         );

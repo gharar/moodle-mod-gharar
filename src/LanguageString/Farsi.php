@@ -28,6 +28,8 @@ class Farsi
 
         "room_settings" => "تنظیمات اتاق",
 
+        "error_bad_access_token" => "توکن دسترسی معتبر نیست.",
+
         "enter_meeting_link" => "ورود",
     ];
 }

@@ -3,8 +3,9 @@
 namespace MAChitgarha\MoodleModGharar\LanguageString;
 
 /**
- * Although the support for English language is not in priority, but it is
- * needed for language strings of other languages (i.e. Persian here) to work.
+ * Although the support for English language is not in priority, and may not be
+ * actively maintained (i.e. it may contain empty stub strings), but it is
+ * required for language strings of other languages (i.e. Persian here) to work.
  */
 class English
 {
@@ -30,6 +31,8 @@ class English
         "is_private" => "Private",
 
         "room_settings" => "Room Settings",
+
+        "error_form_access_token_regex" => "",
 
         "enter_meeting_link" => "Enter",
     ];
