@@ -31,6 +31,9 @@ abstract class InstanceDataForm extends \moodleform_mod
     protected const RULE_VALIDATION_CLIENT = "client";
     protected const RULE_VALIDATION_SERVER = "server";
 
+    private const BLOCK_TYPE = "header";
+    public const BLOCK_ROOM_SETTINGS_NAME = "room_settings";
+
     public const FIELD_NAME_NAME = "name";
     private const FIELD_NAME_TYPE = \PARAM_TEXT;
     private const FIELD_NAME_LENGTH = 256;
@@ -46,8 +49,7 @@ abstract class InstanceDataForm extends \moodleform_mod
     {
         $this
             ->addNameField()
-            ->addRoomNameField()
-            ->addIsPrivateField();
+            ->addRoomSettingsBlock();
 
         $this->standard_coursemodule_elements();
         $this->add_action_buttons();
@@ -71,6 +73,21 @@ abstract class InstanceDataForm extends \moodleform_mod
         );
 
         return $this;
+    }
+
+    private function addRoomSettingsBlock(): self
+    {
+        $this->_form->addElement(
+            self::BLOCK_TYPE,
+            self::BLOCK_ROOM_SETTINGS_NAME,
+            Util::getString("room_settings")
+        );
+
+        $this->_form->setExpanded(self::BLOCK_ROOM_SETTINGS_NAME);
+
+        return $this
+            ->addRoomNameField()
+            ->addIsPrivateField();
     }
 
     private function addRoomNameField(): self

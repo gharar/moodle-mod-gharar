@@ -27,6 +27,8 @@ class Farsi
         "room_name" => "نام اتاق",
         "is_private" => "خصوصی بودن",
 
+        "room_settings" => "تنظیمات اتاق",
+
         "enter_meeting_link" => "ورود",
     ];
 }
