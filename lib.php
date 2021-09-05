@@ -12,15 +12,15 @@ Util::forbidNonMoodleAccess();
  */
 function gharar_add_instance(object $record)
 {
-    return InstanceManager::add($record);
+    return InstanceManager::getInstance()->add($record);
 }
 
 function gharar_update_instance(object $record): bool
 {
-    return InstanceManager::update($record);
+    return InstanceManager::getInstance()->update($record);
 }
 
 function gharar_delete_instance(int $recordId): bool
 {
-    return InstanceManager::delete($recordId);
+    return InstanceManager::getInstance()->delete($recordId);
 }

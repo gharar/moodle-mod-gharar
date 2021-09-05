@@ -7,10 +7,25 @@ use MAChitgarha\MoodleModGharar\Database;
 
 class InstanceManager
 {
+    /** @var self */
+    private static $instance = null;
+
+    private function __construct()
+    {
+    }
+
+    public static function getInstance(): self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
     /**
      * @return true|int
      */
-    public static function add(object $record)
+    public function add(object $record)
     {
         $id = Globals::getInstance()
             ->getDatabase()
@@ -19,7 +34,7 @@ class InstanceManager
         return $id;
     }
 
-    public static function update(object $record): bool
+    public function update(object $record): bool
     {
         // Important: The id is not stored in the "id" field, but the
         // "instance" one
@@ -32,7 +47,7 @@ class InstanceManager
         return $result;
     }
 
-    public static function delete(int $recordId): bool
+    public function delete(int $recordId): bool
     {
         $database = Globals::getInstance()->getDatabase();
 
