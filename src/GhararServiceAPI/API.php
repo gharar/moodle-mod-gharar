@@ -21,8 +21,8 @@ class API
     private const STATUS_CODE_ACCEPTED = 202;
     private const STATUS_CODE_UNAUTHORIZED = 401;
 
-    private const BASE_URI = "https://gharar.ir/api/v1/service/";
-    private const REQUEST_TIMEOUT = 4.0;
+    private const CONFIG_BASE_URI = "https://gharar.ir/api/v1/service/";
+    private const CONFIG_REQUEST_TIMEOUT = 4.0;
 
     /** @var Client */
     private $client;
@@ -40,12 +40,13 @@ class API
     private function initClient(string $token): self
     {
         $this->client = new Client([
-            "base_uri" => self::BASE_URI,
-            RequestOptions::TIMEOUT => self::REQUEST_TIMEOUT,
+            "base_uri" => self::CONFIG_BASE_URI,
+            RequestOptions::TIMEOUT => self::CONFIG_REQUEST_TIMEOUT,
             RequestOptions::HEADERS => [
                 "Authorization" => self::generateAuthorizationHeader($token),
             ],
         ]);
+
         return $this;
     }
 
@@ -110,6 +111,22 @@ class API
         $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
             $this->client->get(
                 self::getSpecificRoomRelativeUri($roomAddress)
+            )
+        );
+
+        return AvailableRoom::fromRawObject($roomRaw);
+    }
+
+    public function updateRoom(AvailableRoom $room): AvailableRoom
+    {
+        $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
+            $this->client->put(
+                self::getSpecificRoomRelativeUri($room->getAddress()),
+                [RequestOptions::FORM_PARAMS => [
+                    AvailableRoom::NAME => $room->getName(),
+                    AvailableRoom::IS_PRIVATE => $room->isPrivate(),
+                    AvailableRoom::IS_ACTIVE => $room->isActive(),
+                ]]
             )
         );
 
