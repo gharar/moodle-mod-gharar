@@ -42,18 +42,22 @@ abstract class InstanceDataForm extends \moodleform_mod
     public const FIELD_NAME_NAME = "name";
     private const FIELD_NAME_TYPE = self::FIELD_TYPE_TEXT;
     private const FIELD_NAME_LENGTH = 256;
+    private const FIELD_NAME_PARAM_TYPE = \PARAM_TEXT;
 
     public const FIELD_ACCESS_TOKEN_NAME = "access_token";
     private const FIELD_ACCESS_TOKEN_TYPE = self::FIELD_TYPE_TEXT;
     private const FIELD_ACCESS_TOKEN_LENGTH = 40;
+    private const FIELD_ACCESS_TOKEN_PARAM_TYPE = \PARAM_ALPHANUM;
     private const FIELD_ACCESS_TOKEN_REGEX = API::REGEX_ACCESS_TOKEN;
 
     public const FIELD_ROOM_NAME_NAME = "room_name";
     private const FIELD_ROOM_NAME_TYPE = self::FIELD_TYPE_TEXT;
     private const FIELD_ROOM_NAME_LENGTH = 256;
+    private const FIELD_ROOM_NAME_PARAM_TYPE = \PARAM_TEXT;
 
     public const FIELD_IS_PRIVATE_NAME = "is_private";
     private const FIELD_IS_PRIVATE_TYPE = self::FIELD_TYPE_CHECKBOX;
+    private const FIELD_IS_PRIVATE_PARAM_TYPE = \PARAM_BOOL;
 
     public function definition(): void
     {
@@ -77,7 +81,7 @@ abstract class InstanceDataForm extends \moodleform_mod
 
         $this->_form->setType(
             self::FIELD_NAME_NAME,
-            self::FIELD_NAME_TYPE
+            self::FIELD_NAME_PARAM_TYPE
         );
         $this->_form->addRule(
             self::FIELD_NAME_NAME,
@@ -101,7 +105,7 @@ abstract class InstanceDataForm extends \moodleform_mod
 
         $this->_form->setType(
             self::FIELD_ACCESS_TOKEN_NAME,
-            self::FIELD_ACCESS_TOKEN_TYPE
+            self::FIELD_ACCESS_TOKEN_PARAM_TYPE
         );
         $this->_form->addRule(
             self::FIELD_ACCESS_TOKEN_NAME,
@@ -146,7 +150,7 @@ abstract class InstanceDataForm extends \moodleform_mod
 
         $this->_form->setType(
             self::FIELD_ROOM_NAME_NAME,
-            self::FIELD_ROOM_NAME_TYPE
+            self::FIELD_ROOM_NAME_PARAM_TYPE
         );
         $this->_form->addRule(
             self::FIELD_ROOM_NAME_NAME,
@@ -169,7 +173,7 @@ abstract class InstanceDataForm extends \moodleform_mod
 
         $this->_form->setType(
             self::FIELD_IS_PRIVATE_NAME,
-            self::FIELD_IS_PRIVATE_TYPE
+            self::FIELD_IS_PRIVATE_PARAM_TYPE
         );
         $this->_form->addRule(
             self::FIELD_IS_PRIVATE_NAME,
