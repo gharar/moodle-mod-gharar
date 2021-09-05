@@ -8,6 +8,7 @@ use xmldb_table;
 use xmldb_field;
 use xmldb_index;
 use MAChitgarha\MoodleModGharar\Database;
+use MAChitgarha\MoodleModGharar\Moodle\Globals;
 
 /*
  * The class name of children classes are in the following form (wrt semantic
@@ -21,9 +22,9 @@ use MAChitgarha\MoodleModGharar\Database;
 abstract class AbstractBase
 {
     /** @var mysqli_native_moodle_database */
-    private $database;
+    protected $database;
     /** @var database_manager */
-    private $databaseManager;
+    protected $databaseManager;
 
     /** @var xmldb_table */
     private $mainTable;
@@ -153,10 +154,10 @@ abstract class AbstractBase
     }
 
     private function performActionOnMainTableForField(
-        array $fieldProperties,
-        callable $action
+        array $fieldProps,
+        string $databaseManagerActionMethod
     ): void {
-        $this->databaseManager->{$action}(
+        $this->databaseManager->{$databaseManagerActionMethod}(
             $this->mainTable,
             new xmldb_field(
                 $fieldProps[self::FIELD_ATTR_NAME],
@@ -171,10 +172,10 @@ abstract class AbstractBase
     }
 
     private function performIndexActionOnMainTableForField(
-        array $fieldProperties,
-        callable $action
+        array $fieldProps,
+        string $databaseManagerActionMethod
     ): void {
-        $this->databaseManager->{$action}(
+        $this->databaseManager->{$databaseManagerActionMethod}(
             $this->mainTable,
             new xmldb_index(
                 $fieldProps[self::FIELD_INDEX_NAME],

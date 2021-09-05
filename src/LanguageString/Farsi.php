@@ -2,8 +2,6 @@
 
 namespace MAChitgarha\MoodleModGharar\LanguageString;
 
-use MAChitgarha\MoodleModGharar\InstanceDataForm;
-
 class Farsi
 {
     private const PLUGIN_NAME = "قرار";

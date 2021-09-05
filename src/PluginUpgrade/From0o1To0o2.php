@@ -53,7 +53,7 @@ class From0o1To0o2 extends AbstractBase
         self::NEW_INDEX_ADDRESS,
     ];
 
-    protected function upgradeRecord(\stdClass $record): \stdClass
+    protected function upgradeMainTableRecord(\stdClass $record): \stdClass
     {
         $record->address = $this->extractRoomAddressFromLink($record->link);
         $record->needs_update = $record->address === null;
@@ -88,6 +88,6 @@ class From0o1To0o2 extends AbstractBase
         string $instaceName,
         string $courseName
     ): string {
-        return "$courseName - $name";
+        return "$courseName - $instaceName";
     }
 }

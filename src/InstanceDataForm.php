@@ -46,7 +46,7 @@ abstract class InstanceDataForm extends \moodleform_mod
 
     public const FIELD_ROOM_NAME_NAME = "room_name";
     private const FIELD_ROOM_NAME_TYPE = \PARAM_TEXT;
-    private const FIELD_NAME_LENGTH = 256;
+    private const FIELD_ROOM_NAME_LENGTH = 256;
 
     public const FIELD_IS_PRIVATE_NAME = "is_private";
     private const FIELD_IS_PRIVATE_TYPE = \PARAM_CHECKBOX;
@@ -73,9 +73,9 @@ abstract class InstanceDataForm extends \moodleform_mod
 
         $this->_form->addRule(
             self::FIELD_NAME_NAME,
-            null,
+            "",
             self::RULE_TYPE_REQUIRED,
-            null,
+            "",
             self::RULE_VALIDATION_CLIENT
         );
 
@@ -92,7 +92,7 @@ abstract class InstanceDataForm extends \moodleform_mod
 
         $this->_form->addRule(
             self::FIELD_ACCESS_TOKEN_NAME,
-            null,
+            "",
             self::RULE_TYPE_REGEX,
             self::FIELD_ACCESS_TOKEN_REGEX
         );
@@ -126,9 +126,9 @@ abstract class InstanceDataForm extends \moodleform_mod
 
         $this->_form->addRule(
             self::FIELD_ROOM_NAME_NAME,
-            null,
+            "",
             self::RULE_TYPE_REQUIRED,
-            null,
+            "",
             self::RULE_VALIDATION_CLIENT
         );
 
@@ -145,9 +145,9 @@ abstract class InstanceDataForm extends \moodleform_mod
 
         $this->_form->addRule(
             self::FIELD_IS_PRIVATE_NAME,
-            null,
+            "",
             self::RULE_TYPE_REQUIRED,
-            null,
+            "",
             self::RULE_VALIDATION_CLIENT
         );
         $this->_form->setDefault(
