@@ -3,6 +3,7 @@
 namespace MAChitgarha\MoodleModGharar\PluginUpgrade;
 
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
+use MAChitgarha\MoodleModGharar\Database;
 
 class From0o1To0o2 extends AbstractBase
 {
@@ -63,14 +64,16 @@ class From0o1To0o2 extends AbstractBase
         $record->address = $this->extractRoomAddressFromLink($record->link);
         $record->needs_update = $record->address === null;
 
-        $record->room_name = $this->generateRoomNameFromInstanceName(
-            $record->name,
-            $this->database->get_record(
-                "course",
-                ["id" => $record->course],
-                "fullname",
-                \MUST_EXIST
-            )->fullname
+        $record->room_name = $this->makeRoomNameUnique(
+            $this->generateRoomNameFromInstanceName(
+                $record->name,
+                $this->database->get_record(
+                    "course",
+                    ["id" => $record->course],
+                    "fullname",
+                    \MUST_EXIST
+                )->fullname
+            )
         );
 
         return $record;
@@ -89,10 +92,25 @@ class From0o1To0o2 extends AbstractBase
         return null;
     }
 
+    /**
+     * Prepends the course name to instance name to generate the room name.
+     */
     private static function generateRoomNameFromInstanceName(
         string $instaceName,
         string $courseName
     ): string {
         return "$courseName - $instaceName";
+    }
+
+    private function makeRoomNameUnique(string $roomName): string
+    {
+        if (!$this->database->record_exists(
+            Database::TABLE_MAIN,
+            ["room_name" => $roomName]
+        )) {
+            return $roomName;
+        }
+
+        return "$roomName (" . \bin2hex(\random_bytes(10)) . ")";
     }
 }
