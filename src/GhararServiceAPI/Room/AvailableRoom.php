@@ -57,7 +57,7 @@ class AvailableRoom extends AbstractRoom
         return $this;
     }
 
-    private function setIsActive(bool $isActive): self
+    public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
         return $this;
@@ -76,7 +76,7 @@ class AvailableRoom extends AbstractRoom
 
     public function isActive(): bool
     {
-        $this->assertPropertyIsNotNull("isActive");
+        $this->assertPropertyIsNotNull($this->isActive, "isActive");
         return $this->isActive;
     }
 }

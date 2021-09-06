@@ -39,14 +39,16 @@ abstract class AbstractRoom
 
     public function isPrivate(): bool
     {
-        $this->assertPropertyIsNotNull("isPrivate");
+        $this->assertPropertyIsNotNull($this->isPrivate, "isPrivate");
         return $this->isPrivate;
     }
 
-    protected function assertPropertyIsNotNull(string $propertyName): void
-    {
+    protected function assertPropertyIsNotNull(
+        $propertyValue,
+        string $propertyName
+    ): void {
         Assert::notNull(
-            $this->$propertyName,
+            $propertyValue,
             "Property '$propertyName' must not be null"
         );
     }

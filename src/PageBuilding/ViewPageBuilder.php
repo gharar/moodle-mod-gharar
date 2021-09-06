@@ -50,7 +50,7 @@ class ViewPageBuilder extends AbstractPageBuilder
 
     private function requireLogin(): self
     {
-        \require_login($this->course, true, $this->courseModule);
+        \require_login($this->course, true, $this->moduleInstance);
 
         return $this;
     }
