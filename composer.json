@@ -20,7 +20,7 @@
     "require-dev": {
         "vimeo/psalm": "^4.9",
         "phan/phan": "^5.2",
-        "machitgarha/bimoo": "^3.11"
+        "machitgarha/bimoo": "3.9.*"
     },
     "autoload": {
         "psr-4": {

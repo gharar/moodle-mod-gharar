@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83fc286b843e3743115ff972f3552ebe",
+    "content-hash": "89250d396aa8f7383f2af4f33cf0501a",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -608,9 +608,6 @@
                 "polyfill",
                 "portable"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.23.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -679,10 +676,6 @@
                 "check",
                 "validate"
             ],
-            "support": {
-                "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/1.10.0"
-            },
             "time": "2021-03-09T10:59:23+00:00"
         },
         {
@@ -778,10 +771,6 @@
                 }
             ],
             "description": "A robust cross-platform utility for normalizing, comparing and modifying file paths.",
-            "support": {
-                "issues": "https://github.com/webmozart/path-util/issues",
-                "source": "https://github.com/webmozart/path-util/tree/2.3.0"
-            },
             "time": "2015-12-17T08:42:14+00:00"
         }
     ],
@@ -1274,16 +1263,16 @@
         },
         {
             "name": "machitgarha/bimoo",
-            "version": "3.11.5",
+            "version": "3.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/machitgarha/bimoo.git",
-                "reference": "7e54f0fd5baa254241f1d4d20356928cc98b5e3f"
+                "reference": "63011a7afa8c3f3c9fbd44cc8a9df11ce3f4912f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/machitgarha/bimoo/zipball/7e54f0fd5baa254241f1d4d20356928cc98b5e3f",
-                "reference": "7e54f0fd5baa254241f1d4d20356928cc98b5e3f",
+                "url": "https://api.github.com/repos/machitgarha/bimoo/zipball/63011a7afa8c3f3c9fbd44cc8a9df11ce3f4912f",
+                "reference": "63011a7afa8c3f3c9fbd44cc8a9df11ce3f4912f",
                 "shasum": ""
             },
             "require": {
@@ -1313,7 +1302,7 @@
                 }
             ],
             "description": "Moodle declaration stubs, helping IDEs and static analyzers",
-            "time": "2021-09-06T10:10:27+00:00"
+            "time": "2021-09-06T14:52:09+00:00"
         },
         {
             "name": "microsoft/tolerant-php-parser",
@@ -2698,16 +2687,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "4.9.3",
+            "version": "4.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "4c262932602b9bbab5020863d1eb22d49de0dbf4"
+                "reference": "916b098b008f6de4543892b1e0651c1c3b92cbfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/4c262932602b9bbab5020863d1eb22d49de0dbf4",
-                "reference": "4c262932602b9bbab5020863d1eb22d49de0dbf4",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/916b098b008f6de4543892b1e0651c1c3b92cbfa",
+                "reference": "916b098b008f6de4543892b1e0651c1c3b92cbfa",
                 "shasum": ""
             },
             "require": {
@@ -2717,6 +2706,7 @@
                 "composer/semver": "^1.4 || ^2.0 || ^3.0",
                 "composer/xdebug-handler": "^1.1 || ^2.0",
                 "dnoegel/php-xdg-base-dir": "^0.1.1",
+                "ext-ctype": "*",
                 "ext-dom": "*",
                 "ext-json": "*",
                 "ext-libxml": "*",
@@ -2794,7 +2784,7 @@
                 "inspection",
                 "php"
             ],
-            "time": "2021-08-14T16:19:38+00:00"
+            "time": "2021-09-04T21:00:09+00:00"
         }
     ],
     "aliases": [],
