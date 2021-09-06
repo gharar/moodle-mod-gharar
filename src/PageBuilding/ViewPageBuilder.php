@@ -2,10 +2,11 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
+use cm_info;
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
-use MAChitgarha\MoodleModGharar\Database;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 
 class ViewPageBuilder extends AbstractPageBuilder
 {
@@ -16,7 +17,7 @@ class ViewPageBuilder extends AbstractPageBuilder
 
     /** @var \stdClass */
     private $course;
-    /** @var \cm_info */
+    /** @var cm_info */
     private $moduleInstance;
 
     public function __construct()
@@ -75,9 +76,14 @@ class ViewPageBuilder extends AbstractPageBuilder
 
     protected function generateOutputMainContent(): string
     {
+        $room = new AvailableRoom(
+            $this->moduleInstance->name,
+            $this->moduleInstance->address
+        );
+
         return \html_writer::link(
-            $this->moduleInstance->link,
-            Util::getString("enter_meeting_link"),
+            $room->getShareUrl(),
+            Util::getString("enter_room"),
             ["target" => "_blank"]
         );
     }
