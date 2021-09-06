@@ -26,13 +26,13 @@ class English
         "plugin_name_plural" => self::PLUGIN_NAME_PLURAL,
 
         "name" => "Name",
-        "access_token" => "Access token",
         "room_name" => "Room name",
         "is_private" => "Private",
 
         "room_settings" => "Room Settings",
 
-        "error_form_access_token_regex" => "",
+        "access_token" => "Access token",
+        "access_token_description" => "-",
 
         "enter_meeting_link" => "Enter",
     ];

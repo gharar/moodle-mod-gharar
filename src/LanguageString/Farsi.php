@@ -22,13 +22,13 @@ class Farsi
         "plugin_name_plural" => self::PLUGIN_NAME_PLURAL,
 
         "name" => "نام",
-        "access_token" => "توکن دسترسی",
         "room_name" => "نام اتاق",
         "is_private" => "خصوصی بودن",
 
         "room_settings" => "تنظیمات اتاق",
 
-        "error_bad_access_token" => "توکن دسترسی معتبر نیست.",
+        "access_token" => "توکن دسترسی",
+        "access_token_description" => "کد خصوصی یکتای دسترسی به قرار",
 
         "enter_meeting_link" => "ورود",
     ];
