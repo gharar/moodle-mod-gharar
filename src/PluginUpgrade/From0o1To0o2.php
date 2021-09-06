@@ -61,7 +61,9 @@ class From0o1To0o2 extends AbstractBase
 
     protected function upgradeMainTableRecord(\stdClass $record): \stdClass
     {
-        $record->address = $this->extractRoomAddressFromLink($record->link);
+        $record->address = $this->makeRoomAddressUnique(
+            $this->extractRoomAddressFromLink($record->link)
+        );
         $record->needs_update = $record->address === null;
 
         $record->room_name = $this->makeRoomNameUnique(
@@ -102,15 +104,33 @@ class From0o1To0o2 extends AbstractBase
         return "$courseName - $instaceName";
     }
 
-    private function makeRoomNameUnique(string $roomName): string
+    private function makeRoomAddressUnique(?string $roomAddress): ?string
     {
-        if (!$this->database->record_exists(
-            Database::TABLE_MAIN,
-            ["room_name" => $roomName]
-        )) {
-            return $roomName;
+        return $this->makeUnique($roomAddress, "address");
+    }
+
+    private function makeRoomNameUnique(?string $roomName): ?string
+    {
+        return $this->makeUnique($roomName, "room_name");
+    }
+
+    private function makeUnique(?string $str, string $fieldName): ?string
+    {
+        if ($str === null) {
+            return $str;
         }
 
-        return "$roomName (" . \bin2hex(\random_bytes(10)) . ")";
+        if (!$this->database->record_exists(
+            Database::TABLE_MAIN,
+            [$fieldName => $str]
+        )) {
+            return $str;
+        }
+        return "$str (" . self::generateRandomHex() . ")";
+    }
+
+    private static function generateRandomHex(int $length = 20): string
+    {
+        return \substr(\bin2hex(\random_bytes($length)), 0, $length);
     }
 }
