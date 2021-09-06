@@ -6,7 +6,6 @@ use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
 use MAChitgarha\MoodleModGharar\Database;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use MAChitgarha\MoodleModGharar\PageBuilding\ViewPageBuilder;
 
 class IndexPageBuilder extends AbstractPageBuilder
 {
