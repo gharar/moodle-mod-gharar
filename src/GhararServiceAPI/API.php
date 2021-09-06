@@ -169,6 +169,15 @@ class API
         return User::fromRawObject($userRaw);
     }
 
+    public function destroyRoomMember(
+        string $roomAddress,
+        string $userPhone
+    ): void {
+        $this->client->delete(
+            self::getSpecificRoomUserRelativeUri($roomAddress, $userPhone)
+        );
+    }
+
     /**
      * @return object|array
      */
