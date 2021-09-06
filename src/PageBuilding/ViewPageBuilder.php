@@ -5,10 +5,10 @@ namespace MAChitgarha\MoodleModGharar\PageBuilding;
 use cm_info;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\User;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\AuthToken;
-
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
 use MAChitgarha\MoodleModGharar\Database;
+use MAChitgarha\MoodleModGharar\InstanceManager;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
@@ -22,11 +22,15 @@ class ViewPageBuilder extends AbstractPageBuilder
 
     /** @var \stdClass */
     private $course;
+
     /** @var cm_info */
     private $moduleInfo;
 
     /** @var object */
     private $instance;
+
+    /** @var API */
+    private $api;
 
     /** @var AuthToken */
     private $authToken;
@@ -37,7 +41,8 @@ class ViewPageBuilder extends AbstractPageBuilder
             ->initParams()
             ->initCourseAndModuleInfo()
             ->initInstance()
-            ->requireLogin();
+            ->requireLogin()
+            ->initAPI();
     }
 
     private function initParams(): self
@@ -74,7 +79,6 @@ class ViewPageBuilder extends AbstractPageBuilder
         return $this;
     }
 
-
     private function requireLogin(): self
     {
         \require_login($this->course, true, $this->moduleInfo);
@@ -82,14 +86,21 @@ class ViewPageBuilder extends AbstractPageBuilder
         return $this;
     }
 
-    protected function prepare(): self
+    private function initAPI(): self
     {
-        $user = Globals::getInstance()->getUser();
-        $virtualPhoneNumber = Util::generateVirtualPhoneNumberFromId($user->id);
-
-        $api = new API(
+        $this->api = new API(
             Util::getConfig(AdminSettingsBuilder::CONFIG_ACCESS_TOKEN_NAME)
         );
+
+        return $this;
+    }
+
+    protected function prepare(): self
+    {
+        $this->updateInstanceIfNeeded();
+
+        $user = Globals::getInstance()->getUser();
+        $virtualPhoneNumber = Util::generateVirtualPhoneNumberFromId($user->id);
 
         // TODO: Add a new capability for this
         $courseContext = get_context_instance(
@@ -106,7 +117,7 @@ class ViewPageBuilder extends AbstractPageBuilder
 
         // Make sure the user is not subscribed
         try {
-            $api->destroyRoomMember(
+            $this->api->destroyRoomMember(
                 $this->instance->address,
                 $virtualUser->getPhone()
             );
