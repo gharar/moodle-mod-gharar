@@ -8,7 +8,11 @@ use admin_settingpage;
 use admin_setting_configtext;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\Util;
+use MAChitgarha\MoodleModGharar\Plugin;
 
+/**
+ * @todo Fix the duplicated entries in admin settings.
+ */
 class AdminSettingsBuilder
 {
     private const CATEGORY_MAIN_NAME = "mod_gharar_main_settings_cat";
@@ -17,7 +21,7 @@ class AdminSettingsBuilder
     private const PAGE_MAIN_NAME = "mod_gharar";
     private const PAGE_MAIN_PARENT_NAME = self::CATEGORY_MAIN_NAME;
 
-    public const CONFIG_ACCESS_TOKEN_NAME = "mod_gharar/access_token";
+    public const CONFIG_ACCESS_TOKEN_NAME = "access_token";
 
     /**
      * The root of the admin settings.
@@ -90,7 +94,7 @@ class AdminSettingsBuilder
     private function addAccessTokenConfig(): self
     {
         $config = new admin_setting_configtext(
-            self::CONFIG_ACCESS_TOKEN_NAME,
+            self::generateFullConfigName(self::CONFIG_ACCESS_TOKEN_NAME),
             Util::getString("access_token"),
             Util::getString("access_token_description"),
             /* default: */ ""
@@ -99,5 +103,13 @@ class AdminSettingsBuilder
         $this->mainPage->add($config);
 
         return $this;
+    }
+
+    /**
+     * Prepends the component name to the config name.
+     */
+    private static function generateFullConfigName(string $configName): string
+    {
+        return Plugin::COMPONENT_NAME . "/$configName";
     }
 }
