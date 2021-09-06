@@ -29,6 +29,7 @@ abstract class InstanceDataForm extends \moodleform_mod
 {
     protected const FIELD_TYPE_TEXT = "text";
     protected const FIELD_TYPE_CHECKBOX = "checkbox";
+    protected const FIELD_TYPE_ADVANCED_CHECKBOX = "advcheckbox";
 
     protected const RULE_TYPE_REQUIRED = "required";
     protected const RULE_TYPE_REGEX = "regex";
@@ -50,7 +51,7 @@ abstract class InstanceDataForm extends \moodleform_mod
     private const FIELD_ROOM_NAME_PARAM_TYPE = \PARAM_TEXT;
 
     public const FIELD_IS_PRIVATE_NAME = "is_private";
-    private const FIELD_IS_PRIVATE_TYPE = self::FIELD_TYPE_CHECKBOX;
+    private const FIELD_IS_PRIVATE_TYPE = self::FIELD_TYPE_ADVANCED_CHECKBOX;
     private const FIELD_IS_PRIVATE_PARAM_TYPE = \PARAM_BOOL;
 
     public function definition(): void
@@ -131,7 +132,7 @@ abstract class InstanceDataForm extends \moodleform_mod
         $this->_form->addElement(
             self::FIELD_IS_PRIVATE_TYPE,
             self::FIELD_IS_PRIVATE_NAME,
-            Util::getString("is_private"),
+            Util::getString("is_private")
         );
 
         $this->_form->setType(
