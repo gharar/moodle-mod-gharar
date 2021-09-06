@@ -11,6 +11,11 @@ class Util
         }
     }
 
+    public static function generateVirtualPhoneNumberFromId(int $id): string
+    {
+        return "090010" . \str_pad((string)$id, 5, "0", \STR_PAD_LEFT);
+    }
+
     /**
      * @param mixed ...$otherArgs
      */
