@@ -84,8 +84,8 @@ class IndexPageBuilder extends AbstractPageBuilder
         $table->attributes["class"] = "generaltable mod_index";
 
         $table->head = [
-            Util::getString("meeting_name"),
-            Util::getString("meeting_link"),
+            Util::getString("name"),
+            Util::getString("room_name"),
         ];
         $table->align = ["center", "center"];
 
@@ -98,15 +98,15 @@ class IndexPageBuilder extends AbstractPageBuilder
 
         foreach ($instances as $instance) {
             $table->data[] = [
+                $instance->name,
                 \html_writer::link(
                     new \moodle_url(
                         ViewPageBuilder::URL,
                         ["id" => $this->courseId]
                     ),
-                    $instance->name,
+                    $instance->room_name,
                     ["target" => "_blank"]
                 ),
-                $instance->link,
             ];
         }
 
