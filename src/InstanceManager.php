@@ -92,6 +92,10 @@ class InstanceManager
         return $result;
     }
 
+    /**
+     * @todo Fix removing an instance not removing its associated room using the
+     * API. Maybe we should use events?
+     */
     public function delete(int $recordId): bool
     {
         $database = Globals::getInstance()->getDatabase();
