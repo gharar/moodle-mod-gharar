@@ -73,7 +73,7 @@ class API
     }
 
     /**
-     * @return Room[]
+     * @return AvailableRoom[]
      */
     public function listRooms(): array
     {
@@ -106,7 +106,7 @@ class API
         return AvailableRoom::fromRawObject($roomRaw);
     }
 
-    public function retrieveRoom(string $roomAddress): Room
+    public function retrieveRoom(string $roomAddress): AvailableRoom
     {
         $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
             $this->client->get(

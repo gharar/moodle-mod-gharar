@@ -39,7 +39,7 @@ class AdminSettingsBuilder
             ->buildMainCategory()
             ->initMainPage();
 
-        if ($this->settings->fulltree) {
+        if ($this->root->fulltree) {
             $this->addAccessTokenConfig();
         }
 

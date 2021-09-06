@@ -11,7 +11,7 @@ use MAChitgarha\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
 
 class InstanceManager
 {
-    /** @var self */
+    /** @var ?self */
     private static $instance = null;
 
     /** @var API */
@@ -33,11 +33,11 @@ class InstanceManager
     }
 
     /**
-     * @return true|int
+     * @return bool|int
      */
     public function add(object $instance)
     {
-        $room = $api->createRoom(new ToBeCreatedRoom(
+        $room = $this->api->createRoom(new ToBeCreatedRoom(
             $instance->name,
             $instance->is_private
         ));

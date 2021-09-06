@@ -8,7 +8,7 @@ use MAChitgarha\MoodleModGharar\InstanceManager;
 Util::forbidNonMoodleAccess();
 
 /**
- * @return true|int
+ * @return bool|int
  */
 function gharar_add_instance(object $record)
 {
