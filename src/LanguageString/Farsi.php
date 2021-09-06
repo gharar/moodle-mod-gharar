@@ -30,6 +30,6 @@ class Farsi
         "access_token" => "توکن دسترسی",
         "access_token_description" => "کد خصوصی یکتای دسترسی به قرار",
 
-        "enter_room" => "ورود به اتاق",
+        "enter_room" => "ورود به کلاس مجازی",
     ];
 }

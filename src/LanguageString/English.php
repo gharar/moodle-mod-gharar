@@ -34,6 +34,6 @@ class English
         "access_token" => "Access token",
         "access_token_description" => "-",
 
-        "enter_room" => "Enter",
+        "enter_room" => "Enter the virtual class",
     ];
 }
