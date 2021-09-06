@@ -91,17 +91,28 @@ class ViewPageBuilder extends AbstractPageBuilder
             Util::getConfig(AdminSettingsBuilder::CONFIG_ACCESS_TOKEN_NAME)
         );
 
+        // TODO: Add a new capability for this
+        $courseContext = get_context_instance(
+            CONTEXT_COURSE,
+            $this->course->id
+        );
+        $isAdmin = has_capability('moodle/site:config', $courseContext);
+
         $virtualUser = new User(
             $virtualPhoneNumber,
-            $user->is_admin
+            $isAdmin
         );
-        $virtualUser->setName($user->name);
+        $virtualUser->setName("{$user->firstname} {$user->lastname}");
 
         // Make sure the user is not subscribed
-        $api->destroyRoomMember(
-            $this->instance->address,
-            $virtualUser->getPhone()
-        );
+        try {
+            $api->destroyRoomMember(
+                $this->instance->address,
+                $virtualUser->getPhone()
+            );
+        } catch (\Throwable $e) {
+        }
+
         $virtualUser = $api->createRoomMember(
             $this->instance->address,
             $virtualUser
@@ -138,6 +149,7 @@ class ViewPageBuilder extends AbstractPageBuilder
             $this->instance->address
         );
 
+        var_dump(Globals::getInstance()->getUser());
         return \html_writer::link(
             $room->getShareUrl() . "/?token=" . $this->authToken->getToken(),
             Util::getString("enter_room"),
