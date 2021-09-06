@@ -14,9 +14,6 @@
                 <FIELD NAME="name" TYPE="char" LENGTH="256" NOTNULL="true" SEQUENCE="false"/>
                 <FIELD NAME="room_name" TYPE="char" LENGTH="256" NOTNULL="true" SEQUENCE="false"/>
                 <FIELD NAME="address" TYPE="char" LENGTH="44" NOTNULL="false" SEQUENCE="false"/>
-                <FIELD NAME="needs_update" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true"
-                    SEQUENCE="false" COMMENT="Whether the instance needs update or not, mainly its
-                    address (e.g. due to an upgrade process)"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
