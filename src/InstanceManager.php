@@ -110,7 +110,7 @@ class InstanceManager
             ["id" => $recordId]
         );
 
-        $this->api->destroyRoom(new AvailableRoom());
+        $this->api->destroyRoom($record->address);
 
         return $deleteResult;
     }
