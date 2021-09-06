@@ -32,16 +32,19 @@ class Globals
     private $page;
     /** @var admin_root */
     private $adminSettings;
+    /** @var stdClass */
+    private $user;
 
     private function __construct()
     {
-        global $DB, $CFG, $OUTPUT, $PAGE, $ADMIN;
+        global $DB, $CFG, $OUTPUT, $PAGE, $ADMIN, $USER;
 
         $this->database = $DB;
         $this->config = $CFG;
         $this->output = $OUTPUT;
         $this->page = $PAGE;
         $this->adminSettings = $ADMIN;
+        $this->user = $USER;
     }
 
     public static function getInstance(): self
@@ -75,5 +78,10 @@ class Globals
     public function getAdminSettings(): admin_root
     {
         return $this->adminSettings;
+    }
+
+    public function getUser(): stdClass
+    {
+        return $this->user;
     }
 }
