@@ -82,8 +82,7 @@ abstract class AbstractBase
     {
         $this
             ->prepareMainTable()
-            ->addMainTableNewFields()
-            ->addMainTableNewIndexes();
+            ->addMainTableNewFields();
 
         foreach ($this->database->get_records(
             Database::TABLE_MAIN
@@ -95,8 +94,9 @@ abstract class AbstractBase
         }
 
         return $this
+            ->dropMainTableOldIndexes()
             ->dropMainTableOldFields()
-            ->dropMainTableOldIndexes();
+            ->addMainTableNewIndexes();
     }
 
     abstract protected function upgradeMainTableRecord(
