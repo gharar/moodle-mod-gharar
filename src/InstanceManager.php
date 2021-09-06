@@ -38,7 +38,7 @@ class InstanceManager
     public function add(object $instance)
     {
         $room = $this->api->createRoom(new ToBeCreatedRoom(
-            $instance->name,
+            $instance->room_name,
             $instance->is_private
         ));
 
@@ -75,7 +75,7 @@ class InstanceManager
             );
 
         $room = new AvailableRoom(
-            $instance->name,
+            $instance->room_name,
             $instance->is_private,
             $oldRecord->address
         );
