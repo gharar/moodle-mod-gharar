@@ -29,9 +29,18 @@ abstract class AbstractPageBuilder
     public function build(): self
     {
         $this
+            ->prepare()
             ->buildPage()
             ->buildOutput();
 
+        return $this;
+    }
+
+    /**
+     * @return static
+     */
+    protected function prepare()
+    {
         return $this;
     }
 

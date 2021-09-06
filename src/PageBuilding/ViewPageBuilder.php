@@ -3,10 +3,14 @@
 namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
 use cm_info;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\User;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\AuthToken;
+
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
 use MAChitgarha\MoodleModGharar\Database;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 
 class ViewPageBuilder extends AbstractPageBuilder
@@ -23,6 +27,9 @@ class ViewPageBuilder extends AbstractPageBuilder
 
     /** @var object */
     private $instance;
+
+    /** @var AuthToken */
+    private $authToken;
 
     public function __construct()
     {
@@ -75,6 +82,36 @@ class ViewPageBuilder extends AbstractPageBuilder
         return $this;
     }
 
+    protected function prepare(): self
+    {
+        $user = Globals::getInstance()->getUser();
+        $virtualPhoneNumber = Util::generateVirtualPhoneNumberFromId($user->id);
+
+        $api = new API(
+            Util::getConfig(AdminSettingsBuilder::CONFIG_ACCESS_TOKEN_NAME)
+        );
+
+        $virtualUser = new User(
+            $virtualPhoneNumber,
+            $user->is_admin
+        );
+        $virtualUser->setName($user->name);
+
+        // Make sure the user is not subscribed
+        $api->destroyRoomMember(
+            $this->instance->address,
+            $virtualUser->getPhone()
+        );
+        $virtualUser = $api->createRoomMember(
+            $this->instance->address,
+            $virtualUser
+        );
+
+        $this->authToken = $api->generateAuthToken($virtualUser);
+
+        return $this;
+    }
+
     protected function buildPage(): self
     {
         $page = Globals::getInstance()->getPage();
@@ -102,7 +139,7 @@ class ViewPageBuilder extends AbstractPageBuilder
         );
 
         return \html_writer::link(
-            $room->getShareUrl(),
+            $room->getShareUrl() . "/?token=" . $this->authToken->getToken(),
             Util::getString("enter_room"),
             ["target" => "_blank"]
         );
