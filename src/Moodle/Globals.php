@@ -35,12 +35,13 @@ class Globals
 
     private function __construct()
     {
-        global $DB, $CFG, $OUTPUT, $PAGE;
+        global $DB, $CFG, $OUTPUT, $PAGE, $ADMIN;
 
         $this->database = $DB;
         $this->config = $CFG;
         $this->output = $OUTPUT;
         $this->page = $PAGE;
+        $this->adminSettings = $ADMIN;
     }
 
     public static function getInstance(): self
