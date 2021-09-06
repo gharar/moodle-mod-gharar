@@ -3,7 +3,6 @@
 namespace MAChitgarha\MoodleModGharar;
 
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
 use MAChitgarha\MoodleModGharar\Util;
 
 /*

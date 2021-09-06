@@ -20,13 +20,19 @@ abstract class AbstractRoom
         $this->setName($name);
     }
 
-    public function setName(string $name): self
+    /**
+     * @return static
+     */
+    public function setName(string $name)
     {
         $this->name = $name;
         return $this;
     }
 
-    public function setIsPrivate(bool $isPrivate): self
+    /**
+     * @return static
+     */
+    public function setIsPrivate(bool $isPrivate)
     {
         $this->isPrivate = $isPrivate;
         return $this;

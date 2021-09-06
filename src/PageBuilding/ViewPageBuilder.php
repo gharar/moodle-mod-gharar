@@ -8,7 +8,6 @@ use MAChitgarha\MoodleModGharar\GhararServiceAPI\AuthToken;
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
 use MAChitgarha\MoodleModGharar\Database;
-use MAChitgarha\MoodleModGharar\InstanceManager;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
@@ -97,8 +96,6 @@ class ViewPageBuilder extends AbstractPageBuilder
 
     protected function prepare(): self
     {
-        $this->updateInstanceIfNeeded();
-
         $user = Globals::getInstance()->getUser();
         $virtualPhoneNumber = Util::generateVirtualPhoneNumberFromId($user->id);
 
@@ -124,12 +121,12 @@ class ViewPageBuilder extends AbstractPageBuilder
         } catch (\Throwable $e) {
         }
 
-        $virtualUser = $api->createRoomMember(
+        $virtualUser = $this->api->createRoomMember(
             $this->instance->address,
             $virtualUser
         );
 
-        $this->authToken = $api->generateAuthToken($virtualUser);
+        $this->authToken = $this->api->generateAuthToken($virtualUser);
 
         return $this;
     }

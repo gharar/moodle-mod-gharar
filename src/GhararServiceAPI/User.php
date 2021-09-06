@@ -62,7 +62,7 @@ class User
         return $this->phone;
     }
 
-    public function isAdmin(): string
+    public function isAdmin(): bool
     {
         return $this->isAdmin;
     }
