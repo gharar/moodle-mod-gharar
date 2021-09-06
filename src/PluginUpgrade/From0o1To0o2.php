@@ -54,7 +54,18 @@ class From0o1To0o2 extends AbstractBase
     {
         $record->address = $this->extractRoomAddressFromLink($record->link);
 
-        if ($record->address === null) {
+        /*
+         * In the following cases, the current record will be removed:
+         * - Link is invalid and does not contain any addresses, or
+         * - Another record the exact same address is present.
+         */
+        if (
+            $record->address === null ||
+            $this->database->record_exists(
+                Database::TABLE_MAIN,
+                ["address" => $record->address]
+            )
+        ) {
             return [false, $record];
         }
 
