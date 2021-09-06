@@ -126,6 +126,9 @@ abstract class InstanceDataForm extends \moodleform_mod
         return $this;
     }
 
+    /**
+     * @todo Get this from the server.
+     */
     private function addIsPrivateField(): self
     {
         $this->_form->addElement(

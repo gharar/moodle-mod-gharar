@@ -10,6 +10,10 @@ use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\User;
 
+/**
+ * @todo Prevent error messages from being exposed, in each and every case. For
+ * example, when access token is wrong.
+ */
 class API
 {
     public const REGEX_ACCESS_TOKEN =
