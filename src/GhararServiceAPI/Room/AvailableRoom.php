@@ -2,17 +2,15 @@
 
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Room;
 
-use Webmozart\Assert\Assert;
-
 /**
  * A room that is supposed to be available and exist. In other words, you can
  * retrieve its information using {@link API::retrieveRoom()}.
  */
 class AvailableRoom extends AbstractRoom
 {
-    public const ADDRESS = "address";
-    public const SHARE_URL = "share_url";
-    public const IS_ACTIVE = "is_active";
+    public const PROP_ADDRESS = "address";
+    public const PROP_SHARE_URL = "share_url";
+    public const PROP_IS_ACTIVE = "is_active";
 
     /** @var string */
     private $address;
@@ -20,15 +18,12 @@ class AvailableRoom extends AbstractRoom
     /** @var string|null */
     private $shareUrl = null;
 
-    /** @var bool */
-    private $isActive;
+    /** @var bool|null */
+    private $isActive = null;
 
-    public function __construct(
-        string $name,
-        bool $isPrivate,
-        string $address
-    ) {
-        parent::__construct($name, $isPrivate);
+    public function __construct(string $name, string $address)
+    {
+        parent::__construct($name);
         $this->setAddress($address);
     }
 
@@ -38,14 +33,14 @@ class AvailableRoom extends AbstractRoom
     public static function fromRawObject(object $object): self
     {
         $room = new self(
-            $object->{self::NAME},
-            $object->{self::IS_PRIVATE},
-            $object->{self::ADDRESS}
+            $object->{self::PROP_NAME},
+            $object->{self::PROP_ADDRESS}
         );
 
         $room
-            ->setShareUrl($object->{self::SHARE_URL})
-            ->setIsActive($object->{self::IS_ACTIVE});
+            ->setIsPrivate($object->{self::PROP_IS_PRIVATE})
+            ->setShareUrl($object->{self::PROP_SHARE_URL})
+            ->setIsActive($object->{self::PROP_IS_ACTIVE});
 
         return $room;
     }
@@ -81,14 +76,7 @@ class AvailableRoom extends AbstractRoom
 
     public function isActive(): bool
     {
-        return $this->isActive ?? true;
-    }
-
-    private function assertPropertyIsNotNull(string $propertyName): void
-    {
-        Assert::notNull(
-            $this->$propertyName,
-            "Property '$propertyName' must not be null"
-        );
+        $this->assertPropertyIsNotNull("isActive");
+        return $this->isActive;
     }
 }

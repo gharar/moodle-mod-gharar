@@ -76,9 +76,10 @@ class InstanceManager
 
         $room = new AvailableRoom(
             $instance->room_name,
-            $instance->is_private,
             $oldRecord->address
         );
+        $room->setIsPrivate($instance->is_private);
+        $room->setIsActive(true);
 
         $room = $this->api->updateRoom($room);
 

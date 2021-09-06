@@ -8,4 +8,9 @@ namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Room;
  */
 class ToBeCreatedRoom extends AbstractRoom
 {
+    public function __construct(string $name, bool $isPrivate)
+    {
+        parent::__construct($name);
+        $this->isPrivate($isPrivate);
+    }
 }

@@ -4,10 +4,10 @@ namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 use Webmozart\Json\JsonDecoder;
 use Psr\Http\Message\ResponseInterface;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 
 class API
 {
@@ -91,14 +91,14 @@ class API
         return $roomList;
     }
 
-    public function createRoom(ToBeCreatedRoom $newRoomInfo): AvailableRoom
+    public function createRoom(ToBeCreatedRoom $newRoom): AvailableRoom
     {
         $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
             $this->client->post(
                 self::getRoomsRelativeUri(),
                 [RequestOptions::FORM_PARAMS => [
-                    ToBeCreatedRoom::NAME => $newRoomInfo->getName(),
-                    ToBeCreatedRoom::IS_PRIVATE => $newRoomInfo->isPrivate(),
+                    ToBeCreatedRoom::PROP_NAME => $newRoom->getName(),
+                    ToBeCreatedRoom::PROP_IS_PRIVATE => $newRoom->isPrivate(),
                 ]]
             )
         );
@@ -123,9 +123,9 @@ class API
             $this->client->put(
                 self::getSpecificRoomRelativeUri($room->getAddress()),
                 [RequestOptions::FORM_PARAMS => [
-                    AvailableRoom::NAME => $room->getName(),
-                    AvailableRoom::IS_PRIVATE => $room->isPrivate(),
-                    AvailableRoom::IS_ACTIVE => $room->isActive(),
+                    AvailableRoom::PROP_NAME => $room->getName(),
+                    AvailableRoom::PROP_IS_PRIVATE => $room->isPrivate(),
+                    AvailableRoom::PROP_IS_ACTIVE => $room->isActive(),
                 ]]
             )
         );

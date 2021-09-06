@@ -2,24 +2,22 @@
 
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Room;
 
+use Webmozart\Assert\Assert;
+
 abstract class AbstractRoom
 {
-    public const NAME = "name";
-    public const IS_PRIVATE = "is_private";
+    public const PROP_NAME = "name";
+    public const PROP_IS_PRIVATE = "is_private";
 
     /** @var string */
     private $name;
 
-    /** @var bool */
-    private $isPrivate;
+    /** @var bool|null */
+    private $isPrivate = null;
 
-    public function __construct(
-        string $name,
-        bool $isPrivate
-    ) {
-        $this
-            ->setName($name)
-            ->setIsPrivate($isPrivate);
+    public function __construct(string $name)
+    {
+        $this->setName($name);
     }
 
     public function setName(string $name): self
@@ -41,6 +39,15 @@ abstract class AbstractRoom
 
     public function isPrivate(): bool
     {
+        $this->assertPropertyIsNotNull("isPrivate");
         return $this->isPrivate;
+    }
+
+    protected function assertPropertyIsNotNull(string $propertyName): void
+    {
+        Assert::notNull(
+            $this->$propertyName,
+            "Property '$propertyName' must not be null"
+        );
     }
 }
