@@ -12,55 +12,37 @@ class ViewPageBuilder extends AbstractPageBuilder
     public const URL = Plugin::RELATIVE_PATH . "/view.php";
 
     /** @var int */
-    private $courseModuleId;
+    private $moduleInstanceId;
 
     /** @var \stdClass */
     private $course;
     /** @var \cm_info */
-    private $courseModule;
-
-    /** @var object */
     private $moduleInstance;
 
     public function __construct()
     {
         $this
             ->initParams()
-            ->initCourseAndCourseModule()
-            ->initModuleInstance()
+            ->initCourseAndModuleInstance()
             ->requireLogin();
     }
 
     private function initParams(): self
     {
-        $this->courseModuleId = \required_param("id", \PARAM_INT);
+        $this->moduleInstanceId = \required_param("id", \PARAM_INT);
 
         return $this;
     }
 
-    private function initCourseAndCourseModule(): self
+    private function initCourseAndModuleInstance(): self
     {
         [
             $this->course,
-            $this->courseModule,
+            $this->moduleInstance
         ] = \get_course_and_cm_from_cmid(
-            $this->courseModuleId,
+            $this->moduleInstanceId,
             Plugin::MODULE_NAME
         );
-
-        return $this;
-    }
-
-    private function initModuleInstance(): self
-    {
-        $this->moduleInstance = Globals::getInstance()
-            ->getDatabase()
-            ->get_record(
-                Database::TABLE_MAIN,
-                ["id" => $this->courseModule->instance],
-                "*",
-                \MUST_EXIST
-            );
 
         return $this;
     }
@@ -76,7 +58,7 @@ class ViewPageBuilder extends AbstractPageBuilder
     {
         $page = Globals::getInstance()->getPage();
 
-        $page->set_url(self::URL, ["id" => $this->courseModuleId]);
+        $page->set_url(self::URL, ["id" => $this->moduleInstanceId]);
         $page->set_title(
             "{$this->course->shortname}: {$this->moduleInstance->name}"
         );
