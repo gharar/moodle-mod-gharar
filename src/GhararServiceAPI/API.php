@@ -85,6 +85,11 @@ class API
         return self::getRoomUsersRelativeUri($roomAddress) . "$phone/";
     }
 
+    private static function getAuthTokenRelativeUri(): string
+    {
+        return "auth/token/";
+    }
+
     /**
      * @return AvailableRoom[]
      */
@@ -176,6 +181,20 @@ class API
         $this->client->delete(
             self::getSpecificRoomUserRelativeUri($roomAddress, $userPhone)
         );
+    }
+
+    public function generateAuthToken(User $user): AuthToken {
+        $authTokenRaw = $this->getSuccessfulJsonResponseDecodedContents(
+            $this->client->post(
+                self::getAuthTokenRelativeUri(),
+                [RequestOptions::FORM_PARAMS => [
+                    User::PROP_PHONE => $user->getPhone(),
+                    User::PROP_NAME => $user->getName(),
+                ]]
+            )
+        );
+
+        return AuthToken::fromRawObject($authTokenRaw);
     }
 
     /**
