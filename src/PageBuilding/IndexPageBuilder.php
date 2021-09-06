@@ -99,14 +99,8 @@ class IndexPageBuilder extends AbstractPageBuilder
         foreach ($instances as $instance) {
             $table->data[] = [
                 $instance->name,
-                \html_writer::link(
-                    new \moodle_url(
-                        ViewPageBuilder::URL,
-                        ["id" => $this->courseId]
-                    ),
-                    $instance->room_name,
-                    ["target" => "_blank"]
-                ),
+                // TODO: Make it a link
+                $instance->room_name
             ];
         }
 
