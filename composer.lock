@@ -608,6 +608,9 @@
                 "polyfill",
                 "portable"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.23.0"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -676,6 +679,10 @@
                 "check",
                 "validate"
             ],
+            "support": {
+                "issues": "https://github.com/webmozarts/assert/issues",
+                "source": "https://github.com/webmozarts/assert/tree/1.10.0"
+            },
             "time": "2021-03-09T10:59:23+00:00"
         },
         {
@@ -771,6 +778,10 @@
                 }
             ],
             "description": "A robust cross-platform utility for normalizing, comparing and modifying file paths.",
+            "support": {
+                "issues": "https://github.com/webmozart/path-util/issues",
+                "source": "https://github.com/webmozart/path-util/tree/2.3.0"
+            },
             "time": "2015-12-17T08:42:14+00:00"
         }
     ],
@@ -1263,16 +1274,16 @@
         },
         {
             "name": "machitgarha/bimoo",
-            "version": "3.11.4",
+            "version": "3.11.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/machitgarha/bimoo.git",
-                "reference": "7e883f42625c58efa53cadf9df8ae9f4c1c0b068"
+                "reference": "7e54f0fd5baa254241f1d4d20356928cc98b5e3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/machitgarha/bimoo/zipball/7e883f42625c58efa53cadf9df8ae9f4c1c0b068",
-                "reference": "7e883f42625c58efa53cadf9df8ae9f4c1c0b068",
+                "url": "https://api.github.com/repos/machitgarha/bimoo/zipball/7e54f0fd5baa254241f1d4d20356928cc98b5e3f",
+                "reference": "7e54f0fd5baa254241f1d4d20356928cc98b5e3f",
                 "shasum": ""
             },
             "require": {
@@ -1302,7 +1313,7 @@
                 }
             ],
             "description": "Moodle declaration stubs, helping IDEs and static analyzers",
-            "time": "2021-09-05T21:40:46+00:00"
+            "time": "2021-09-06T10:10:27+00:00"
         },
         {
             "name": "microsoft/tolerant-php-parser",

@@ -3,6 +3,7 @@
 namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
 use cm_info;
+use context_module;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\User;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\AuthToken;
 use MAChitgarha\MoodleModGharar\Util;
@@ -28,6 +29,9 @@ class ViewPageBuilder extends AbstractPageBuilder
     /** @var object */
     private $instance;
 
+    /** @var context_module */
+    private $context;
+
     /** @var API */
     private $api;
 
@@ -40,6 +44,7 @@ class ViewPageBuilder extends AbstractPageBuilder
             ->initParams()
             ->initCourseAndModuleInfo()
             ->initInstance()
+            ->initContext()
             ->requireLogin()
             ->initAPI();
     }
@@ -78,6 +83,13 @@ class ViewPageBuilder extends AbstractPageBuilder
         return $this;
     }
 
+    private function initContext(): self
+    {
+        $this->context = context_module::instance($this->instanceId);
+
+        return $this;
+    }
+
     private function requireLogin(): self
     {
         \require_login($this->course, true, $this->moduleInfo);
@@ -99,12 +111,10 @@ class ViewPageBuilder extends AbstractPageBuilder
         $user = Globals::getInstance()->getUser();
         $virtualPhoneNumber = Util::generateVirtualPhoneNumberFromId($user->id);
 
-        // TODO: Add a new capability for this
-        $courseContext = get_context_instance(
-            CONTEXT_COURSE,
-            $this->course->id
+        $isAdmin = has_capability(
+            Plugin::CAPABILITY_ENTER_ROOM_AS_ADMIN,
+            $this->context
         );
-        $isAdmin = has_capability('moodle/site:config', $courseContext);
 
         $virtualUser = new User(
             $virtualPhoneNumber,

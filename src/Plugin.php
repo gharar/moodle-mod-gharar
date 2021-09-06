@@ -18,9 +18,15 @@ class Plugin
      */
     public const RELATIVE_PATH = "/mod/" . self::MODULE_NAME;
 
+    public const CAPABILITY_ADD_INSTANCE =
+        "mod/gharar:addinstance";
+    public const CAPABILITY_VIEW_INSTANCE =
+        "mod/gharar:view";
+    public const CAPABILITY_ENTER_ROOM_AS_ADMIN =
+        "mod/gharar:enter_room_as_admin";
+
     public const CAPABILITIES = [
-        // Ability to add a new Gharar instance
-        "mod/gharar:addinstance" => [
+        self::CAPABILITY_ADD_INSTANCE => [
             "captype" => "write",
             "riskbitmask" => RISK_XSS,
             "contextlevel" => CONTEXT_COURSE,
@@ -31,16 +37,25 @@ class Plugin
             "clonepermissionsfrom" => "moodle/course:manageactivities",
         ],
 
-        // Ability to view instances, regardless of the type
-        "mod/gharar:view" => [
+        self::CAPABILITY_VIEW_INSTANCE => [
             "captype" => "read",
             "contextlevel" => CONTEXT_MODULE,
             "archetypes" => [
-                "student" => CAP_ALLOW,
-                "teacher" => CAP_ALLOW,
-                "editingteacher" => CAP_ALLOW,
                 "manager" => CAP_ALLOW,
+                "editingteacher" => CAP_ALLOW,
+                "teacher" => CAP_ALLOW,
+                "student" => CAP_ALLOW,
             ],
+        ],
+
+        self::CAPABILITY_ENTER_ROOM_AS_ADMIN => [
+            "captype" => "read",
+            "contextlevel" => CONTEXT_MODULE,
+            "archetypes" => [
+                "manager" => CAP_ALLOW,
+                "editingteacher" => CAP_ALLOW,
+                "teacher" => CAP_ALLOW,
+            ]
         ],
     ];
 }
