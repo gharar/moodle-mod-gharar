@@ -18,8 +18,8 @@ Util::forbidNonMoodleAccess();
  * release, and update the version number as described.
  */
 $plugin->component = "mod_gharar";
-$plugin->version = 2021090501;
-$plugin->release = "0.2.0-alpha.2";
+$plugin->version = 2021090502;
+$plugin->release = "0.2.0-alpha.3";
 $plugin->maturity = MATURITY_ALPHA;
 
 // Minimum Moodle version is 3.9.0

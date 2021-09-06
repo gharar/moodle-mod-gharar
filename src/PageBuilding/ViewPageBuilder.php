@@ -151,7 +151,7 @@ class ViewPageBuilder extends AbstractPageBuilder
 
         var_dump(Globals::getInstance()->getUser());
         return \html_writer::link(
-            $room->getShareUrl() . "/?token=" . $this->authToken->getToken(),
+            $room->getShareUrl() . "?jwt=" . $this->authToken->getToken(),
             Util::getString("enter_room"),
             ["target" => "_blank"]
         );
