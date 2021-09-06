@@ -30,7 +30,8 @@ class User
     {
         $user = new self(
             $object->{self::PROP_PHONE},
-            $object->{self::PROP_IS_ADMIN}
+            // TODO: Fix this
+            $object->{self::PROP_IS_ADMIN} ?? false
         );
 
         $user->setName($object->{self::PROP_NAME});
