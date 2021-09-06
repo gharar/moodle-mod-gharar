@@ -10,7 +10,7 @@ class From0o1To0o2 extends AbstractBase
     private const NEW_FIELD_ROOM_NAME = [
         self::FIELD_ATTR_NAME => "room_name",
         self::FIELD_ATTR_TYPE => \XMLDB_TYPE_CHAR,
-        self::FIELD_ATTR_PRECISION => 256,
+        self::FIELD_ATTR_PRECISION => 255,
         self::FIELD_ATTR_NOT_NULL => true,
     ];
     private const NEW_FIELD_ADDRESS = [
