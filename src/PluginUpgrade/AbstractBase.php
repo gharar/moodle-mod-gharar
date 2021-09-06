@@ -87,10 +87,19 @@ abstract class AbstractBase
         foreach ($this->database->get_records(
             Database::TABLE_MAIN
         ) as $record) {
-            $this->database->update_record(
-                Database::TABLE_MAIN,
-                $this->upgradeMainTableRecord($record)
-            );
+            [$keepIt, $record] = $this->upgradeMainTableRecord($record);
+
+            if ($keepIt) {
+                $this->database->update_record(
+                    Database::TABLE_MAIN,
+                    $record
+                );
+            } else {
+                $this->database->delete_records(
+                    Database::TABLE_MAIN,
+                    ["id" => $record->id]
+                );
+            }
         }
 
         return $this
@@ -99,9 +108,13 @@ abstract class AbstractBase
             ->addMainTableNewIndexes();
     }
 
+    /**
+     * @return array A pair. The first element is whether to keep the record or
+     * not, the second is the updated record.
+     */
     abstract protected function upgradeMainTableRecord(
         \stdClass $record
-    ): \stdClass;
+    ): array;
 
     protected function prepareMainTable(): self
     {

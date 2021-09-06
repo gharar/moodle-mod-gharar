@@ -19,14 +19,6 @@ class From0o1To0o2 extends AbstractBase
         self::FIELD_ATTR_PRECISION => 44,
         self::FIELD_ATTR_NOT_NULL => false,
     ];
-    private const NEW_FIELD_NEEDS_UPDATE = [
-        self::FIELD_ATTR_NAME => "needs_update",
-        self::FIELD_ATTR_TYPE => \XMLDB_TYPE_INTEGER,
-        self::FIELD_ATTR_PRECISION => 1,
-        self::FIELD_ATTR_UNSINGED => true,
-        self::FIELD_ATTR_NOT_NULL => true,
-        self::FIELD_ATTR_DEFAULT => 0,
-    ];
 
     private const OLD_FIELD_LINK = [
         self::FIELD_ATTR_NAME => "link",
@@ -48,7 +40,6 @@ class From0o1To0o2 extends AbstractBase
     protected const TABLE_MAIN_NEW_FIELDS = [
         self::NEW_FIELD_ROOM_NAME,
         self::NEW_FIELD_ADDRESS,
-        self::NEW_FIELD_NEEDS_UPDATE,
     ];
     protected const TABLE_MAIN_OLD_FIELDS = [
         self::OLD_FIELD_LINK,
@@ -59,12 +50,13 @@ class From0o1To0o2 extends AbstractBase
         self::NEW_INDEX_ADDRESS,
     ];
 
-    protected function upgradeMainTableRecord(\stdClass $record): \stdClass
+    protected function upgradeMainTableRecord(\stdClass $record): array
     {
-        $record->address = $this->makeRoomAddressUnique(
-            $this->extractRoomAddressFromLink($record->link)
-        );
-        $record->needs_update = $record->address === null;
+        $record->address = $this->extractRoomAddressFromLink($record->link);
+
+        if ($record->address === null) {
+            return [false, $record];
+        }
 
         $record->room_name = $this->makeRoomNameUnique(
             $this->generateRoomNameFromInstanceName(
@@ -78,7 +70,7 @@ class From0o1To0o2 extends AbstractBase
             )
         );
 
-        return $record;
+        return [true, $record];
     }
 
     private static function extractRoomAddressFromLink(string $link): ?string
@@ -104,29 +96,15 @@ class From0o1To0o2 extends AbstractBase
         return "$courseName - $instaceName";
     }
 
-    private function makeRoomAddressUnique(?string $roomAddress): ?string
+    private function makeRoomNameUnique(string $roomName): string
     {
-        return $this->makeUnique($roomAddress, "address");
-    }
-
-    private function makeRoomNameUnique(?string $roomName): ?string
-    {
-        return $this->makeUnique($roomName, "room_name");
-    }
-
-    private function makeUnique(?string $str, string $fieldName): ?string
-    {
-        if ($str === null) {
-            return $str;
-        }
-
         if (!$this->database->record_exists(
             Database::TABLE_MAIN,
-            [$fieldName => $str]
+            ["room_name" => $roomName]
         )) {
-            return $str;
+            return $roomName;
         }
-        return "$str (" . self::generateRandomHex() . ")";
+        return "$roomName (" . self::generateRandomHex() . ")";
     }
 
     private static function generateRandomHex(int $length = 20): string
