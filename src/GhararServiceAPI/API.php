@@ -8,6 +8,7 @@ use Webmozart\Json\JsonDecoder;
 use Psr\Http\Message\ResponseInterface;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\User;
 
 class API
 {
@@ -70,6 +71,18 @@ class API
         string $roomAddress
     ): string {
         return self::getRoomsRelativeUri() . "$roomAddress/";
+    }
+
+    private static function getRoomUsersRelativeUri(string $roomAddress): string
+    {
+        return self::getSpecificRoomRelativeUri($roomAddress) . "users/";
+    }
+
+    private static function getSpecificRoomUserRelativeUri(
+        string $roomAddress,
+        string $phone
+    ): string {
+        return self::getRoomUsersRelativeUri($roomAddress) . "$phone/";
     }
 
     /**
@@ -138,6 +151,22 @@ class API
         $this->client->delete(
             self::getSpecificRoomRelativeUri($roomAddress)
         );
+    }
+
+    public function createRoomMember(string $roomAddress, User $user): User
+    {
+        $userRaw = $this->getSuccessfulJsonResponseDecodedContents(
+            $this->client->post(
+                self::getRoomUsersRelativeUri($roomAddress),
+                [RequestOptions::FORM_PARAMS => [
+                    User::PROP_PHONE => $user->getPhone(),
+                    User::PROP_IS_ADMIN => $user->isAdmin(),
+                    User::PROP_NAME => $user->getName(),
+                ]]
+            )
+        );
+
+        return User::fromRawObject($userRaw);
     }
 
     /**
