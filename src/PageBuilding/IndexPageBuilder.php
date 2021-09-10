@@ -34,8 +34,7 @@ class IndexPageBuilder extends AbstractPageBuilder
 
     private function initCourse(): self
     {
-        $this->course = Globals::getInstance()
-            ->getDatabase()
+        $this->course = Globals::getDatabase()
             ->get_record(
                 "course",
                 ["id" => $this->courseId],
@@ -55,7 +54,7 @@ class IndexPageBuilder extends AbstractPageBuilder
 
     protected function buildPage(): self
     {
-        $page = Globals::getInstance()->getPage();
+        $page = Globals::getPage();
 
         $page->set_url(self::URL, ["id" => $this->courseId]);
         $page->set_title(
@@ -88,8 +87,7 @@ class IndexPageBuilder extends AbstractPageBuilder
         ];
         $table->align = ["center", "center"];
 
-        $instances = Globals::getInstance()
-            ->getDatabase()
+        $instances = Globals::getDatabase()
             ->get_records(
                 Database::TABLE_MAIN,
                 ["course" => $this->courseId]

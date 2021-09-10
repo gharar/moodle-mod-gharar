@@ -71,8 +71,7 @@ class ViewPageBuilder extends AbstractPageBuilder
 
     private function initInstance(): self
     {
-        $this->instance = Globals::getInstance()
-            ->getDatabase()
+        $this->instance = Globals::getDatabase()
             ->get_record(
                 Database::TABLE_MAIN,
                 ["id" => $this->moduleInfo->instance],
@@ -108,7 +107,7 @@ class ViewPageBuilder extends AbstractPageBuilder
 
     protected function prepare(): self
     {
-        $user = Globals::getInstance()->getUser();
+        $user = Globals::getUser();
         $virtualPhoneNumber = Util::generateVirtualPhoneNumberFromId($user->id);
 
         $isAdmin = has_capability(
@@ -143,7 +142,7 @@ class ViewPageBuilder extends AbstractPageBuilder
 
     protected function buildPage(): self
     {
-        $page = Globals::getInstance()->getPage();
+        $page = Globals::getPage();
 
         $page->set_url(self::URL, ["id" => $this->instanceId]);
         $page->set_title(

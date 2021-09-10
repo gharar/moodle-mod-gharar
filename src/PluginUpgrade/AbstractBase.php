@@ -69,7 +69,7 @@ abstract class AbstractBase
 
     public function __construct()
     {
-        $this->database = Globals::getInstance()->getDatabase();
+        $this->database = Globals::getDatabase();
         $this->databaseManager = $this->database->get_manager();
     }
 

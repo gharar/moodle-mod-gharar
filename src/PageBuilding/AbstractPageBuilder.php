@@ -51,7 +51,7 @@ abstract class AbstractPageBuilder
 
     protected function buildOutput(): self
     {
-        $output = Globals::getInstance()->getOutput();
+        $output = Globals::getOutput();
 
         $this->output .= $output->header();
         $this->output .= $output->heading($this->generateOutputHeading());

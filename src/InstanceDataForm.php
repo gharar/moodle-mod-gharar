@@ -10,7 +10,7 @@ use MAChitgarha\MoodleModGharar\Util;
  * file suppose it be available as a global variable. Is there anything worse
  * than globals?
  */
-$CFG = Globals::getInstance()->getConfig();
+$CFG = Globals::getConfig();
 require_once "{$CFG->dirroot}/course/moodleform_mod.php";
 
 /**

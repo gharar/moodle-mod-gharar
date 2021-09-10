@@ -49,8 +49,7 @@ class InstanceManager
          * Here, if a record with the same "room_name" or "address" exists,
          * because of them being unique fields, an error is occurred.
          */
-        $id = Globals::getInstance()
-            ->getDatabase()
+        $id = Globals::getDatabase()
             ->insert_record(Database::TABLE_MAIN, $newRecord);
 
         return $id;
@@ -65,8 +64,7 @@ class InstanceManager
         // "instance" one
         $instance->id = $instance->instance;
 
-        $oldRecord = Globals::getInstance()
-            ->getDatabase()
+        $oldRecord = Globals::getDatabase()
             ->get_record(
                 Database::TABLE_MAIN,
                 ["id" => $instance->id],
@@ -86,8 +84,7 @@ class InstanceManager
         $newRecord = $instance;
         $newRecord->address = $room->getAddress();
 
-        $result = Globals::getInstance()
-            ->getDatabase()
+        $result = Globals::getDatabase()
             ->update_record(Database::TABLE_MAIN, $instance);
 
         return $result;
@@ -99,7 +96,7 @@ class InstanceManager
      */
     public function delete(int $recordId): bool
     {
-        $database = Globals::getInstance()->getDatabase();
+        $database = Globals::getDatabase();
 
         $record = $database->get_record(
             Database::TABLE_MAIN,

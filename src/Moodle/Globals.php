@@ -14,74 +14,45 @@ use admin_root;
  */
 require_once __DIR__ . "/../../../../config.php";
 
-/**
- * @todo Convert to static class instead of a singleton.
- */
 class Globals
 {
-    /** @var ?self */
-    private static $instance = null;
-
-    /** @var mysqli_native_moodle_database */
-    private $database;
-    /** @var stdClass */
-    private $config;
-    /** @var bootstrap_renderer */
-    private $output;
-    /** @var moodle_page */
-    private $page;
-    /** @var admin_root */
-    private $adminSettings;
-    /** @var stdClass */
-    private $user;
-
     private function __construct()
     {
-        global $DB, $CFG, $OUTPUT, $PAGE, $ADMIN, $USER;
-
-        $this->database = $DB;
-        $this->config = $CFG;
-        $this->output = $OUTPUT;
-        $this->page = $PAGE;
-        $this->adminSettings = $ADMIN;
-        $this->user = $USER;
     }
 
-    public static function getInstance(): self
+    public static function getDatabase(): mysqli_native_moodle_database
     {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-        return self::$instance;
+        global $DB;
+        return $DB;
     }
 
-    public function getDatabase(): mysqli_native_moodle_database
+    public static function getConfig(): stdClass
     {
-        return $this->database;
+        global $CFG;
+        return $CFG;
     }
 
-    public function getConfig(): stdClass
+    public static function getOutput(): bootstrap_renderer
     {
-        return $this->config;
+        global $OUTPUT;
+        return $OUTPUT;
     }
 
-    public function getOutput(): bootstrap_renderer
+    public static function getPage(): moodle_page
     {
-        return $this->output;
+        global $PAGE;
+        return $PAGE;
     }
 
-    public function getPage(): moodle_page
+    public static function getAdminSettings(): admin_root
     {
-        return $this->page;
+        global $ADMIN;
+        return $ADMIN;
     }
 
-    public function getAdminSettings(): admin_root
+    public static function getUser(): stdClass
     {
-        return $this->adminSettings;
-    }
-
-    public function getUser(): stdClass
-    {
-        return $this->user;
+        global $USER;
+        return $USER;
     }
 }

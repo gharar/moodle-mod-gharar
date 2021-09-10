@@ -3,7 +3,6 @@
 namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
 use admin_root;
-use admin_category;
 use admin_settingpage;
 use admin_setting_configtext;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
@@ -25,7 +24,7 @@ class AdminSettingsBuilder
 
     public function __construct(admin_settingpage $mainPage)
     {
-        $this->root = Globals::getInstance()->getAdminSettings();
+        $this->root = Globals::getAdminSettings();
         $this->mainPage = $mainPage;
     }
 
