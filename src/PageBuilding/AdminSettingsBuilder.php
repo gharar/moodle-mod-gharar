@@ -10,17 +10,8 @@ use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
 
-/**
- * @todo Fix the duplicated entries in admin settings.
- */
 class AdminSettingsBuilder
 {
-    private const CATEGORY_MAIN_NAME = "mod_gharar_main_settings_cat";
-    private const CATEGORY_MAIN_PARENT_NAME = "modsettings";
-
-    private const PAGE_MAIN_NAME = "mod_gharar";
-    private const PAGE_MAIN_PARENT_NAME = self::CATEGORY_MAIN_NAME;
-
     public const CONFIG_ACCESS_TOKEN_NAME = "access_token";
 
     /**
@@ -32,57 +23,18 @@ class AdminSettingsBuilder
     /** @var admin_settingpage */
     private $mainPage;
 
-    public function __construct()
+    public function __construct(admin_settingpage $mainPage)
     {
         $this->root = Globals::getInstance()->getAdminSettings();
+        $this->mainPage = $mainPage;
     }
 
     public function build(): self
     {
-        $this
-            ->buildMainCategory()
-            ->initMainPage();
-
         if ($this->root->fulltree) {
             $this->addAccessTokenConfig();
         }
 
-        $this->addMainPage();
-
-        return $this;
-    }
-
-    /**
-     * Category is a set of related settings.
-     */
-    private function buildMainCategory(): self
-    {
-        $mainCategory = new admin_category(
-            self::CATEGORY_MAIN_NAME,
-            Util::getString("plugin_name")
-        );
-        $this->root->add(
-            self::CATEGORY_MAIN_PARENT_NAME,
-            $mainCategory
-        );
-        return $this;
-    }
-
-    private function initMainPage(): self
-    {
-        $this->mainPage = new admin_settingpage(
-            self::PAGE_MAIN_NAME,
-            Util::getString("plugin_name")
-        );
-        return $this;
-    }
-
-    private function addMainPage(): self
-    {
-        $this->root->add(
-            self::PAGE_MAIN_PARENT_NAME,
-            $this->mainPage
-        );
         return $this;
     }
 

@@ -7,5 +7,5 @@ use MAChitgarha\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
 
 Util::forbidNonMoodleAccess();
 
-(new AdminSettingsBuilder())
+(new AdminSettingsBuilder($settings))
     ->build();
