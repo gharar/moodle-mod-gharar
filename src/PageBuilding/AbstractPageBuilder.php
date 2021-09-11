@@ -29,17 +29,29 @@ abstract class AbstractPageBuilder
     public function build(): self
     {
         $this
+            ->prepare()
             ->buildPage()
             ->buildOutput();
 
         return $this;
     }
 
-    abstract protected function buildPage(): self;
+    /**
+     * @return static
+     */
+    protected function prepare()
+    {
+        return $this;
+    }
+
+    /**
+     * @return static
+     */
+    abstract protected function buildPage();
 
     protected function buildOutput(): self
     {
-        $output = Globals::getInstance()->getOutput();
+        $output = Globals::getOutput();
 
         $this->output .= $output->header();
         $this->output .= $output->heading($this->generateOutputHeading());

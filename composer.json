@@ -12,11 +12,15 @@
         }
     ],
     "require": {
-        "php": "^7.2"
+        "php": "7.2 - 7.4",
+        "guzzlehttp/guzzle": "^7.3",
+        "webmozart/json": "^1.2",
+        "webmozart/assert": "^1.10"
     },
     "require-dev": {
         "vimeo/psalm": "^4.9",
-        "machitgarha/bimoo": "^3.11.1"
+        "phan/phan": "^5.2",
+        "machitgarha/bimoo": "3.9.*"
     },
     "autoload": {
         "psr-4": {

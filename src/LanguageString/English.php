@@ -2,6 +2,11 @@
 
 namespace MAChitgarha\MoodleModGharar\LanguageString;
 
+/**
+ * Although the support for English language is not in priority, and may not be
+ * actively maintained (i.e. it may contain empty stub strings), but it is
+ * required for language strings of other languages (i.e. Persian here) to work.
+ */
 class English
 {
     private const PLUGIN_NAME = "Gharar";
@@ -14,14 +19,21 @@ class English
         "modulenameplural" => self::PLUGIN_NAME_PLURAL,
 
         "pluginadministration" => self::PLUGIN_NAME . " administration",
+
         // }
 
         "plugin_name" => self::PLUGIN_NAME,
         "plugin_name_plural" => self::PLUGIN_NAME_PLURAL,
 
-        "meeting_name" => "Name",
-        "meeting_link" => "Link",
+        "name" => "Name",
+        "room_name" => "Room name",
+        "is_private" => "Private",
 
-        "enter_meeting_link" => "Enter",
+        "room_settings" => "Room Settings",
+
+        "access_token" => "Access token",
+        "access_token_description" => "-",
+
+        "enter_room" => "Enter the virtual class",
     ];
 }

@@ -4,8 +4,8 @@ namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
+use MAChitgarha\MoodleModGharar\Database;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use MAChitgarha\MoodleModGharar\PageBuilding\ViewPageBuilder;
 
 class IndexPageBuilder extends AbstractPageBuilder
 {
@@ -34,8 +34,7 @@ class IndexPageBuilder extends AbstractPageBuilder
 
     private function initCourse(): self
     {
-        $this->course = Globals::getInstance()
-            ->getDatabase()
+        $this->course = Globals::getDatabase()
             ->get_record(
                 "course",
                 ["id" => $this->courseId],
@@ -55,7 +54,7 @@ class IndexPageBuilder extends AbstractPageBuilder
 
     protected function buildPage(): self
     {
-        $page = Globals::getInstance()->getPage();
+        $page = Globals::getPage();
 
         $page->set_url(self::URL, ["id" => $this->courseId]);
         $page->set_title(
@@ -83,29 +82,22 @@ class IndexPageBuilder extends AbstractPageBuilder
         $table->attributes["class"] = "generaltable mod_index";
 
         $table->head = [
-            Util::getString("meeting_name"),
-            Util::getString("meeting_link")
+            Util::getString("name"),
+            Util::getString("room_name"),
         ];
         $table->align = ["center", "center"];
 
-        $instances = Globals::getInstance()
-            ->getDatabase()
+        $instances = Globals::getDatabase()
             ->get_records(
-                Plugin::DATABASE_MAIN_TABLE_NAME,
+                Database::TABLE_MAIN,
                 ["course" => $this->courseId]
             );
 
         foreach ($instances as $instance) {
             $table->data[] = [
-                \html_writer::link(
-                    new \moodle_url(
-                        ViewPageBuilder::URL,
-                        ["id" => $this->courseId]
-                    ),
-                    $instance->name,
-                    ["target" => "_blank"],
-                ),
-                $instance->link,
+                $instance->name,
+                // TODO: Make it a link
+                $instance->room_name
             ];
         }
 

@@ -21,9 +21,15 @@ class Farsi
         "plugin_name" => self::PLUGIN_NAME,
         "plugin_name_plural" => self::PLUGIN_NAME_PLURAL,
 
-        "meeting_name" => "نام",
-        "meeting_link" => "پیوند",
+        "name" => "نام",
+        "room_name" => "نام اتاق",
+        "is_private" => "خصوصی بودن",
 
-        "enter_meeting_link" => "ورود",
+        "room_settings" => "تنظیمات اتاق",
+
+        "access_token" => "توکن دسترسی",
+        "access_token_description" => "کد خصوصی یکتای دسترسی به قرار",
+
+        "enter_room" => "ورود به کلاس مجازی",
     ];
 }
