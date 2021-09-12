@@ -13,6 +13,10 @@ use MAChitgarha\MoodleModGharar\GhararServiceAPI\User;
 /**
  * @todo Prevent error messages from being exposed, in each and every case. For
  * example, when access token is wrong.
+ * @todo Create a builder class or function that automatically grabs the access
+ * token config from admin settings and passes it to the constructor to create
+ * an instance of the class. In this case, maybe, the class should remain
+ * singleton.
  */
 class API
 {
