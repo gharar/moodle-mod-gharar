@@ -3,6 +3,8 @@
 namespace MAChitgarha\MoodleModGharar;
 
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
+use MAChitgarha\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
 use MAChitgarha\MoodleModGharar\Util;
 
 /*
@@ -126,9 +128,6 @@ abstract class InstanceDataForm extends \moodleform_mod
         return $this;
     }
 
-    /**
-     * @todo Get this from the server.
-     */
     private function addIsPrivateField(): self
     {
         $this->_form->addElement(
@@ -141,11 +140,41 @@ abstract class InstanceDataForm extends \moodleform_mod
             self::FIELD_IS_PRIVATE_NAME,
             self::FIELD_IS_PRIVATE_PARAM_TYPE
         );
+
+        $this->setIsPrivateFieldDefault();
+
+        return $this;
+    }
+
+    private function setIsPrivateFieldDefault(): self
+    {
+        $default = true;
+        if ($this->isUpdatingExistingInstance()) {
+            $api = new API(
+                Util::getConfig(AdminSettingsBuilder::CONFIG_ACCESS_TOKEN_NAME)
+            );
+
+            $record = Globals::getDatabase()
+                ->get_record(
+                    Database::TABLE_MAIN,
+                    ["id" => $this->_instance],
+                    "address",
+                    \MUST_EXIST
+                );
+
+            $default = $api->retrieveRoom($record->address)->isPrivate();
+        }
+
         $this->_form->setDefault(
             self::FIELD_IS_PRIVATE_NAME,
-            true
+            $default
         );
 
         return $this;
+    }
+
+    private function isUpdatingExistingInstance(): bool
+    {
+        return !empty($this->_instance);
     }
 }
