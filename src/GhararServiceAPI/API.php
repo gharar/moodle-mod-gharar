@@ -5,7 +5,6 @@ namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\TransferException;
-
 use GuzzleHttp\RequestOptions;
 use Webmozart\Json\JsonDecoder;
 use Psr\Http\Message\ResponseInterface;

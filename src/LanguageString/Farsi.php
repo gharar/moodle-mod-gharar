@@ -39,6 +39,6 @@ class Farsi
         "error_api_request_unhandled" => "خطای مدیریت‌نشده. پیام خطا: " .
             "{\$a->message}؛ کد وضعیت: {\$a->statusCode}",
         "error_api_request_duplicated_room_name" => "نام اتاق تکراری است (" .
-            "اتاقی با این نام از قبل هست).";
+            "اتاقی با این نام از قبل هست).",
     ];
 }

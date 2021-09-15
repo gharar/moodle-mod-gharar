@@ -26,18 +26,22 @@ class RequestErrorHandler
     {
         try {
             $this->response = $requestSender();
-
-            if (self::isStatusCodeSuccessful(
-                $this->response->getStatusCode())
-            ) {
-                return;
-            }
-            self::handleUnsuccessfulResponse($this->response);
         } catch (ConnectException $e) {
             self::handleTimeoutException($e);
         } catch (\Exception $e) {
             self::handleUnhandledException($e);
         }
+
+        if (!$this->response) {
+            return;
+        }
+
+        if (self::isStatusCodeSuccessful(
+            $this->response->getStatusCode())
+        ) {
+            return;
+        }
+        self::handleUnsuccessfulResponse($this->response);
     }
 
     private static function handleTimeoutException(
@@ -88,7 +92,10 @@ class RequestErrorHandler
     private static function isErrorTypeOfRoomNameDuplicated(
         ResponseInterface $response
     ): bool {
-        return preg_match("/اتاق تکراری/ui", $response);
+        return preg_match(
+            "/اتاق تکراری/ui",
+            $response->getBody()->getContents()
+        );
     }
 
     public function getResponse(): ResponseInterface
