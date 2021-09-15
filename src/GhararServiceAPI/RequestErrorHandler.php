@@ -11,6 +11,10 @@ use MAChitgarha\MoodleModGharar\GhararServiceAPI\Exception\{
     DuplicatedRoomNameException,
 };
 
+/**
+ * @todo Handle 404 errors, e.g. trying to update or retrieve a room that does
+ * not exist.
+ */
 class RequestErrorHandler
 {
     private const STATUS_CODE_OK = 200;
