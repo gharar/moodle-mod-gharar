@@ -18,6 +18,10 @@ use MAChitgarha\MoodleModGharar\Moodle\Globals;
  *
  * o is used between major and minor parts, as a replacement of dots. All of
  * their functions should throw exceptions if anything goes wrong.
+ *
+ * Note that, everything in the children classes must remain hard-coded, and not
+ * grabbed from other classes; simply because classes change frequently and
+ * should not be relied on.
  */
 abstract class AbstractBase
 {

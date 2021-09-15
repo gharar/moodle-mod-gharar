@@ -35,5 +35,10 @@ class English
         "access_token_description" => "-",
 
         "enter_room" => "Enter the virtual class",
+
+        "error_api_request_timeout" => "-",
+        "error_api_request_unauthorized" => "-",
+        "error_api_request_unhandled" => "-",
+        "error_api_request_duplicated_room_name" => "-",
     ];
 }
