@@ -103,9 +103,11 @@ class API
     public function listRooms(): array
     {
         $roomListRaw = $this->getSuccessfulJsonResponseDecodedContents(
-            $this->client->get(
-                self::getRoomsRelativeUri()
-            )
+            function () {
+                return $this->client->get(
+                    self::getRoomsRelativeUri()
+                );
+            }
         );
 
         $roomList = [];
@@ -119,13 +121,16 @@ class API
     public function createRoom(ToBeCreatedRoom $newRoom): AvailableRoom
     {
         $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
-            $this->client->post(
-                self::getRoomsRelativeUri(),
-                [RequestOptions::FORM_PARAMS => [
-                    ToBeCreatedRoom::PROP_NAME => $newRoom->getName(),
-                    ToBeCreatedRoom::PROP_IS_PRIVATE => $newRoom->isPrivate(),
-                ]]
-            )
+            function () use ($newRoom) {
+                return $this->client->post(
+                    self::getRoomsRelativeUri(),
+                    [RequestOptions::FORM_PARAMS => [
+                        ToBeCreatedRoom::PROP_NAME => $newRoom->getName(),
+                        ToBeCreatedRoom::PROP_IS_PRIVATE =>
+                            $newRoom->isPrivate(),
+                    ]]
+                );
+            }
         );
 
         return AvailableRoom::fromRawObject($roomRaw);
@@ -147,14 +152,16 @@ class API
     public function updateRoom(AvailableRoom $room): AvailableRoom
     {
         $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
-            $this->client->put(
-                self::getSpecificRoomRelativeUri($room->getAddress()),
-                [RequestOptions::FORM_PARAMS => [
-                    AvailableRoom::PROP_NAME => $room->getName(),
-                    AvailableRoom::PROP_IS_PRIVATE => $room->isPrivate(),
-                    AvailableRoom::PROP_IS_ACTIVE => $room->isActive(),
-                ]]
-            )
+            function () use ($room) {
+                return $this->client->put(
+                    self::getSpecificRoomRelativeUri($room->getAddress()),
+                    [RequestOptions::FORM_PARAMS => [
+                        AvailableRoom::PROP_NAME => $room->getName(),
+                        AvailableRoom::PROP_IS_PRIVATE => $room->isPrivate(),
+                        AvailableRoom::PROP_IS_ACTIVE => $room->isActive(),
+                    ]]
+                );
+            }
         );
 
         return AvailableRoom::fromRawObject($roomRaw);
@@ -162,22 +169,28 @@ class API
 
     public function destroyRoom(string $roomAddress): void
     {
-        $this->client->delete(
-            self::getSpecificRoomRelativeUri($roomAddress)
+        $this->getSuccessfulJsonResponseDecodedContents(
+            function () use ($roomAddress) {
+                return $this->client->delete(
+                    self::getSpecificRoomRelativeUri($roomAddress)
+                );
+            }
         );
     }
 
     public function createRoomMember(string $roomAddress, User $user): User
     {
         $userRaw = $this->getSuccessfulJsonResponseDecodedContents(
-            $this->client->post(
-                self::getRoomUsersRelativeUri($roomAddress),
-                [RequestOptions::FORM_PARAMS => [
-                    User::PROP_PHONE => $user->getPhone(),
-                    User::PROP_IS_ADMIN => $user->isAdmin(),
-                    User::PROP_NAME => $user->getName(),
-                ]]
-            )
+            function () use ($roomAddress, $user) {
+                return $this->client->post(
+                    self::getRoomUsersRelativeUri($roomAddress),
+                    [RequestOptions::FORM_PARAMS => [
+                        User::PROP_PHONE => $user->getPhone(),
+                        User::PROP_IS_ADMIN => $user->isAdmin(),
+                        User::PROP_NAME => $user->getName(),
+                    ]]
+                );
+            }
         );
 
         return User::fromRawObject($userRaw);
@@ -187,20 +200,29 @@ class API
         string $roomAddress,
         string $userPhone
     ): void {
-        $this->client->delete(
-            self::getSpecificRoomUserRelativeUri($roomAddress, $userPhone)
+        $this->getSuccessfulJsonResponseDecodedContents(
+            function () use ($roomAddress, $userPhone) {
+                return $this->client->delete(
+                    self::getSpecificRoomUserRelativeUri(
+                        $roomAddress,
+                        $userPhone
+                    )
+                );
+            }
         );
     }
 
     public function generateAuthToken(User $user): AuthToken {
         $authTokenRaw = $this->getSuccessfulJsonResponseDecodedContents(
-            $this->client->post(
-                self::getAuthTokenRelativeUri(),
-                [RequestOptions::FORM_PARAMS => [
-                    User::PROP_PHONE => $user->getPhone(),
-                    User::PROP_NAME => $user->getName(),
-                ]]
-            )
+            function () use ($user) {
+                return $this->client->post(
+                    self::getAuthTokenRelativeUri(),
+                    [RequestOptions::FORM_PARAMS => [
+                        User::PROP_PHONE => $user->getPhone(),
+                        User::PROP_NAME => $user->getName(),
+                    ]]
+                );
+            }
         );
 
         return AuthToken::fromRawObject($authTokenRaw);
