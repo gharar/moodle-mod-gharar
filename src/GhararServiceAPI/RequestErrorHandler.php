@@ -37,8 +37,8 @@ class RequestErrorHandler
         }
 
         if (self::isStatusCodeSuccessful(
-            $this->response->getStatusCode())
-        ) {
+            $this->response->getStatusCode()
+        )) {
             return;
         }
         self::handleUnsuccessfulResponse($this->response);
@@ -92,10 +92,10 @@ class RequestErrorHandler
     private static function isErrorTypeOfRoomNameDuplicated(
         ResponseInterface $response
     ): bool {
-        return preg_match(
+        return (bool)(preg_match(
             "/اتاق تکراری/ui",
             $response->getBody()->getContents()
-        );
+        ));
     }
 
     public function getResponse(): ResponseInterface

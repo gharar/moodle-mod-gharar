@@ -13,6 +13,7 @@ use MAChitgarha\MoodleModGharar\Util;
  * than globals?
  */
 $CFG = Globals::getConfig();
+/** @psalm-suppress UnresolvableInclude */
 require_once "{$CFG->dirroot}/course/moodleform_mod.php";
 
 /**
