@@ -8,6 +8,7 @@ use MAChitgarha\MoodleModGharar\GhararServiceAPI\Exception\{
     TimeoutException,
     UnhandledException,
     UnauthorizedException,
+    DuplicatedRoomNameException,
 };
 
 class RequestErrorHandler
@@ -15,6 +16,7 @@ class RequestErrorHandler
     private const STATUS_CODE_OK = 200;
     private const STATUS_CODE_CREATED = 201;
     private const STATUS_CODE_ACCEPTED = 202;
+    private const STATUS_CODE_BAD_REQUEST = 400;
     private const STATUS_CODE_UNAUTHORIZED = 401;
 
     /** @var ResponseInterface */
@@ -71,12 +73,22 @@ class RequestErrorHandler
             throw new UnauthorizedException();
         }
 
+        if ($statusCode === self::STATUS_CODE_BAD_REQUEST) {
+            if (self::isErrorTypeOfRoomNameDuplicated($response)) {
+                throw new DuplicatedRoomNameException();
+            }
+        }
+
         throw new UnhandledException(
             $response->getReasonPhrase(),
             $response->getStatusCode()
         );
-        // "Request to Gharar API failed; reason: '" .
-        // "', status code: " .
+    }
+
+    private static function isErrorTypeOfRoomNameDuplicated(
+        ResponseInterface $response
+    ): bool {
+        return preg_match("/اتاق تکراری/ui", $response);
     }
 
     public function getResponse(): ResponseInterface
