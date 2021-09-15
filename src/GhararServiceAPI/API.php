@@ -3,6 +3,9 @@
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\TransferException;
+
 use GuzzleHttp\RequestOptions;
 use Webmozart\Json\JsonDecoder;
 use Psr\Http\Message\ResponseInterface;
@@ -24,11 +27,6 @@ class API
         "/^[\da-f]{40}\$/i";
     public const REGEX_ROOM_ADDRESS =
         "/^[\da-f]{8}(-[\da-f]{4}){3}-[\da-f]{12}\$/i";
-
-    private const STATUS_CODE_OK = 200;
-    private const STATUS_CODE_CREATED = 201;
-    private const STATUS_CODE_ACCEPTED = 202;
-    private const STATUS_CODE_UNAUTHORIZED = 401;
 
     private const CONFIG_BASE_URI = "https://gharar.ir/api/v1/service/";
     private const CONFIG_REQUEST_TIMEOUT = 4.0;
@@ -54,6 +52,7 @@ class API
             RequestOptions::HEADERS => [
                 "Authorization" => self::generateAuthorizationHeader($token),
             ],
+            RequestOptions::HTTP_ERRORS => false,
         ]);
 
         return $this;
@@ -135,9 +134,11 @@ class API
     public function retrieveRoom(string $roomAddress): AvailableRoom
     {
         $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
-            $this->client->get(
-                self::getSpecificRoomRelativeUri($roomAddress)
-            )
+            function () use ($roomAddress) {
+                return $this->client->get(
+                    self::getSpecificRoomRelativeUri($roomAddress)
+                );
+            }
         );
 
         return AvailableRoom::fromRawObject($roomRaw);
@@ -209,55 +210,19 @@ class API
      * @return object|array
      */
     private function getSuccessfulJsonResponseDecodedContents(
-        ResponseInterface $response
+        callable $requestSender
     ) {
         return $this->jsonDecoder->decode(
-            self::getSuccessfulResponseContents($response)
+            self::getSuccessfulResponseContents($requestSender)
         );
     }
 
     private static function getSuccessfulResponseContents(
-        ResponseInterface $response
+        callable $requestSender
     ): string {
-        self::assertSuccessfulResponse($response);
-        return $response->getBody()->getContents();
-    }
-
-    private static function assertSuccessfulResponse(
-        ResponseInterface $response
-    ): void {
-        if (self::isStatusCodeSuccessful($response->getStatusCode())) {
-            return;
-        }
-        self::handleUnsuccessfulResponse($response);
-    }
-
-    private static function isStatusCodeSuccessful(int $statusCode): bool
-    {
-        return
-            $statusCode === self::STATUS_CODE_OK ||
-            $statusCode === self::STATUS_CODE_CREATED ||
-            $statusCode === self::STATUS_CODE_ACCEPTED;
-    }
-
-    private static function handleUnsuccessfulResponse(
-        ResponseInterface $response
-    ): void {
-        $statusCode = $response->getStatusCode();
-
-        if ($statusCode === self::STATUS_CODE_UNAUTHORIZED) {
-            // TODO: Convert it to a custom exception
-            throw new \InvalidArgumentException(
-                // TODO: Use Util::getString() and use the reason phrase
-                "Bad authorization token given"
-            );
-        }
-
-        // TODO: Improve and specialize it
-        throw new \Exception(
-            "Request to Gharar API failed; reason: '" .
-            $response->getReasonPhrase() . "', status code: " .
-            $response->getStatusCode()
-        );
+        return (new RequestErrorHandler($requestSender))
+            ->getResponse()
+            ->getBody()
+            ->getContents();
     }
 }
