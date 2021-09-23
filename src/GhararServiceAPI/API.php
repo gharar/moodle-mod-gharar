@@ -2,12 +2,22 @@
 
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
 
+use Webmozart\Json\JsonDecoder;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Webmozart\Json\JsonDecoder;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\TransferException;
+use Psr\Http\Message\ResponseInterface;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\Member;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Exception\{
+    TimeoutException,
+    UnauthorizedException,
+    UnhandledException,
+    DuplicatedRoomNameException,
+};
 
 /**
  * @todo Prevent error messages from being exposed, in each and every case. For
@@ -48,7 +58,7 @@ class API
             RequestOptions::HEADERS => [
                 "Authorization" => self::generateAuthorizationHeader($token),
             ],
-            RequestOptions::HTTP_ERRORS => false,
+            RequestOptions::HTTP_ERRORS => true,
         ]);
 
         return $this;
@@ -70,13 +80,16 @@ class API
      */
     public function listRooms(): array
     {
-        $roomListRaw = $this->getSuccessfulJsonResponseDecodedContents(
-            function () {
-                return $this->client->get(
+        try {
+            $roomListRaw = $this->getSuccessfulJsonResponseDecodedContents(
+                $this->client->get(
                     RelativeURI::getRooms()
-                );
-            }
-        );
+                )
+            );
+        } catch (TransferException $e) {
+            ErrorHandler::handleGeneralErrors($e);
+            ErrorHandler::unhandled($e);
+        }
 
         $roomList = [];
         foreach ($roomListRaw as $roomRaw) {
@@ -88,78 +101,96 @@ class API
 
     public function createRoom(ToBeCreatedRoom $newRoom): AvailableRoom
     {
-        $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
-            function () use ($newRoom) {
-                return $this->client->post(
+        try {
+            $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
+                $this->client->post(
                     RelativeURI::getRooms(),
                     [RequestOptions::FORM_PARAMS => [
                         ToBeCreatedRoom::PROP_NAME => $newRoom->getName(),
                         ToBeCreatedRoom::PROP_IS_PRIVATE =>
                             $newRoom->isPrivate(),
                     ]]
-                );
-            }
-        );
+                )
+            );
+        } catch (TransferException $e) {
+            ErrorHandler::handleDuplicatedRoomName($e);
+            ErrorHandler::handleGeneralErrors($e);
+            ErrorHandler::unhandled($e);
+        }
 
         return AvailableRoom::fromRawObject($roomRaw);
     }
 
     public function retrieveRoom(string $roomAddress): AvailableRoom
     {
-        $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
-            function () use ($roomAddress) {
-                return $this->client->get(
+        try {
+            $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
+                $this->client->get(
                     RelativeURI::getRoom($roomAddress)
-                );
-            }
-        );
+                )
+            );
+        } catch (TransferException $e) {
+            ErrorHandler::handleGeneralErrors($e);
+            ErrorHandler::unhandled($e);
+        }
 
         return AvailableRoom::fromRawObject($roomRaw);
     }
 
     public function updateRoom(AvailableRoom $room): AvailableRoom
     {
-        $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
-            function () use ($room) {
-                return $this->client->put(
+        try {
+            $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
+                $this->client->put(
                     RelativeURI::getRoom($room->getAddress()),
                     [RequestOptions::FORM_PARAMS => [
                         AvailableRoom::PROP_NAME => $room->getName(),
                         AvailableRoom::PROP_IS_PRIVATE => $room->isPrivate(),
                         AvailableRoom::PROP_IS_ACTIVE => $room->isActive(),
                     ]]
-                );
-            }
-        );
+                )
+            );
+        } catch (TransferException $e) {
+            ErrorHandler::handleGeneralErrors($e);
+            ErrorHandler::unhandled($e);
+        }
+
 
         return AvailableRoom::fromRawObject($roomRaw);
     }
 
     public function destroyRoom(string $roomAddress): void
     {
-        $this->getSuccessfulJsonResponseDecodedContents(
-            function () use ($roomAddress) {
-                return $this->client->delete(
+        try {
+            $this->getSuccessfulJsonResponseDecodedContents(
+                $this->client->delete(
                     RelativeURI::getRoom($roomAddress)
-                );
-            }
-        );
+                )
+            );
+        } catch (TransferException $e) {
+            ErrorHandler::handleGeneralErrors($e);
+            ErrorHandler::unhandled($e);
+        }
+
     }
 
     public function createRoomMember(string $roomAddress, User $user): User
     {
-        $userRaw = $this->getSuccessfulJsonResponseDecodedContents(
-            function () use ($roomAddress, $user) {
-                return $this->client->post(
+        try {
+            $userRaw = $this->getSuccessfulJsonResponseDecodedContents(
+                $this->client->post(
                     RelativeURI::getRoomMembers($roomAddress),
                     [RequestOptions::FORM_PARAMS => [
                         User::PROP_PHONE => $user->getPhone(),
                         User::PROP_IS_ADMIN => $user->isAdmin(),
                         User::PROP_NAME => $user->getName(),
                     ]]
-                );
-            }
-        );
+                )
+            );
+        } catch (TransferException $e) {
+            ErrorHandler::handleGeneralErrors($e);
+            ErrorHandler::unhandled($e);
+        }
 
         return User::fromRawObject($userRaw);
     }
@@ -168,30 +199,37 @@ class API
         string $roomAddress,
         string $userPhone
     ): void {
-        $this->getSuccessfulJsonResponseDecodedContents(
-            function () use ($roomAddress, $userPhone) {
-                return $this->client->delete(
+        try {
+            $this->getSuccessfulJsonResponseDecodedContents(
+                $this->client->delete(
                     RelativeURI::getRoomMemeber(
                         $roomAddress,
                         $userPhone
                     )
-                );
-            }
-        );
+                )
+            );
+        } catch (TransferException $e) {
+            ErrorHandler::handleGeneralErrors($e);
+            ErrorHandler::unhandled($e);
+        }
     }
 
-    public function generateAuthToken(User $user): AuthToken {
-        $authTokenRaw = $this->getSuccessfulJsonResponseDecodedContents(
-            function () use ($user) {
-                return $this->client->post(
+    public function generateAuthToken(User $user): AuthToken
+    {
+        try {
+            $authTokenRaw = $this->getSuccessfulJsonResponseDecodedContents(
+                $this->client->post(
                     RelativeURI::getAuthToken(),
                     [RequestOptions::FORM_PARAMS => [
                         User::PROP_PHONE => $user->getPhone(),
                         User::PROP_NAME => $user->getName(),
                     ]]
-                );
-            }
-        );
+                )
+            );
+        } catch (TransferException $e) {
+            ErrorHandler::handleGeneralErrors($e);
+            ErrorHandler::unhandled($e);
+        }
 
         return AuthToken::fromRawObject($authTokenRaw);
     }
@@ -200,18 +238,17 @@ class API
      * @return object|array
      */
     private function getSuccessfulJsonResponseDecodedContents(
-        callable $requestSender
+        ResponseInterface $response
     ) {
         return $this->jsonDecoder->decode(
-            self::getSuccessfulResponseContents($requestSender)
+            self::getSuccessfulResponseContents($response)
         );
     }
 
     private static function getSuccessfulResponseContents(
-        callable $requestSender
+        ResponseInterface $response
     ): string {
-        return (new RequestErrorHandler($requestSender))
-            ->getResponse()
+        return $response
             ->getBody()
             ->getContents();
     }
@@ -246,5 +283,103 @@ class RelativeURI
     public static function getAuthToken(): string
     {
         return "auth/token/";
+    }
+}
+
+class ErrorHandler
+{
+    private const STATUS_CODE_BAD_REQUEST = 400;
+    private const STATUS_CODE_UNAUTHORIZED = 401;
+    private const STATUS_CODE_FORBIDDEN = 403;
+    private const STATUS_CODE_NOT_FOUND = 404;
+
+    /** @var TransferException */
+    private $exception;
+
+    public function __construct(TransferException $exception)
+    {
+        $this->exception = $exception;
+    }
+
+    public function handleGeneralErrors(): self
+    {
+        if ($this->exception instanceof ConnectException) {
+            $this->handleGeneralConnectionErrors($this->exception);
+        }
+        if ($this->exception instanceof RequestException) {
+            $this->handleGeneralRequestErrors($this->exception);
+        }
+
+        return $this;
+    }
+
+    private static function handleGeneralConnectionErrors(
+        ConnectException $exception
+    ): void {
+        self::handleTimeout($exception);
+
+        return $this;
+    }
+
+    private static function handleTimeout(ConnectException $exception): void
+    {
+        if (preg_match(
+            "/(timeout|timed out)/i",
+            $this->exception->getMessage())
+        ) {
+            throw new TimeoutException();
+        }
+    }
+
+    private static function handleGeneralRequestErrors(
+        RequestException $exception
+    ): void {
+        $response = $exception->getResponse();
+        if ($response instanceof ResponseInterface) {
+            self::handleUnauthorized($response);
+        }
+    }
+
+    private static function handleUnauthorized(
+        ResponseInterface $response
+    ): void {
+        if ($response->getStatusCode() === self::STATUS_CODE_UNAUTHORIZED) {
+            throw new UnauthorizedException();
+        }
+    }
+
+    public function unhandled(TransferException $exception): self
+    {
+        if ($this->exception instanceof RequestException) {
+            $response = $this->exception->getResponse();
+            if ($response instanceof ResponseInterface) {
+                throw new UnhandledException(
+                    $response->getReasonPhrase(),
+                    $response->getStatusCode()
+                );
+            }
+        }
+
+        throw new UnhandledException(
+            $this->exception->getMessage(),
+            $this->exception->getCode()
+        );
+
+        return $this;
+    }
+
+    public function handleDuplicatedRoomName(): self
+    {
+        if ($this->exception instanceof RequestException) {
+            $response = $this->exception->getResponse();
+            if ($response instanceof ResponseInterface) {
+                if ((bool)(preg_match(
+                    "/اتاق تکراری/ui",
+                    $response->getBody()->getContents()
+                ))) {
+                    throw new DuplicatedRoomNameException();
+                }
+            }
+        }
     }
 }
