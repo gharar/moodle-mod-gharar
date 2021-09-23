@@ -7,7 +7,7 @@ use GuzzleHttp\RequestOptions;
 use Webmozart\Json\JsonDecoder;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\User;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\Member;
 
 /**
  * @todo Prevent error messages from being exposed, in each and every case. For
@@ -65,34 +65,6 @@ class API
         return $this;
     }
 
-    private static function getRoomsRelativeUri(): string
-    {
-        return "rooms/";
-    }
-
-    private static function getSpecificRoomRelativeUri(
-        string $roomAddress
-    ): string {
-        return self::getRoomsRelativeUri() . "$roomAddress/";
-    }
-
-    private static function getRoomUsersRelativeUri(string $roomAddress): string
-    {
-        return self::getSpecificRoomRelativeUri($roomAddress) . "users/";
-    }
-
-    private static function getSpecificRoomUserRelativeUri(
-        string $roomAddress,
-        string $phone
-    ): string {
-        return self::getRoomUsersRelativeUri($roomAddress) . "$phone/";
-    }
-
-    private static function getAuthTokenRelativeUri(): string
-    {
-        return "auth/token/";
-    }
-
     /**
      * @return AvailableRoom[]
      */
@@ -101,7 +73,7 @@ class API
         $roomListRaw = $this->getSuccessfulJsonResponseDecodedContents(
             function () {
                 return $this->client->get(
-                    self::getRoomsRelativeUri()
+                    RelativeURI::getRooms()
                 );
             }
         );
@@ -119,7 +91,7 @@ class API
         $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
             function () use ($newRoom) {
                 return $this->client->post(
-                    self::getRoomsRelativeUri(),
+                    RelativeURI::getRooms(),
                     [RequestOptions::FORM_PARAMS => [
                         ToBeCreatedRoom::PROP_NAME => $newRoom->getName(),
                         ToBeCreatedRoom::PROP_IS_PRIVATE =>
@@ -137,7 +109,7 @@ class API
         $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
             function () use ($roomAddress) {
                 return $this->client->get(
-                    self::getSpecificRoomRelativeUri($roomAddress)
+                    RelativeURI::getRoom($roomAddress)
                 );
             }
         );
@@ -150,7 +122,7 @@ class API
         $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
             function () use ($room) {
                 return $this->client->put(
-                    self::getSpecificRoomRelativeUri($room->getAddress()),
+                    RelativeURI::getRoom($room->getAddress()),
                     [RequestOptions::FORM_PARAMS => [
                         AvailableRoom::PROP_NAME => $room->getName(),
                         AvailableRoom::PROP_IS_PRIVATE => $room->isPrivate(),
@@ -168,7 +140,7 @@ class API
         $this->getSuccessfulJsonResponseDecodedContents(
             function () use ($roomAddress) {
                 return $this->client->delete(
-                    self::getSpecificRoomRelativeUri($roomAddress)
+                    RelativeURI::getRoom($roomAddress)
                 );
             }
         );
@@ -179,7 +151,7 @@ class API
         $userRaw = $this->getSuccessfulJsonResponseDecodedContents(
             function () use ($roomAddress, $user) {
                 return $this->client->post(
-                    self::getRoomUsersRelativeUri($roomAddress),
+                    RelativeURI::getRoomMembers($roomAddress),
                     [RequestOptions::FORM_PARAMS => [
                         User::PROP_PHONE => $user->getPhone(),
                         User::PROP_IS_ADMIN => $user->isAdmin(),
@@ -199,7 +171,7 @@ class API
         $this->getSuccessfulJsonResponseDecodedContents(
             function () use ($roomAddress, $userPhone) {
                 return $this->client->delete(
-                    self::getSpecificRoomUserRelativeUri(
+                    RelativeURI::getRoomMemeber(
                         $roomAddress,
                         $userPhone
                     )
@@ -212,7 +184,7 @@ class API
         $authTokenRaw = $this->getSuccessfulJsonResponseDecodedContents(
             function () use ($user) {
                 return $this->client->post(
-                    self::getAuthTokenRelativeUri(),
+                    RelativeURI::getAuthToken(),
                     [RequestOptions::FORM_PARAMS => [
                         User::PROP_PHONE => $user->getPhone(),
                         User::PROP_NAME => $user->getName(),
@@ -242,5 +214,37 @@ class API
             ->getResponse()
             ->getBody()
             ->getContents();
+    }
+}
+
+// Inner classes of the class above (virtually)
+
+class RelativeURI
+{
+    public static function getRooms(): string
+    {
+        return "rooms/";
+    }
+
+    public static function getRoom(string $roomAddress): string
+    {
+        return self::getRooms() . "$roomAddress/";
+    }
+
+    public static function getRoomMembers(string $roomAddress): string
+    {
+        return self::getSpecificRoom($roomAddress) . "users/";
+    }
+
+    public static function getRoomMemeber(
+        string $roomAddress,
+        string $memberPhone
+    ): string {
+        return self::getRoomMembers($roomAddress) . "$memberPhone/";
+    }
+
+    public static function getAuthToken(): string
+    {
+        return "auth/token/";
     }
 }

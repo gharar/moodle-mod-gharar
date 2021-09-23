@@ -4,7 +4,7 @@ namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
 use cm_info;
 use context_module;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\User;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\Member;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\AuthToken;
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
@@ -115,7 +115,7 @@ class ViewPageBuilder extends AbstractPageBuilder
             $this->context
         );
 
-        $virtualUser = new User(
+        $virtualUser = new Member(
             $virtualPhoneNumber,
             $isAdmin
         );

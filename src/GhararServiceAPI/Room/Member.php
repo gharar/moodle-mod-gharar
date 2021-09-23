@@ -1,8 +1,8 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
+namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Room;
 
-class User
+class Member
 {
     public const PROP_PHONE = "phone";
     public const PROP_IS_ADMIN = "is_admin";
@@ -17,10 +17,8 @@ class User
     /** @var string|null */
     private $name = null;
 
-    public function __construct(
-        string $phone,
-        bool $isAdmin
-    ) {
+    public function __construct(string $phone, bool $isAdmin)
+    {
         $this
             ->setPhone($phone)
             ->setIsAdmin($isAdmin);
