@@ -2,9 +2,6 @@
 
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
 
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\ToBeCreatedLiveMember;
-
 use Webmozart\Json\JsonDecoder;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
@@ -16,6 +13,8 @@ use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\ToBeCreatedRoomMember;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\ToBeCreatedLiveMember;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Exception\{
     TimeoutException,
     UnauthorizedException,
@@ -313,7 +312,7 @@ class API
                     $this->client->get(
                         RelativeURI::getLiveMembers($roomAddress)
                     )
-                );
+                )->invitees;
         } catch (TransferException $e) {
             (new ErrorHandler($e))
                 ->handleGeneralErrors()
@@ -337,44 +336,12 @@ class API
         try {
             $memberRaw = $this->getSuccessfulJsonResponseDecodedContents(
                 $this->client->post(
-                    RelativeURI::getRoomMembers($roomAddress),
+                    RelativeURI::getLiveMembers($roomAddress),
                     [RequestOptions::FORM_PARAMS => [
                         ToBeCreatedLiveMember::PROP_PHONE =>
                             $newMember->getPhone(),
-                        ToBeCreatedLiveMember::PROP_IS_ADMIN =>
-                            $newMember->isAdmin(),
                         ToBeCreatedLiveMember::PROP_NAME =>
                             $newMember->getName(),
-                    ]]
-                )
-            );
-        } catch (TransferException $e) {
-            (new ErrorHandler($e))
-                ->handleGeneralErrors()
-                ->unhandled();
-        }
-
-        return AvailableLiveMember::fromRawObject($memberRaw);
-    }
-
-    public function updateLiveMember(
-        string $roomAddress,
-        AvailableLiveMember $member
-    ): AvailableLiveMember {
-        try {
-            $memberRaw = $this->getSuccessfulJsonResponseDecodedContents(
-                $this->client->put(
-                    RelativeURI::getRoomMember(
-                        $roomAddress,
-                        $member->getPhone()
-                    ),
-                    [RequestOptions::FORM_PARAMS => [
-                        AvailableLiveMember::PROP_PHONE =>
-                            $member->getPhone(),
-                        AvailableLiveMember::PROP_IS_ADMIN =>
-                            $member->isAdmin(),
-                        AvailableLiveMember::PROP_NAME =>
-                            $member->getName(),
                     ]]
                 )
             );
