@@ -15,6 +15,9 @@ class Farsi
 
         "pluginadministration" => "مدیریت " . self::PLUGIN_NAME,
 
+        "gharar:addinstance" => "افزودن فعالیت قرار",
+        "gharar:view" => "مشاهده‌ی فعالیت قرار",
+        "gharar:enter_room_as_admin" => "ورود به اتاق قرار به عنوان مدیر",
         // TODO: Add modulename_help
         // }
 
@@ -31,6 +34,8 @@ class Farsi
         "access_token_description" => "کد خصوصی یکتای دسترسی به قرار",
 
         "enter_room" => "ورود به کلاس مجازی",
+        // TODO: Change this
+        "enter_live" => "ورود به کلاس مجازی",
 
         "error_api_request_timeout" => "زمان درخواست به سرورهای قرار از حد " .
             "انتظار فراتر رفت. دوباره تلاش کنید.",

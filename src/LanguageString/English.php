@@ -20,6 +20,9 @@ class English
 
         "pluginadministration" => self::PLUGIN_NAME . " administration",
 
+        "gharar:addinstance" => "-",
+        "gharar:view" => "-",
+        "gharar:enter_room_as_admin" => "-",
         // }
 
         "plugin_name" => self::PLUGIN_NAME,
@@ -35,6 +38,7 @@ class English
         "access_token_description" => "-",
 
         "enter_room" => "Enter the virtual class",
+        "enter_live" => "-",
 
         "error_api_request_timeout" => "-",
         "error_api_request_unauthorized" => "-",
