@@ -7,7 +7,6 @@ use html_writer;
 use context_module;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\Member;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\AuthToken;
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;

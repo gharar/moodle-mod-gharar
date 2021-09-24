@@ -481,7 +481,7 @@ class ErrorHandler
             $this->handleGeneralConnectionErrors($this->exception);
         }
         if ($this->exception instanceof RequestException) {
-            $this->handleGeneralRequestErrors($this->exception);
+            $this->handleGeneralRequestErrors();
         }
 
         return $this;
@@ -549,5 +549,7 @@ class ErrorHandler
         ) {
             throw new DuplicatedRoomNameException();
         }
+
+        return $this;
     }
 }
