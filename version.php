@@ -19,7 +19,7 @@ Util::forbidNonMoodleAccess();
  */
 $plugin->component = "mod_gharar";
 $plugin->version = 2021092401;
-$plugin->release = "0.3.0-beta.2";
+$plugin->release = "0.3.0-beta.3";
 $plugin->maturity = MATURITY_BETA;
 
 // Minimum Moodle version is 3.9.0
