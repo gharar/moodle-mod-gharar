@@ -230,7 +230,7 @@ class ViewPageBuilder extends AbstractPageBuilder
 
     protected function generateOutputMainContent(): string
     {
-        if (!$this->isCurrentUserNonAdminHavingLive()) {
+        if (!$this->isCurrentRoomHavingLive()) {
             $url = implode([
                 $this->roomInfo->getShareUrl(),
                 "?jwt=",
