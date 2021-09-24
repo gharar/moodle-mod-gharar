@@ -224,6 +224,33 @@ class API
         return AvailableRoomMember::fromRawObject($memberRaw);
     }
 
+    public function updateRoomMember(
+        string $roomAddress,
+        AvailableRoomMember $member
+    ): AvailableRoomMember {
+        try {
+            $roomMemberRaw = $this->getSuccessfulJsonResponseDecodedContents(
+                $this->client->put(
+                    RelativeURI::getRoomMember(
+                        $roomAddress,
+                        $member->getPhone()
+                    ),
+                    [RequestOptions::FORM_PARAMS => [
+                        AvailableRoomMember::PROP_PHONE =>
+                            $member->getPhone(),
+                        AvailableRoomMember::PROP_IS_ADMIN =>
+                            $member->isAdmin(),
+                        AvailableRoomMember::PROP_NAME =>
+                            $member->getName(),
+                    ]]
+                )
+            );
+        } catch (TransferException $e) {
+            ErrorHandler::handleGeneralErrors($e);
+            ErrorHandler::unhandled($e);
+        }
+    }
+
     public function destroyRoomMember(
         string $roomAddress,
         string $memberPhone
