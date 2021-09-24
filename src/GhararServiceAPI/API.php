@@ -11,7 +11,8 @@ use GuzzleHttp\Exception\TransferException;
 use Psr\Http\Message\ResponseInterface;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\Member;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\ToBeCreatedRoomMember;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Exception\{
     TimeoutException,
     UnauthorizedException,
@@ -174,16 +175,21 @@ class API
 
     }
 
-    public function createRoomMember(string $roomAddress, User $user): User
-    {
+    public function createRoomMember(
+        string $roomAddress,
+        ToBeCreatedRoomMember $newMember
+    ): AvailableRoomMember {
         try {
-            $userRaw = $this->getSuccessfulJsonResponseDecodedContents(
+            $memberRaw = $this->getSuccessfulJsonResponseDecodedContents(
                 $this->client->post(
                     RelativeURI::getRoomMembers($roomAddress),
                     [RequestOptions::FORM_PARAMS => [
-                        User::PROP_PHONE => $user->getPhone(),
-                        User::PROP_IS_ADMIN => $user->isAdmin(),
-                        User::PROP_NAME => $user->getName(),
+                        ToBeCreatedRoomMember::PROP_PHONE =>
+                            $member->getPhone(),
+                        ToBeCreatedRoomMember::PROP_IS_ADMIN =>
+                            $member->isAdmin(),
+                        ToBeCreatedRoomMember::PROP_NAME =>
+                            $member->getName(),
                     ]]
                 )
             );
@@ -192,19 +198,19 @@ class API
             ErrorHandler::unhandled($e);
         }
 
-        return User::fromRawObject($userRaw);
+        return AvailableRoomMember::fromRawObject($memberRaw);
     }
 
     public function destroyRoomMember(
         string $roomAddress,
-        string $userPhone
+        string $memberPhone
     ): void {
         try {
             $this->getSuccessfulJsonResponseDecodedContents(
                 $this->client->delete(
-                    RelativeURI::getRoomMemeber(
+                    RelativeURI::getRoomMember(
                         $roomAddress,
-                        $userPhone
+                        $memberPhone
                     )
                 )
             );
@@ -214,15 +220,15 @@ class API
         }
     }
 
-    public function generateAuthToken(User $user): AuthToken
+    public function generateAuthToken(AvailableRoomMember $member): AuthToken
     {
         try {
             $authTokenRaw = $this->getSuccessfulJsonResponseDecodedContents(
                 $this->client->post(
                     RelativeURI::getAuthToken(),
                     [RequestOptions::FORM_PARAMS => [
-                        User::PROP_PHONE => $user->getPhone(),
-                        User::PROP_NAME => $user->getName(),
+                        AvailableRoomMember::PROP_PHONE => $member->getPhone(),
+                        AvailableRoomMember::PROP_NAME => $member->getName(),
                     ]]
                 )
             );
@@ -273,7 +279,7 @@ class RelativeURI
         return self::getSpecificRoom($roomAddress) . "users/";
     }
 
-    public static function getRoomMemeber(
+    public static function getRoomMember(
         string $roomAddress,
         string $memberPhone
     ): string {

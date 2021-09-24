@@ -1,40 +1,31 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Room;
+namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Member;
 
-class Member
+abstract class AbstractMember
 {
     public const PROP_PHONE = "phone";
-    public const PROP_IS_ADMIN = "is_admin";
     public const PROP_NAME = "name";
 
     /** @var string */
     private $phone;
 
-    /** @var bool */
-    private $isAdmin;
-
     /** @var string|null */
     private $name = null;
 
-    public function __construct(string $phone, bool $isAdmin)
+    public function __construct(string $phone)
     {
-        $this
-            ->setPhone($phone)
-            ->setIsAdmin($isAdmin);
+        $this->setPhone($phone);
     }
 
     public static function fromRawObject(object $object): self
     {
-        $user = new self(
-            $object->{self::PROP_PHONE},
-            // TODO: Fix this
-            $object->{self::PROP_IS_ADMIN} ?? false
+        $member = new self(
+            $object->{self::PROP_PHONE}
         );
+        $member->setName($object->{self::PROP_NAME});
 
-        $user->setName($object->{self::PROP_NAME});
-
-        return $user;
+        return $member;
     }
 
     private function setPhone(string $phone): self
@@ -42,7 +33,6 @@ class Member
         $this->phone = $phone;
         return $this;
     }
-
     private function setIsAdmin(bool $isAdmin): self
     {
         $this->isAdmin = $isAdmin;
@@ -58,11 +48,6 @@ class Member
     public function getPhone(): string
     {
         return $this->phone;
-    }
-
-    public function isAdmin(): bool
-    {
-        return $this->isAdmin;
     }
 
     public function getName(): ?string
