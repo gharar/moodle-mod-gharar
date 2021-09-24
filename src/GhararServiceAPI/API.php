@@ -156,7 +156,6 @@ class API
             ErrorHandler::unhandled($e);
         }
 
-
         return AvailableRoom::fromRawObject($roomRaw);
     }
 
@@ -172,7 +171,31 @@ class API
             ErrorHandler::handleGeneralErrors($e);
             ErrorHandler::unhandled($e);
         }
+    }
 
+    /**
+     * @return AvailableRoomMember[]
+     */
+    public function listRoomMembers(string $roomAddress): array
+    {
+        try {
+            $roomMemberListRaw =
+                $this->getSuccessfulJsonResponseDecodedContents(
+                    $this->client->get(
+                        RelativeURI::getRoomMembers($roomAddress)
+                    )
+                );
+        } catch (TransferException $e) {
+            ErrorHandler::handleGeneralErrors($e);
+            ErrorHandler::unhandled($e);
+        }
+
+        $roomMemberList = [];
+        foreach ($roomMemberListRaw as $roomMemberRaw) {
+            $roomMemberList[] = AvailableRoomMember::fromRawObject($roomRaw);
+        }
+
+        return $roomMemberList;
     }
 
     public function createRoomMember(
@@ -218,6 +241,21 @@ class API
             ErrorHandler::handleGeneralErrors($e);
             ErrorHandler::unhandled($e);
         }
+    }
+
+    public function hasRoomMember(
+        string $roomAddress,
+        string $memberPhone
+    ): bool {
+        $roomMembers = $this->listRoomMembers($roomAddress);
+
+        foreach ($roomMembers as $member) {
+            if ($member->getPhone() === $memberPhone) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function generateAuthToken(AvailableRoomMember $member): AuthToken
