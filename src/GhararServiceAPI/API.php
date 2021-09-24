@@ -159,6 +159,7 @@ class API
             );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
+                ->handleDuplicatedRoomName()
                 ->handleGeneralErrors()
                 ->unhandled();
         }
@@ -496,9 +497,14 @@ class ErrorHandler
     /** @var TransferException */
     private $exception;
 
+    /** @var ResponseInterface|null */
+    private $response;
+
     public function __construct(TransferException $exception)
     {
         $this->exception = $exception;
+        $this->response = $exception instanceof RequestException ?
+            $exception->getResponse() : null;
     }
 
     public function handleGeneralErrors(): self
@@ -523,39 +529,35 @@ class ErrorHandler
     {
         if (preg_match(
             "/(timeout|timed out)/i",
-            $exception->getMessage())
-        ) {
+            $exception->getMessage()
+        )) {
             throw new TimeoutException();
         }
     }
 
-    private static function handleGeneralRequestErrors(
-        RequestException $exception
-    ): void {
-        $response = $exception->getResponse();
-        if ($response instanceof ResponseInterface) {
-            self::handleUnauthorized($response);
-        }
+    private function handleGeneralRequestErrors(): void
+    {
+        self::handleUnauthorized();
     }
 
-    private static function handleUnauthorized(
-        ResponseInterface $response
-    ): void {
-        if ($response->getStatusCode() === self::STATUS_CODE_UNAUTHORIZED) {
+    private function handleUnauthorized(): void
+    {
+        if (
+            $this->response !== null &&
+            $this->response->getStatusCode() ===
+                self::STATUS_CODE_UNAUTHORIZED
+        ) {
             throw new UnauthorizedException();
         }
     }
 
     public function unhandled(): self
     {
-        if ($this->exception instanceof RequestException) {
-            $response = $this->exception->getResponse();
-            if ($response instanceof ResponseInterface) {
-                throw new UnhandledException(
-                    $response->getReasonPhrase(),
-                    $response->getStatusCode()
-                );
-            }
+        if ($this->response !== null) {
+            throw new UnhandledException(
+                $this->exception->getMessage(),
+                $this->response->getStatusCode()
+            );
         }
 
         throw new UnhandledException(
@@ -568,16 +570,16 @@ class ErrorHandler
 
     public function handleDuplicatedRoomName(): self
     {
-        if ($this->exception instanceof RequestException) {
-            $response = $this->exception->getResponse();
-            if ($response instanceof ResponseInterface) {
-                if ((bool)(preg_match(
-                    "/اتاق تکراری/ui",
-                    $response->getBody()->getContents()
-                ))) {
-                    throw new DuplicatedRoomNameException();
-                }
-            }
+        if (
+            $this->response !== null &&
+            $this->response->getStatusCode() ===
+                self::STATUS_CODE_BAD_REQUEST &&
+            (bool)(preg_match(
+                "/اتاق تکراری/ui",
+                $this->response->getBody()->getContents()
+            ))
+        ) {
+            throw new DuplicatedRoomNameException();
         }
     }
 }
