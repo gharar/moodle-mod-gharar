@@ -18,7 +18,10 @@ abstract class AbstractMember
         $this->setPhone($phone);
     }
 
-    public static function fromRawObject(object $object): self
+    /**
+     * @return static
+     */
+    public static function fromRawObject(object $object)
     {
         $member = new self(
             $object->{self::PROP_PHONE}

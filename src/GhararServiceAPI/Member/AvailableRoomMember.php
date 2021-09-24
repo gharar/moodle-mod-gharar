@@ -2,7 +2,7 @@
 
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Member;
 
-class AvailableRoomMember extends AbstractMember
+class AvailableRoomMember extends AbstractMember implements IsAdminInterface
 {
     use IsAdminTrait;
 

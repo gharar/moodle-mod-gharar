@@ -4,8 +4,6 @@ namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Member;
 
 trait IsAdminTrait
 {
-    public const PROP_IS_ADMIN = "is_admin";
-
     /** @var bool */
     private $isAdmin;
 

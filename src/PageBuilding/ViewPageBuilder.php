@@ -138,7 +138,7 @@ class ViewPageBuilder extends AbstractPageBuilder
         $user = Globals::getUser();
 
         $liveMember = new AvailableLiveMember(
-            Util::generateVirtualPhoneNumberFromId($user->id),
+            Util::generateVirtualPhoneNumberFromId($user->id)
         );
         $liveMember->setName(
             "{$user->firstname} {$user->lastname}"
