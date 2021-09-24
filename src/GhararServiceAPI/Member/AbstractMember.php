@@ -23,7 +23,7 @@ abstract class AbstractMember
      */
     public static function fromRawObject(object $object)
     {
-        $member = new self(
+        $member = new static(
             $object->{self::PROP_PHONE}
         );
         $member->setName($object->{self::PROP_NAME});
@@ -34,11 +34,6 @@ abstract class AbstractMember
     private function setPhone(string $phone): self
     {
         $this->phone = $phone;
-        return $this;
-    }
-    private function setIsAdmin(bool $isAdmin): self
-    {
-        $this->isAdmin = $isAdmin;
         return $this;
     }
 
