@@ -2,6 +2,9 @@
 
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
 
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\ToBeCreatedLiveMember;
+
 use Webmozart\Json\JsonDecoder;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
@@ -179,7 +182,7 @@ class API
     public function listRoomMembers(string $roomAddress): array
     {
         try {
-            $roomMemberListRaw =
+            $liveMemberListRaw =
                 $this->getSuccessfulJsonResponseDecodedContents(
                     $this->client->get(
                         RelativeURI::getRoomMembers($roomAddress)
@@ -192,7 +195,9 @@ class API
 
         $roomMemberList = [];
         foreach ($roomMemberListRaw as $roomMemberRaw) {
-            $roomMemberList[] = AvailableRoomMember::fromRawObject($roomRaw);
+            $roomMemberList[] = AvailableRoomMember::fromRawObject(
+                $roomMemberRaw
+            );
         }
 
         return $roomMemberList;
@@ -229,7 +234,7 @@ class API
         AvailableRoomMember $member
     ): AvailableRoomMember {
         try {
-            $roomMemberRaw = $this->getSuccessfulJsonResponseDecodedContents(
+            $memberRaw = $this->getSuccessfulJsonResponseDecodedContents(
                 $this->client->put(
                     RelativeURI::getRoomMember(
                         $roomAddress,
@@ -249,6 +254,8 @@ class API
             ErrorHandler::handleGeneralErrors($e);
             ErrorHandler::unhandled($e);
         }
+
+        return AvailableRoomMember::fromRawObject($memberRaw);
     }
 
     public function destroyRoomMember(
@@ -277,6 +284,103 @@ class API
         $roomMembers = $this->listRoomMembers($roomAddress);
 
         foreach ($roomMembers as $member) {
+            if ($member->getPhone() === $memberPhone) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return AvailableLiveMember[]
+     */
+    public function listLiveMembers(string $roomAddress): array
+    {
+        try {
+            $liveMemberListRaw =
+                $this->getSuccessfulJsonResponseDecodedContents(
+                    $this->client->get(
+                        RelativeURI::getLiveMembers($roomAddress)
+                    )
+                );
+        } catch (TransferException $e) {
+            ErrorHandler::handleGeneralErrors($e);
+            ErrorHandler::unhandled($e);
+        }
+
+        $liveMemberList = [];
+        foreach ($liveMemberListRaw as $liveMemberRaw) {
+            $liveMemberList[] = AvailableLiveMember::fromRawObject(
+                $liveMemberRaw
+            );
+        }
+
+        return $liveMemberList;
+    }
+
+    public function createLiveMember(
+        string $roomAddress,
+        ToBeCreatedLiveMember $newMember
+    ): AvailableLiveMember {
+        try {
+            $memberRaw = $this->getSuccessfulJsonResponseDecodedContents(
+                $this->client->post(
+                    RelativeURI::getRoomMembers($roomAddress),
+                    [RequestOptions::FORM_PARAMS => [
+                        ToBeCreatedLiveMember::PROP_PHONE =>
+                            $member->getPhone(),
+                        ToBeCreatedLiveMember::PROP_IS_ADMIN =>
+                            $member->isAdmin(),
+                        ToBeCreatedLiveMember::PROP_NAME =>
+                            $member->getName(),
+                    ]]
+                )
+            );
+        } catch (TransferException $e) {
+            ErrorHandler::handleGeneralErrors($e);
+            ErrorHandler::unhandled($e);
+        }
+
+        return AvailableLiveMember::fromRawObject($memberRaw);
+    }
+
+    public function updateRoomMember(
+        string $roomAddress,
+        AvailableLiveMember $member
+    ): AvailableLiveMember {
+        try {
+            $memberRaw = $this->getSuccessfulJsonResponseDecodedContents(
+                $this->client->put(
+                    RelativeURI::getRoomMember(
+                        $roomAddress,
+                        $member->getPhone()
+                    ),
+                    [RequestOptions::FORM_PARAMS => [
+                        AvailableLiveMember::PROP_PHONE =>
+                            $member->getPhone(),
+                        AvailableLiveMember::PROP_IS_ADMIN =>
+                            $member->isAdmin(),
+                        AvailableLiveMember::PROP_NAME =>
+                            $member->getName(),
+                    ]]
+                )
+            );
+        } catch (TransferException $e) {
+            ErrorHandler::handleGeneralErrors($e);
+            ErrorHandler::unhandled($e);
+        }
+
+        return AvailableLiveMember::fromRawObject($memberRaw);
+    }
+
+    public function hasLiveMember(
+        string $roomAddress,
+        string $memberPhone
+    ): bool {
+        $liveMembers = $this->listLiveMembers($roomAddress);
+
+        foreach ($liveMembers as $member) {
             if ($member->getPhone() === $memberPhone) {
                 return true;
             }
@@ -341,7 +445,7 @@ class RelativeURI
 
     public static function getRoomMembers(string $roomAddress): string
     {
-        return self::getSpecificRoom($roomAddress) . "users/";
+        return self::getRoom($roomAddress) . "users/";
     }
 
     public static function getRoomMember(
@@ -354,6 +458,18 @@ class RelativeURI
     public static function getAuthToken(): string
     {
         return "auth/token/";
+    }
+
+    public static function getLiveMembers(string $roomAddress): string
+    {
+        return self::getRoom($roomAddress) . "live-users/";
+    }
+
+    public static function getLiveMember(
+        string $roomAddress,
+        string $memberPhone
+    ): string {
+        return self::getLiveMembers($roomAddress) . "$memberPhone/";
     }
 }
 
