@@ -7,7 +7,6 @@ use html_writer;
 use context_module;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
-
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\Member;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\AuthToken;
 use MAChitgarha\MoodleModGharar\Util;
@@ -144,15 +143,10 @@ class ViewPageBuilder extends AbstractPageBuilder
             "{$user->firstname} {$user->lastname}"
         );
 
-        if ($this->api->hasLiveMember(
+        if (!$this->api->hasLiveMember(
             $this->instance->address,
             $liveMember->getPhone()
         )) {
-            $liveMember = $this->api->updateLiveMember(
-                $this->instance->address,
-                $liveMember
-            );
-        } else {
             $liveMember = $this->api->createLiveMember(
                 $this->instance->address,
                 $liveMember
