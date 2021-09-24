@@ -11,6 +11,7 @@ use GuzzleHttp\Exception\TransferException;
 use Psr\Http\Message\ResponseInterface;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AbstractMember;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\ToBeCreatedRoomMember;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
@@ -369,15 +370,15 @@ class API
         return false;
     }
 
-    public function generateAuthToken(AvailableRoomMember $member): AuthToken
+    public function generateAuthToken(AbstractMember $member): AuthToken
     {
         try {
             $authTokenRaw = $this->getSuccessfulJsonResponseDecodedContents(
                 $this->client->post(
                     RelativeURI::getAuthToken(),
                     [RequestOptions::FORM_PARAMS => [
-                        AvailableRoomMember::PROP_PHONE => $member->getPhone(),
-                        AvailableRoomMember::PROP_NAME => $member->getName(),
+                        AbstractMember::PROP_PHONE => $member->getPhone(),
+                        AbstractMember::PROP_NAME => $member->getName(),
                     ]]
                 )
             );
