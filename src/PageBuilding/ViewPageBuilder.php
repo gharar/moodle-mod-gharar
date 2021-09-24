@@ -246,7 +246,7 @@ class ViewPageBuilder extends AbstractPageBuilder
             $string = "enter_room";
         } else {
             $url = implode([
-                $this->roomInfo->getLiveAddress(),
+                $this->roomInfo->getLiveUrl(),
                 "?token=",
                 $this->authToken->getToken(),
             ]);

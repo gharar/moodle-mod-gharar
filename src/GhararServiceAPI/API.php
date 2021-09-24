@@ -91,8 +91,9 @@ class API
                 )
             );
         } catch (TransferException $e) {
-            ErrorHandler::handleGeneralErrors($e);
-            ErrorHandler::unhandled($e);
+            (new ErrorHandler($e))
+                ->handleGeneralErrors()
+                ->unhandled();
         }
 
         $roomList = [];
@@ -117,9 +118,10 @@ class API
                 )
             );
         } catch (TransferException $e) {
-            ErrorHandler::handleDuplicatedRoomName($e);
-            ErrorHandler::handleGeneralErrors($e);
-            ErrorHandler::unhandled($e);
+            (new ErrorHandler($e))
+                ->handleDuplicatedRoomName()
+                ->handleGeneralErrors()
+                ->unhandled();
         }
 
         return AvailableRoom::fromRawObject($roomRaw);
@@ -134,8 +136,9 @@ class API
                 )
             );
         } catch (TransferException $e) {
-            ErrorHandler::handleGeneralErrors($e);
-            ErrorHandler::unhandled($e);
+            (new ErrorHandler($e))
+                ->handleGeneralErrors()
+                ->unhandled();
         }
 
         return AvailableRoom::fromRawObject($roomRaw);
@@ -155,8 +158,9 @@ class API
                 )
             );
         } catch (TransferException $e) {
-            ErrorHandler::handleGeneralErrors($e);
-            ErrorHandler::unhandled($e);
+            (new ErrorHandler($e))
+                ->handleGeneralErrors()
+                ->unhandled();
         }
 
         return AvailableRoom::fromRawObject($roomRaw);
@@ -171,8 +175,9 @@ class API
                 )
             );
         } catch (TransferException $e) {
-            ErrorHandler::handleGeneralErrors($e);
-            ErrorHandler::unhandled($e);
+            (new ErrorHandler($e))
+                ->handleGeneralErrors()
+                ->unhandled();
         }
     }
 
@@ -189,8 +194,9 @@ class API
                     )
                 );
         } catch (TransferException $e) {
-            ErrorHandler::handleGeneralErrors($e);
-            ErrorHandler::unhandled($e);
+            (new ErrorHandler($e))
+                ->handleGeneralErrors()
+                ->unhandled();
         }
 
         $roomMemberList = [];
@@ -222,8 +228,9 @@ class API
                 )
             );
         } catch (TransferException $e) {
-            ErrorHandler::handleGeneralErrors($e);
-            ErrorHandler::unhandled($e);
+            (new ErrorHandler($e))
+                ->handleGeneralErrors()
+                ->unhandled();
         }
 
         return AvailableRoomMember::fromRawObject($memberRaw);
@@ -251,8 +258,9 @@ class API
                 )
             );
         } catch (TransferException $e) {
-            ErrorHandler::handleGeneralErrors($e);
-            ErrorHandler::unhandled($e);
+            (new ErrorHandler($e))
+                ->handleGeneralErrors()
+                ->unhandled();
         }
 
         return AvailableRoomMember::fromRawObject($memberRaw);
@@ -272,8 +280,9 @@ class API
                 )
             );
         } catch (TransferException $e) {
-            ErrorHandler::handleGeneralErrors($e);
-            ErrorHandler::unhandled($e);
+            (new ErrorHandler($e))
+                ->handleGeneralErrors()
+                ->unhandled();
         }
     }
 
@@ -305,8 +314,9 @@ class API
                     )
                 );
         } catch (TransferException $e) {
-            ErrorHandler::handleGeneralErrors($e);
-            ErrorHandler::unhandled($e);
+            (new ErrorHandler($e))
+                ->handleGeneralErrors()
+                ->unhandled();
         }
 
         $liveMemberList = [];
@@ -338,14 +348,15 @@ class API
                 )
             );
         } catch (TransferException $e) {
-            ErrorHandler::handleGeneralErrors($e);
-            ErrorHandler::unhandled($e);
+            (new ErrorHandler($e))
+                ->handleGeneralErrors()
+                ->unhandled();
         }
 
         return AvailableLiveMember::fromRawObject($memberRaw);
     }
 
-    public function updateRoomMember(
+    public function updateLiveMember(
         string $roomAddress,
         AvailableLiveMember $member
     ): AvailableLiveMember {
@@ -367,8 +378,9 @@ class API
                 )
             );
         } catch (TransferException $e) {
-            ErrorHandler::handleGeneralErrors($e);
-            ErrorHandler::unhandled($e);
+            (new ErrorHandler($e))
+                ->handleGeneralErrors()
+                ->unhandled();
         }
 
         return AvailableLiveMember::fromRawObject($memberRaw);
@@ -402,8 +414,9 @@ class API
                 )
             );
         } catch (TransferException $e) {
-            ErrorHandler::handleGeneralErrors($e);
-            ErrorHandler::unhandled($e);
+            (new ErrorHandler($e))
+                ->handleGeneralErrors()
+                ->unhandled();
         }
 
         return AuthToken::fromRawObject($authTokenRaw);
@@ -504,15 +517,13 @@ class ErrorHandler
         ConnectException $exception
     ): void {
         self::handleTimeout($exception);
-
-        return $this;
     }
 
     private static function handleTimeout(ConnectException $exception): void
     {
         if (preg_match(
             "/(timeout|timed out)/i",
-            $this->exception->getMessage())
+            $exception->getMessage())
         ) {
             throw new TimeoutException();
         }
@@ -535,7 +546,7 @@ class ErrorHandler
         }
     }
 
-    public function unhandled(TransferException $exception): self
+    public function unhandled(): self
     {
         if ($this->exception instanceof RequestException) {
             $response = $this->exception->getResponse();

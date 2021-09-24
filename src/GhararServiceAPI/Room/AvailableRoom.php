@@ -12,7 +12,7 @@ class AvailableRoom extends AbstractRoom
     public const PROP_SHARE_URL = "share_url";
     public const PROP_IS_ACTIVE = "is_active";
     public const PROP_HAS_LIVE = "has_live";
-    public const PROP_LIVE_ADDRESS = "live_address";
+    public const PROP_LIVE_URL = "live_url";
 
     /** @var string */
     private $address;
@@ -27,7 +27,7 @@ class AvailableRoom extends AbstractRoom
     private $hasLive = null;
 
     /** @var string|null */
-    private $liveAddress = null;
+    private $liveUrl = null;
 
     public function __construct(string $name, string $address)
     {
@@ -50,7 +50,7 @@ class AvailableRoom extends AbstractRoom
             ->setShareUrl($object->{self::PROP_SHARE_URL})
             ->setIsActive($object->{self::PROP_IS_ACTIVE})
             ->setHasLive($object->{self::PROP_HAS_LIVE})
-            ->setLiveAddress($object->{self::PROP_LIVE_ADDRESS});
+            ->setLiveUrl($object->{self::PROP_LIVE_URL});
 
         return $room;
     }
@@ -79,9 +79,9 @@ class AvailableRoom extends AbstractRoom
         return $this;
     }
 
-    public function setLiveAddress(string $liveAddress): self
+    public function setLiveUrl(string $liveUrl): self
     {
-        $this->liveAddress = $liveAddress;
+        $this->liveUrl = $liveUrl;
         return $this;
     }
 
@@ -108,9 +108,9 @@ class AvailableRoom extends AbstractRoom
         return $this->hasLive;
     }
 
-    public function getLiveAddress(): string
+    public function getLiveUrl(): string
     {
-        $this->assertPropertyIsNotNull($this->liveAddress, "liveAddress");
-        return $this->liveAddress;
+        $this->assertPropertyIsNotNull($this->liveUrl, "liveUrl");
+        return $this->liveUrl;
     }
 }
