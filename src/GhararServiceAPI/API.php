@@ -188,7 +188,7 @@ class API
     public function listRoomMembers(string $roomAddress): array
     {
         try {
-            $liveMemberListRaw =
+            $roomMemberListRaw =
                 $this->getSuccessfulJsonResponseDecodedContents(
                     $this->client->get(
                         RelativeURI::getRoomMembers($roomAddress)
@@ -220,11 +220,11 @@ class API
                     RelativeURI::getRoomMembers($roomAddress),
                     [RequestOptions::FORM_PARAMS => [
                         ToBeCreatedRoomMember::PROP_PHONE =>
-                            $member->getPhone(),
+                            $newMember->getPhone(),
                         ToBeCreatedRoomMember::PROP_IS_ADMIN =>
-                            $member->isAdmin(),
+                            $newMember->isAdmin(),
                         ToBeCreatedRoomMember::PROP_NAME =>
-                            $member->getName(),
+                            $newMember->getName(),
                     ]]
                 )
             );
@@ -340,11 +340,11 @@ class API
                     RelativeURI::getRoomMembers($roomAddress),
                     [RequestOptions::FORM_PARAMS => [
                         ToBeCreatedLiveMember::PROP_PHONE =>
-                            $member->getPhone(),
+                            $newMember->getPhone(),
                         ToBeCreatedLiveMember::PROP_IS_ADMIN =>
-                            $member->isAdmin(),
+                            $newMember->isAdmin(),
                         ToBeCreatedLiveMember::PROP_NAME =>
-                            $member->getName(),
+                            $newMember->getName(),
                     ]]
                 )
             );

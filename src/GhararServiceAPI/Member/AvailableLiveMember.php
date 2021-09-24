@@ -2,6 +2,6 @@
 
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Member;
 
-class AvailableLiveMember extends AbstractMember
+class AvailableLiveMember extends ToBeCreatedLiveMember
 {
 }

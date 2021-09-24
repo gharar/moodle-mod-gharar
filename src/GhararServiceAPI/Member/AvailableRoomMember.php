@@ -2,16 +2,8 @@
 
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Member;
 
-class AvailableRoomMember extends AbstractMember implements IsAdminInterface
+class AvailableRoomMember extends ToBeCreatedRoomMember
 {
-    use IsAdminTrait;
-
-    public function __construct(string $phone, bool $isAdmin)
-    {
-        parent::__construct($phone);
-        $this->setIsAdmin($isAdmin);
-    }
-
     public static function fromRawObject(object $object): self
     {
         $member = new self(
