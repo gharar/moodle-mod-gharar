@@ -2,7 +2,7 @@
 
 namespace MAChitgarha\MoodleModGharar\PluginUpgrade;
 
-use mysqli_native_moodle_database;
+use moodle_database;
 use database_manager;
 use xmldb_table;
 use xmldb_field;
@@ -25,7 +25,7 @@ use MAChitgarha\MoodleModGharar\Moodle\Globals;
  */
 abstract class AbstractBase
 {
-    /** @var mysqli_native_moodle_database */
+    /** @var moodle_database */
     protected $database;
     /** @var database_manager */
     protected $databaseManager;

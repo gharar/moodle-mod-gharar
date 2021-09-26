@@ -3,8 +3,10 @@
 namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
 use cm_info;
+use html_writer;
 use context_module;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\User;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\AuthToken;
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
@@ -35,6 +37,9 @@ class ViewPageBuilder extends AbstractPageBuilder
     /** @var API */
     private $api;
 
+    /** @var AvailableRoom */
+    private $roomInfo;
+
     /** @var AuthToken */
     private $authToken;
 
@@ -46,7 +51,8 @@ class ViewPageBuilder extends AbstractPageBuilder
             ->initInstance()
             ->initContext()
             ->requireLogin()
-            ->initAPI();
+            ->initAPI()
+            ->initRoomInfo();
     }
 
     private function initParams(): self
@@ -105,39 +111,102 @@ class ViewPageBuilder extends AbstractPageBuilder
         return $this;
     }
 
+    private function initRoomInfo(): self
+    {
+        $this->roomInfo = $this->api->retrieveRoom(
+            $this->instance->address
+        );
+
+        return $this;
+    }
+
     protected function prepare(): self
     {
-        $user = Globals::getUser();
-        $virtualPhoneNumber = Util::generateVirtualPhoneNumberFromId($user->id);
+        if ($this->isCurrentUserNonAdminHavingLive()) {
+            $this->prepareNonAdminLiveMember();
+        } else {
+            $this->prepareRoomMember();
+        }
 
-        $isAdmin = has_capability(
+        return $this;
+    }
+
+    private function prepareNonAdminLiveMember(): self
+    {
+        $user = Globals::getUser();
+
+        $liveMember = new AvailableLiveMember(
+            Util::generateVirtualPhoneNumberFromId($user->id)
+        );
+        $liveMember->setName(
+            "{$user->firstname} {$user->lastname}"
+        );
+
+        if (!$this->api->hasLiveMember(
+            $this->instance->address,
+            $liveMember->getPhone()
+        )) {
+            $liveMember = $this->api->createLiveMember(
+                $this->instance->address,
+                $liveMember
+            );
+        }
+
+        $this->authToken = $this->api->generateAuthToken($liveMember);
+
+        return $this;
+    }
+
+    private function prepareRoomMember(): self
+    {
+        $user = Globals::getUser();
+
+        $roomMember = new AvailableRoomMember(
+            Util::generateVirtualPhoneNumberFromId($user->id),
+            $this->isCurrentUserRoomAdmin()
+        );
+        $roomMember->setName(
+            "{$user->firstname} {$user->lastname}"
+        );
+
+        if ($this->api->hasRoomMember(
+            $this->instance->address,
+            $roomMember->getPhone()
+        )) {
+            $roomMember = $this->api->updateRoomMember(
+                $this->instance->address,
+                $roomMember
+            );
+        } else {
+            $roomMember = $this->api->createRoomMember(
+                $this->instance->address,
+                $roomMember
+            );
+        }
+
+        $this->authToken = $this->api->generateAuthToken($roomMember);
+
+        return $this;
+    }
+
+    private function isCurrentUserRoomAdmin(): bool
+    {
+        return has_capability(
             Plugin::CAPABILITY_ENTER_ROOM_AS_ADMIN,
             $this->context
         );
+    }
 
-        $virtualUser = new User(
-            $virtualPhoneNumber,
-            $isAdmin
-        );
-        $virtualUser->setName("{$user->firstname} {$user->lastname}");
+    private function isCurrentRoomHavingLive(): bool
+    {
+        return $this->roomInfo->hasLive();
+    }
 
-        // Make sure the user is not subscribed
-        try {
-            $this->api->destroyRoomMember(
-                $this->instance->address,
-                $virtualUser->getPhone()
-            );
-        } catch (\Throwable $e) {
-        }
-
-        $virtualUser = $this->api->createRoomMember(
-            $this->instance->address,
-            $virtualUser
-        );
-
-        $this->authToken = $this->api->generateAuthToken($virtualUser);
-
-        return $this;
+    private function isCurrentUserNonAdminHavingLive(): bool
+    {
+        return
+            $this->isCurrentRoomHavingLive() &&
+            !$this->isCurrentUserRoomAdmin();
     }
 
     protected function buildPage(): self
@@ -161,14 +230,25 @@ class ViewPageBuilder extends AbstractPageBuilder
 
     protected function generateOutputMainContent(): string
     {
-        $room = new AvailableRoom(
-            $this->instance->name,
-            $this->instance->address
-        );
+        if (!$this->isCurrentRoomHavingLive()) {
+            $url = implode([
+                $this->roomInfo->getShareUrl(),
+                "?jwt=",
+                $this->authToken->getToken(),
+            ]);
+            $string = "enter_room";
+        } else {
+            $url = implode([
+                $this->roomInfo->getLiveUrl(),
+                "?token=",
+                $this->authToken->getToken(),
+            ]);
+            $string = "enter_live";
+        }
 
-        return \html_writer::link(
-            $room->getShareUrl() . "?jwt=" . $this->authToken->getToken(),
-            Util::getString("enter_room"),
+        return html_writer::link(
+            $url,
+            Util::getString($string),
             ["target" => "_blank"]
         );
     }

@@ -2,7 +2,7 @@
 
 namespace MAChitgarha\MoodleModGharar\Moodle;
 
-use mysqli_native_moodle_database;
+use moodle_database;
 use stdClass;
 use bootstrap_renderer;
 use moodle_page;
@@ -20,7 +20,7 @@ class Globals
     {
     }
 
-    public static function getDatabase(): mysqli_native_moodle_database
+    public static function getDatabase(): moodle_database
     {
         global $DB;
         return $DB;
