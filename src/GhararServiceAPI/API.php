@@ -345,7 +345,7 @@ class API
                             $newMember->getName(),
                     ]]
                 )
-            );
+            )->users[0];
         } catch (TransferException $e) {
             (new ErrorHandler($e))
                 ->handleGeneralErrors()
