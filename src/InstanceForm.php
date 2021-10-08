@@ -332,10 +332,10 @@ abstract class InstanceForm extends \moodleform_mod
     {
         /*
          * Including the roles manager, course creator, editing teacher,
-         * teacher, and student. The values are as strings for keeping
-         * consistency with the form itself.
+         * teacher. The values are as strings for keeping consistency with the
+         * form itself.
          */
-        return ["1", "2", "3", "4", "5"];
+        return ["1", "2", "3", "4"];
     }
 }
 

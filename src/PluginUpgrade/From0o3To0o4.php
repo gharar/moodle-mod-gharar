@@ -50,7 +50,7 @@ class From0o3To0o4 extends AbstractBase
          * classes that would change any time in the future. By the way, see
          * InstanceDataForm::getRolesCanViewRecordingsFieldDefault().
          */
-        $record->roles_can_view_recordings = '["1", "2", "3", "4", "5"]';
+        $record->roles_can_view_recordings = '["1", "2", "3", "4"]';
 
         return [true, $record];
     }
