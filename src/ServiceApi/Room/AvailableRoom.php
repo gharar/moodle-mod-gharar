@@ -4,12 +4,11 @@ namespace Gharar\MoodleModGharar\ServiceApi\Room;
 
 /**
  * A room that is supposed to be available and exist. In other words, you can
- * retrieve its information using {@link API::retrieveRoom()}.
+ * retrieve its information using {@link Api::retrieveRoom()}.
  */
 class AvailableRoom extends AbstractRoom
 {
     public const PROP_ADDRESS = "address";
-    public const PROP_SHARE_URL = "share_url";
     public const PROP_IS_ACTIVE = "is_active";
     public const PROP_HAS_LIVE = "has_live";
     public const PROP_LIVE_URL = "live_url";
@@ -25,9 +24,6 @@ class AvailableRoom extends AbstractRoom
 
     /** @var bool|null */
     private $hasLive = null;
-
-    /** @var string|null */
-    private $liveUrl = null;
 
     public function __construct(string $name, string $address)
     {
@@ -47,7 +43,6 @@ class AvailableRoom extends AbstractRoom
 
         $room
             ->setIsPrivate($object->{self::PROP_IS_PRIVATE})
-            ->setShareUrl($object->{self::PROP_SHARE_URL})
             ->setIsActive($object->{self::PROP_IS_ACTIVE})
             ->setHasLive($object->{self::PROP_HAS_LIVE})
             ->setLiveUrl($object->{self::PROP_LIVE_URL});
@@ -58,12 +53,6 @@ class AvailableRoom extends AbstractRoom
     private function setAddress(string $address): self
     {
         $this->address = $address;
-        return $this;
-    }
-
-    private function setShareUrl(string $shareUrl): self
-    {
-        $this->shareUrl = $shareUrl;
         return $this;
     }
 
