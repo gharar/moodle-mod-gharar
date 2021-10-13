@@ -5,6 +5,8 @@ namespace MAChitgarha\MoodleModGharar\PageBuilding;
 use cm_info;
 use html_writer;
 use context_module;
+use MAChitgarha\MoodleModGharar\Capability;
+
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\AuthToken;
@@ -192,7 +194,7 @@ class ViewPageBuilder extends AbstractPageBuilder
     private function isCurrentUserRoomAdmin(): bool
     {
         return has_capability(
-            Plugin::CAPABILITY_ENTER_ROOM_AS_ADMIN,
+            Capability::ENTER_ROOM_AS_ADMIN,
             $this->context
         );
     }

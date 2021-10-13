@@ -20,6 +20,7 @@ class Capability
             Property::CONTEXT_LEVEL => CONTEXT_COURSE,
             Property::ARCHE_TYPES => [
                 Role::MANAGER => CAP_ALLOW,
+                Role::COURSE_CREATOR => CAP_ALLOW,
                 Role::EDITING_TEACHER => CAP_ALLOW,
             ],
             Property::CLONE_PERMISSIONS_FROM =>
@@ -31,6 +32,7 @@ class Capability
             Property::CONTEXT_LEVEL => CONTEXT_MODULE,
             Property::ARCHE_TYPES => [
                 Role::MANAGER => CAP_ALLOW,
+                Role::COURSE_CREATOR => CAP_ALLOW,
                 Role::EDITING_TEACHER => CAP_ALLOW,
                 Role::TEACHER => CAP_ALLOW,
                 Role::STUDENT => CAP_ALLOW,
@@ -67,7 +69,9 @@ class CapabilityType
 class Role
 {
     public const MANAGER = "manager";
+    public const COURSE_CREATOR = "coursecreator";
     public const EDITING_TEACHER = "editingteacher";
     public const TEACHER = "teacher";
     public const STUDENT = "student";
+    public const GUEST = "guest";
 }
