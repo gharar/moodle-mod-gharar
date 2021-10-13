@@ -391,6 +391,29 @@ class API
         return AuthToken::fromRawObject($authTokenRaw);
     }
 
+    public function listRoomRecordings(string $roomAddress): array
+    {
+        try {
+            $roomRecordingListRaw =
+                $this->getSuccessfulJsonResponseDecodedContents(
+                    $this->client->get(
+                        RelativeURI::getRoomRecordings($roomAddress)
+                    )
+                )->recordings;
+        } catch (TransferException $e) {
+            (new ErrorHandler($e))
+                ->handleGeneralErrors()
+                ->unhandled();
+        }
+
+        $roomRecordingList = [];
+        foreach ($roomRecordingListRaw as $roomRecordingRaw) {
+            $roomRecordingList[] = Recording::fromRawObject($roomRecordingRaw);
+        }
+
+        return $roomRecordingList;
+    }
+
     /**
      * @return object|array
      */
@@ -452,6 +475,11 @@ class RelativeURI
         string $memberPhone
     ): string {
         return self::getLiveMembers($roomAddress) . "$memberPhone/";
+    }
+
+    public static function getRoomRecordings(string $roomAddress): string
+    {
+        return self::getRooms() . "$roomAddress/recordings/";
     }
 }
 
