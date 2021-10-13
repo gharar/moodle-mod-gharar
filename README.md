@@ -1,3 +1,5 @@
+<!-- TODO: Improve documentation, and add an English version -->
+
 **Note:** English language support is not actively maintained, both for the plugin itself and the documentation (e.g. this readme and the changelog). If you think you need it or it is a must, please open an issue for further discussion on that.
 
 <div dir="rtl">

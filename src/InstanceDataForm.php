@@ -26,6 +26,8 @@ require_once "{$CFG->dirroot}/course/moodleform_mod.php";
  *
  * @todo Add messages for MoodleQuickForm::addRule() calls, getString method of
  * Util class.
+ * @todo Add visual helps (i.e. shown as a question mark in a blue circle) for
+ * different inputs.
  */
 abstract class InstanceDataForm extends \moodleform_mod
 {
