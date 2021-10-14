@@ -24,11 +24,10 @@ class Farsi
         "plugin_name" => self::PLUGIN_NAME,
         "plugin_name_plural" => self::PLUGIN_NAME_PLURAL,
 
-        "name" => "نام",
-        "room_name" => "نام اتاق",
-        "is_private" => "خصوصی بودن",
-
-        "room_settings" => "تنظیمات اتاق",
+        "instance_data_form_field_name" => "نام",
+        "instance_data_form_field_room_name" => "نام اتاق",
+        "instance_data_form_field_is_private" => "خصوصی",
+        "instance_data_form_block_room_settings" => "تنظیمات اتاق",
 
         "access_token" => "توکن دسترسی",
         "access_token_description" => "کد خصوصی یکتای دسترسی به قرار",

@@ -31,36 +31,51 @@ require_once "{$CFG->dirroot}/course/moodleform_mod.php";
  */
 abstract class InstanceDataForm extends \moodleform_mod
 {
-    protected const FIELD_TYPE_TEXT = "text";
-    protected const FIELD_TYPE_CHECKBOX = "checkbox";
-    protected const FIELD_TYPE_ADVANCED_CHECKBOX = "advcheckbox";
+    private const FIELD_TYPE_TEXT = "text";
+    private const FIELD_TYPE_CHECKBOX = "checkbox";
+    private const FIELD_TYPE_ADVANCED_CHECKBOX = "advcheckbox";
 
-    protected const RULE_TYPE_REQUIRED = "required";
-    protected const RULE_TYPE_REGEX = "regex";
+    private const ELEMENT_TYPE_BLOCK = "header";
 
-    protected const RULE_VALIDATION_CLIENT = "client";
-    protected const RULE_VALIDATION_SERVER = "server";
+    private const RULE_TYPE_REQUIRED = "required";
+    private const RULE_TYPE_REGEX = "regex";
 
-    private const BLOCK_TYPE = "header";
-    public const BLOCK_ROOM_SETTINGS_NAME = "room_settings";
+    private const RULE_VALIDATION_CLIENT = "client";
+    private const RULE_VALIDATION_SERVER = "server";
+
+    public const BLOCK_ROOM_SETTINGS_NAME = "room_config";
 
     public const FIELD_NAME_NAME = "name";
     private const FIELD_NAME_TYPE = self::FIELD_TYPE_TEXT;
-    private const FIELD_NAME_LENGTH = 256;
+    private const FIELD_NAME_LENGTH = 255;
     private const FIELD_NAME_PARAM_TYPE = \PARAM_TEXT;
 
     public const FIELD_ROOM_NAME_NAME = "room_name";
     private const FIELD_ROOM_NAME_TYPE = self::FIELD_TYPE_TEXT;
-    private const FIELD_ROOM_NAME_LENGTH = 256;
+    private const FIELD_ROOM_NAME_LENGTH = 255;
     private const FIELD_ROOM_NAME_PARAM_TYPE = \PARAM_TEXT;
 
     public const FIELD_IS_PRIVATE_NAME = "is_private";
     private const FIELD_IS_PRIVATE_TYPE = self::FIELD_TYPE_ADVANCED_CHECKBOX;
     private const FIELD_IS_PRIVATE_PARAM_TYPE = \PARAM_BOOL;
 
+    /** @var object|null */
+    private $instance = null;
+
+    private static function getFieldString(string $fieldName): string
+    {
+        return Util::getString("instance_data_form_field_$fieldName");
+    }
+
+    private static function getBlockString(string $blockName): string
+    {
+        return Util::getString("instance_data_form_block_$blockName");
+    }
+
     public function definition(): void
     {
         $this
+            ->initInstanceIfUpdating()
             ->addNameField()
             ->addRoomSettingsBlock();
 
@@ -68,12 +83,36 @@ abstract class InstanceDataForm extends \moodleform_mod
         $this->add_action_buttons();
     }
 
+    /**
+     * Initializes the instance data from database, if it exists (i.e. is being
+     * updated).
+     */
+    private function initInstanceIfUpdating(): self
+    {
+        if ($this->isUpdatingExistingInstance()) {
+            $this->instance = Globals::getDatabase()
+                ->get_record(
+                    Database::TABLE_MAIN,
+                    ["id" => $this->_instance],
+                    "address",
+                    \MUST_EXIST
+                );
+        }
+
+        return $this;
+    }
+
+    private function isUpdatingExistingInstance(): bool
+    {
+        return !empty($this->_instance);
+    }
+
     private function addNameField(): self
     {
         $this->_form->addElement(
             self::FIELD_NAME_TYPE,
             self::FIELD_NAME_NAME,
-            Util::getString("name"),
+            self::getFieldString(self::FIELD_NAME_NAME),
             ["size" => self::FIELD_NAME_LENGTH]
         );
 
@@ -95,9 +134,9 @@ abstract class InstanceDataForm extends \moodleform_mod
     private function addRoomSettingsBlock(): self
     {
         $this->_form->addElement(
-            self::BLOCK_TYPE,
+            self::ELEMENT_TYPE_BLOCK,
             self::BLOCK_ROOM_SETTINGS_NAME,
-            Util::getString("room_settings")
+            self::getBlockString(self::BLOCK_ROOM_SETTINGS_NAME)
         );
 
         $this->_form->setExpanded(self::BLOCK_ROOM_SETTINGS_NAME);
@@ -112,7 +151,7 @@ abstract class InstanceDataForm extends \moodleform_mod
         $this->_form->addElement(
             self::FIELD_ROOM_NAME_TYPE,
             self::FIELD_ROOM_NAME_NAME,
-            Util::getString("room_name"),
+            self::getFieldString(self::FIELD_ROOM_NAME_NAME),
             ["size" => self::FIELD_ROOM_NAME_LENGTH]
         );
 
@@ -136,7 +175,7 @@ abstract class InstanceDataForm extends \moodleform_mod
         $this->_form->addElement(
             self::FIELD_IS_PRIVATE_TYPE,
             self::FIELD_IS_PRIVATE_NAME,
-            Util::getString("is_private")
+            self::getFieldString(self::FIELD_IS_PRIVATE_NAME)
         );
 
         $this->_form->setType(
@@ -156,16 +195,9 @@ abstract class InstanceDataForm extends \moodleform_mod
             $api = new API(
                 Util::getConfig(AdminSettingsBuilder::CONFIG_ACCESS_TOKEN_NAME)
             );
-
-            $record = Globals::getDatabase()
-                ->get_record(
-                    Database::TABLE_MAIN,
-                    ["id" => $this->_instance],
-                    "address",
-                    \MUST_EXIST
-                );
-
-            $default = $api->retrieveRoom($record->address)->isPrivate();
+            $default = $api
+                ->retrieveRoom($this->instance->address)
+                ->isPrivate();
         }
 
         $this->_form->setDefault(
@@ -174,10 +206,5 @@ abstract class InstanceDataForm extends \moodleform_mod
         );
 
         return $this;
-    }
-
-    private function isUpdatingExistingInstance(): bool
-    {
-        return !empty($this->_instance);
     }
 }

@@ -28,11 +28,10 @@ class English
         "plugin_name" => self::PLUGIN_NAME,
         "plugin_name_plural" => self::PLUGIN_NAME_PLURAL,
 
-        "name" => "Name",
-        "room_name" => "Room name",
-        "is_private" => "Private",
-
-        "room_settings" => "Room Settings",
+        "instance_data_form_field_name" => "Name",
+        "instance_data_form_field_room_name" => "Room name",
+        "instance_data_form_field_is_private" => "Private",
+        "instance_data_form_block_room_settings" => "Room Settings",
 
         "access_token" => "Access token",
         "access_token_description" => "-",
