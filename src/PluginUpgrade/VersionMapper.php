@@ -35,4 +35,9 @@ class VersionMapper
     {
         return (int)($version / 100);
     }
+
+    public static function makeVersionNumberFromDate(int $date): int
+    {
+        return $date * 100;
+    }
 }
