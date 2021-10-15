@@ -32,6 +32,9 @@ class English
         "instance_data_form_field_room_name" => "Room name",
         "instance_data_form_field_is_private" => "Private",
         "instance_data_form_block_room_settings" => "Room Settings",
+        "instance_data_form_block_recordings" => "Recordings",
+        "instance_data_form_block_roles_can_view_recordings" =>
+            "Show recordings for (roles)",
 
         "access_token" => "Access token",
         "access_token_description" => "-",

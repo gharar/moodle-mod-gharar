@@ -28,6 +28,9 @@ class Farsi
         "instance_data_form_field_room_name" => "نام اتاق",
         "instance_data_form_field_is_private" => "خصوصی",
         "instance_data_form_block_room_settings" => "تنظیمات اتاق",
+        "instance_data_form_block_recordings" => "موردهای ضبط‌شده",
+        "instance_data_form_block_roles_can_view_recordings" =>
+            "نمایش ضبط‌شده‌ها برای (نقش‌های)",
 
         "access_token" => "توکن دسترسی",
         "access_token_description" => "کد خصوصی یکتای دسترسی به قرار",
