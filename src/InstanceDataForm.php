@@ -43,7 +43,7 @@ abstract class InstanceDataForm extends \moodleform_mod
     private const RULE_VALIDATION_CLIENT = "client";
     private const RULE_VALIDATION_SERVER = "server";
 
-    public const BLOCK_ROOM_SETTINGS_NAME = "room_config";
+    public const BLOCK_ROOM_SETTINGS_NAME = "room_settings";
 
     public const FIELD_NAME_NAME = "name";
     private const FIELD_NAME_TYPE = self::FIELD_TYPE_TEXT;
@@ -77,16 +77,13 @@ abstract class InstanceDataForm extends \moodleform_mod
         $this
             ->initInstanceIfUpdating()
             ->addNameField()
-            ->addRoomSettingsBlock();
+            ->addRoomSettingsBlock()
+            ->addRecordingsBlock();
 
         $this->standard_coursemodule_elements();
         $this->add_action_buttons();
     }
 
-    /**
-     * Initializes the instance data from database, if it exists (i.e. is being
-     * updated).
-     */
     private function initInstanceIfUpdating(): self
     {
         if ($this->isUpdatingExistingInstance()) {
@@ -183,28 +180,25 @@ abstract class InstanceDataForm extends \moodleform_mod
             self::FIELD_IS_PRIVATE_PARAM_TYPE
         );
 
-        $this->setIsPrivateFieldDefault();
+        $this->_form->setDefault(
+            self::FIELD_IS_PRIVATE_NAME,
+            $this->getIsPrivateFieldValue()
+        );
 
         return $this;
     }
 
-    private function setIsPrivateFieldDefault(): self
+    private function getIsPrivateFieldValue(): bool
     {
-        $default = true;
         if ($this->isUpdatingExistingInstance()) {
-            $api = new API(
+            return (new API(
                 Util::getConfig(AdminSettingsBuilder::CONFIG_ACCESS_TOKEN_NAME)
-            );
-            $default = $api
+            ))
                 ->retrieveRoom($this->instance->address)
                 ->isPrivate();
+        } else {
+            // Default value
+            return true;
         }
-
-        $this->_form->setDefault(
-            self::FIELD_IS_PRIVATE_NAME,
-            $default
-        );
-
-        return $this;
     }
 }
