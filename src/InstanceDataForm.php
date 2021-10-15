@@ -34,6 +34,7 @@ abstract class InstanceDataForm extends \moodleform_mod
     private const FIELD_TYPE_TEXT = "text";
     private const FIELD_TYPE_CHECKBOX = "checkbox";
     private const FIELD_TYPE_ADVANCED_CHECKBOX = "advcheckbox";
+    private const FIELD_TYPE_SELECT = "select";
 
     private const ELEMENT_TYPE_BLOCK = "header";
 
@@ -44,6 +45,7 @@ abstract class InstanceDataForm extends \moodleform_mod
     private const RULE_VALIDATION_SERVER = "server";
 
     public const BLOCK_ROOM_SETTINGS_NAME = "room_settings";
+    public const BLOCK_RECORDINGS_NAME = "recordings";
 
     public const FIELD_NAME_NAME = "name";
     private const FIELD_NAME_TYPE = self::FIELD_TYPE_TEXT;
@@ -58,6 +60,11 @@ abstract class InstanceDataForm extends \moodleform_mod
     public const FIELD_IS_PRIVATE_NAME = "is_private";
     private const FIELD_IS_PRIVATE_TYPE = self::FIELD_TYPE_ADVANCED_CHECKBOX;
     private const FIELD_IS_PRIVATE_PARAM_TYPE = \PARAM_BOOL;
+
+    public const FIELD_ROLES_CAN_VIEW_RECORDING_NAME =
+        "roles_can_view_recording";
+    private const FIELD_ROLES_CAN_VIEW_RECORDING_TYPE = self::FIELD_TYPE_SELECT;
+    private const FIELD_ROLES_CAN_VIEW_RECORDING_PARAM_TYPE = \PARAM_RAW;
 
     /** @var object|null */
     private $instance = null;
@@ -199,6 +206,61 @@ abstract class InstanceDataForm extends \moodleform_mod
         } else {
             // Default value
             return true;
+        }
+    }
+
+    private function addRecordingsBlock(): self
+    {
+        $this->_form->addElement(
+            self::ELEMENT_TYPE_BLOCK,
+            self::BLOCK_RECORDINGS_NAME,
+            self::getBlockString(self::BLOCK_RECORDINGS_NAME)
+        );
+
+        return $this
+            ->addRolesCanViewRecordingsField();
+    }
+
+    private function addRolesCanViewRecordingsField(): self
+    {
+        $select = $this->_form->addElement(
+            self::FIELD_ROLES_CAN_VIEW_RECORDING_TYPE,
+            self::FIELD_ROLES_CAN_VIEW_RECORDING_NAME,
+            self::getFieldString(self::FIELD_ROLES_CAN_VIEW_RECORDING_NAME),
+            $this->generateRolesAsHtmlSelectOptions()
+        );
+        $select->setMultiple(true);
+
+        $this->_form->setType(
+            self::FIELD_ROLES_CAN_VIEW_RECORDING_NAME,
+            self::FIELD_ROLES_CAN_VIEW_RECORDING_PARAM_TYPE
+        );
+
+        foreach ($this->getRolesCanViewRecordingsFieldValue() as $roleId) {
+            $select->setSelected($roleId);
+        }
+
+        return $this;
+    }
+
+    private static function generateRolesAsHtmlSelectOptions(): array
+    {
+        return array_map(function (object $roleSpec) {
+            return $roleSpec->id;
+        }, \role_fix_names(\get_all_roles()));
+    }
+
+    private function getRolesCanViewRecordingsFieldValue(): array
+    {
+        if ($this->isUpdatingExistingInstance()) {
+            return $this->instance->roles_can_view_recordings;
+        } else {
+            /*
+             * Default value.
+             * Including the roles manager, course creator, editing teacher,
+             * teacher, and student.
+             */
+            return [1, 2, 3, 4, 5];
         }
     }
 }
