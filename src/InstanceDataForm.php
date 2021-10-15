@@ -7,6 +7,8 @@ use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
 use MAChitgarha\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
 use MAChitgarha\MoodleModGharar\Util;
 
+use PhpParser\JsonDecoder;
+
 /*
  * Defining this global variable is necessary here, because the moodleform_mod
  * file suppose it be available as a global variable. Is there anything worse
@@ -253,7 +255,9 @@ abstract class InstanceDataForm extends \moodleform_mod
     private function getRolesCanViewRecordingsFieldValue(): array
     {
         if ($this->isUpdatingExistingInstance()) {
-            return $this->instance->roles_can_view_recordings;
+            return (new JsonDecoder())->decode(
+                $this->instance->roles_can_view_recordings
+            );
         } else {
             /*
              * Default value.
