@@ -38,9 +38,14 @@ class PluginManager
         bool $state,
         int $targetVersion
     ): void {
+        // For the testing phase, i.e. when the next version number is unknown
+        if ($targetVersion === VersionMapper::VERSION_UNKNOWN) {
+            return;
+        }
+
         upgrade_mod_savepoint(
             $state,
-            VersionMapper::makeVersionNumberFromDate($targetVersion),
+            (string)(VersionMapper::makeVersionNumberFromDate($targetVersion)),
             Plugin::MODULE_NAME
         );
     }
