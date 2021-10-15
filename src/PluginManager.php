@@ -3,7 +3,6 @@
 namespace MAChitgarha\MoodleModGharar;
 
 use MAChitgarha\MoodleModGharar\PluginUpgrade\VersionMapper;
-use MAChitgarha\MoodleModGharar\PluginUpgrade\From0o1To0o2;
 
 class PluginManager
 {
@@ -13,14 +12,14 @@ class PluginManager
             $oldVersionNumber
         );
 
-        /*
-         * Updates are incremental. Meaning, for example, if the plugin is being
-         * upgraded from 0.1.0 to 0.3.0, it initially will be upgraded from
-         * 0.2.0, and then upgraded to 0.3.0.
-         */
-        if ($currentVersion === VersionMapper::VERSION_0_1) {
-            (new From0o1To0o2())->upgrade();
-            $currentVersion = VersionMapper::VERSION_0_2;
+        foreach (VersionMapper::INCREMENTAL_UPGRADE_INFO as $srcVersion => [
+            $upgraderClass,
+            $targetVersion,
+        ]) {
+            if ($currentVersion === $srcVersion) {
+                (new $upgraderClass())->upgrade();
+                $currentVersion = $targetVersion;
+            }
         }
 
         return true;
