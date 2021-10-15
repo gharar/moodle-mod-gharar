@@ -28,6 +28,7 @@ class VersionMapper
     public const INCREMENTAL_UPGRADE_INFO = [
         VERSION_0_1 => [From0o1To0o2::class, VERSION_0_2],
         VERSION_0_2 => [StubUpgrader::class, VERSION_0_3],
+        VERSION_0_3 => [From0o3To0o4::class, VERSION_0_4],
     ];
 
     public static function extractDateFromVersionNumber(int $version): int

@@ -35,7 +35,9 @@ abstract class AbstractBase
 
     protected const FIELD_ATTR_NAME = "name";
     protected const FIELD_ATTR_TYPE = "type";
-    protected const FIELD_ATTR_PRECISION = "precision";
+    protected const FIELD_ATTR_LENGTH = "precision";
+    #[Deprecated]
+    protected const FIELD_ATTR_PRECISION = self::FIELD_ATTR_LENGTH;
     protected const FIELD_ATTR_UNSINGED = "unsigned";
     protected const FIELD_ATTR_NOT_NULL = "notnull";
     protected const FIELD_ATTR_SEQUENCE = "sequence";
