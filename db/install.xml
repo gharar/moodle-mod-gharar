@@ -17,8 +17,8 @@
                     SEQUENCE="false"/>
                 <FIELD NAME="room_name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
                 <FIELD NAME="address" TYPE="char" LENGTH="44" NOTNULL="true" SEQUENCE="false"/>
-                <FIELD NAME="roles_can_view_recordings" TYPE="text" NOTNULL="true" DEFAULT="[]"
-                    SEQUENCE="false" COMMENT="A JSON array of role IDs able to do so"/>
+                <FIELD NAME="roles_can_view_recordings" TYPE="text" NOTNULL="true" SEQUENCE="false"
+                    COMMENT="A JSON array of role IDs able to do so"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

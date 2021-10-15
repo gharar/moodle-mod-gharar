@@ -2,6 +2,8 @@
 
 namespace MAChitgarha\MoodleModGharar\PluginUpgrade;
 
+use Webmozart\Json\JsonEncoder;
+
 class From0o3To0o4 extends AbstractBase
 {
     private const NEW_FIELD_INTRO = [
@@ -22,7 +24,6 @@ class From0o3To0o4 extends AbstractBase
         self::FIELD_ATTR_NAME => "roles_can_view_recordings",
         self::FIELD_ATTR_TYPE => \XMLDB_TYPE_TEXT,
         self::FIELD_ATTR_NOT_NULL => true,
-        self::FIELD_ATTR_DEFAULT => "[]",
         self::FIELD_ATTR_SEQUENCE => false,
     ];
 
@@ -34,6 +35,8 @@ class From0o3To0o4 extends AbstractBase
 
     protected function upgradeMainTableRecord(\stdClass $record): array
     {
+        $record->roles_can_view_recordings = (new JsonEncoder())->encode([]);
+
         return [true, $record];
     }
 }
