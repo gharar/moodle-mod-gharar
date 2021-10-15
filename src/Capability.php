@@ -11,6 +11,7 @@ class Capability
 {
     public const ADD_INSTANCE = "mod/gharar:addinstance";
     public const VIEW_INSTANCE = "mod/gharar:view";
+    /** @todo Rename this */
     public const ENTER_ROOM_AS_ADMIN = "mod/gharar:enter_room_as_admin";
 
     public const DEFINITIONS = [
