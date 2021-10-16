@@ -41,14 +41,12 @@ class InstanceManager
          * One can inject room address into the hidden address field in data
          * form to make use of existing room, instead of creating a new one.
          */
-        if (!$this->instanceHasAddress($instance)) {
-            $room = $this->createNewRoomFromInstance($instance);
+        if (!$this->isSetAddress($instance)) {
+            $room = $this->createNewRoom($instance);
             $instance->address = $room->getAddress();
         }
 
-        $instance->roles_can_view_recordings = json_encode(
-            $instance->roles_can_view_recordings
-        );
+        $this->setRolesCanViewRecordings($instance);
 
         /*
          * Here, if a record with the same "room_name" or "address" exists,
@@ -60,12 +58,12 @@ class InstanceManager
         return $id;
     }
 
-    private function instanceHasAddress(object $instance): bool
+    private function isSetAddress(object $instance): bool
     {
         return (bool)(\preg_match(API::REGEX_ROOM_ADDRESS, $instance->address));
     }
 
-    private function createNewRoomFromInstance(object $instance): AvailableRoom
+    private function createNewRoom(object $instance): AvailableRoom
     {
         return $this->api->createRoom(new ToBeCreatedRoom(
             $instance->room_name,
@@ -73,34 +71,34 @@ class InstanceManager
         ));
     }
 
+    private function setRolesCanViewRecordings(object $instance): void
+    {
+        $instance->roles_can_view_recordings = json_encode(
+            $instance->roles_can_view_recordings
+        );
+    }
+
     /**
      * @todo Split into more functions.
      */
     public function update(object $instance): bool
     {
-        // Important: The id is not stored in the "id" field, but the
-        // "instance" one
+        /*
+         * Important: The id is not stored in the "id" field, but the
+         * "instance" one.
+         */
         $instance->id = $instance->instance;
-
-        $oldRecord = Globals::getDatabase()
-            ->get_record(
-                Database::TABLE_MAIN,
-                ["id" => $instance->id],
-                "*",
-                \MUST_EXIST
-            );
 
         $room = new AvailableRoom(
             $instance->room_name,
-            $oldRecord->address
+            $instance->address
         );
         $room->setIsPrivate($instance->is_private);
         $room->setIsActive(true);
 
         $room = $this->api->updateRoom($room);
 
-        $newRecord = $instance;
-        $newRecord->address = $room->getAddress();
+        $this->setRolesCanViewRecordings($instance);
 
         $result = Globals::getDatabase()
             ->update_record(Database::TABLE_MAIN, $instance);
