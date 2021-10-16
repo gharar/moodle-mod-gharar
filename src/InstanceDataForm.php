@@ -6,8 +6,7 @@ use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
 use MAChitgarha\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
 use MAChitgarha\MoodleModGharar\Util;
-
-use PhpParser\JsonDecoder;
+use Webmozart\Json\JsonDecoder;
 
 /*
  * Defining this global variable is necessary here, because the moodleform_mod
@@ -64,7 +63,7 @@ abstract class InstanceDataForm extends \moodleform_mod
     private const FIELD_IS_PRIVATE_PARAM_TYPE = \PARAM_BOOL;
 
     public const FIELD_ROLES_CAN_VIEW_RECORDING_NAME =
-        "roles_can_view_recording";
+        "roles_can_view_recordings";
     private const FIELD_ROLES_CAN_VIEW_RECORDING_TYPE = self::FIELD_TYPE_SELECT;
     private const FIELD_ROLES_CAN_VIEW_RECORDING_PARAM_TYPE = \PARAM_RAW;
 
@@ -100,7 +99,7 @@ abstract class InstanceDataForm extends \moodleform_mod
                 ->get_record(
                     Database::TABLE_MAIN,
                     ["id" => $this->_instance],
-                    "address",
+                    "*",
                     \MUST_EXIST
                 );
         }
@@ -238,9 +237,9 @@ abstract class InstanceDataForm extends \moodleform_mod
             self::FIELD_ROLES_CAN_VIEW_RECORDING_PARAM_TYPE
         );
 
-        foreach ($this->getRolesCanViewRecordingsFieldValue() as $roleId) {
-            $select->setSelected($roleId);
-        }
+        $select->setSelected(
+            $this->getRolesCanViewRecordingsFieldValue()
+        );
 
         return $this;
     }
@@ -248,7 +247,7 @@ abstract class InstanceDataForm extends \moodleform_mod
     private static function generateRolesAsHtmlSelectOptions(): array
     {
         return array_map(function (object $roleSpec) {
-            return $roleSpec->id;
+            return $roleSpec->localname;
         }, \role_fix_names(\get_all_roles()));
     }
 
