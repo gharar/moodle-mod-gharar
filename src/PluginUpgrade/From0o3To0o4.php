@@ -2,8 +2,6 @@
 
 namespace MAChitgarha\MoodleModGharar\PluginUpgrade;
 
-use Webmozart\Json\JsonEncoder;
-
 class From0o3To0o4 extends AbstractBase
 {
     private const NEW_FIELD_INTRO = [

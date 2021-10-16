@@ -40,6 +40,7 @@ abstract class AbstractBase
     protected const FIELD_NOT_NULL = "notnull";
     protected const FIELD_SEQUENCE = "sequence";
     protected const FIELD_DEFAULT = "default";
+    protected const FIELD_NEW_NAME = "new_name";
 
     protected const INDEX_NAME = "name";
     protected const INDEX_UNIQUE = "unique";
@@ -178,7 +179,14 @@ abstract class AbstractBase
         foreach (static::TABLE_MAIN_UPDATED_FIELDS as $fieldProps) {
             $xmldbField = $this->makeXmldbField($fieldProps);
 
-            $this->databaseManager->rename_field($this->mainTable, $xmldbField);
+            if (isset($fieldProps[self::FIELD_NEW_NAME])) {
+                $this->databaseManager->rename_field(
+                    $this->mainTable,
+                    $xmldbField,
+                    $fieldProps[self::FIELD_NEW_NAME]
+                );
+            }
+
             /*
              * Calling all of the database_manager::change_field_*() functions
              * causes all properties of the field to be updated, not only that
@@ -231,9 +239,9 @@ abstract class AbstractBase
     private static function makeXmldbField(array $fieldProps): xmldb_field
     {
         return new xmldb_field(
-            $fieldProps[self::FIELD_NAME],
+            $fieldProps[self::FIELD_NAME] ?? $fieldProps[self::FIELD_NEW_NAME],
             $fieldProps[self::FIELD_TYPE],
-            $fieldProps[self::FIELD_PRECISION] ?? null,
+            $fieldProps[self::FIELD_LENGTH] ?? null,
             $fieldProps[self::FIELD_UNSINGED] ?? null,
             $fieldProps[self::FIELD_NOT_NULL] ?? null,
             $fieldProps[self::FIELD_SEQUENCE] ?? null,
@@ -244,9 +252,9 @@ abstract class AbstractBase
     private static function makeXmldbIndex(array $indexProps): xmldb_index
     {
         return new xmldb_index(
-            $fieldProps[self::INDEX_NAME],
-            $fieldProps[self::INDEX_UNIQUE],
-            $fieldProps[self::INDEX_FIELDS] ?? [$fieldProps[self::INDEX_NAME]]
+            $indexProps[self::INDEX_NAME],
+            $indexProps[self::INDEX_UNIQUE],
+            $indexProps[self::INDEX_FIELDS] ?? [$indexProps[self::INDEX_NAME]]
         );
     }
 }
