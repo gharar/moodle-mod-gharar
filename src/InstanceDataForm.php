@@ -36,6 +36,7 @@ abstract class InstanceDataForm extends \moodleform_mod
     private const FIELD_TYPE_CHECKBOX = "checkbox";
     private const FIELD_TYPE_ADVANCED_CHECKBOX = "advcheckbox";
     private const FIELD_TYPE_SELECT = "select";
+    private const FIELD_TYPE_HIDDEN = "hidden";
 
     private const ELEMENT_TYPE_BLOCK = "header";
 
@@ -52,6 +53,10 @@ abstract class InstanceDataForm extends \moodleform_mod
     private const FIELD_NAME_TYPE = self::FIELD_TYPE_TEXT;
     private const FIELD_NAME_LENGTH = 255;
     private const FIELD_NAME_PARAM_TYPE = \PARAM_TEXT;
+
+    private const FIELD_ADDRESS_NAME = "address";
+    private const FIELD_ADDRESS_TYPE = self::FIELD_TYPE_HIDDEN;
+    private const FIELD_ADDRESS_PARAM_TYPE = \PARAM_TEXT;
 
     public const FIELD_ROOM_NAME_NAME = "room_name";
     private const FIELD_ROOM_NAME_TYPE = self::FIELD_TYPE_TEXT;
@@ -147,8 +152,25 @@ abstract class InstanceDataForm extends \moodleform_mod
         $this->_form->setExpanded(self::BLOCK_ROOM_SETTINGS_NAME);
 
         return $this
+            ->addAddressField()
             ->addRoomNameField()
             ->addIsPrivateField();
+    }
+
+    private function addAddressField(): self
+    {
+        $this->_form->addElement(
+            self::FIELD_ADDRESS_TYPE,
+            self::FIELD_ADDRESS_NAME,
+            $this->instance->address
+        );
+
+        $this->_form->setType(
+            self::FIELD_ADDRESS_NAME,
+            self::FIELD_ADDRESS_PARAM_TYPE
+        );
+
+        return $this;
     }
 
     private function addRoomNameField(): self
