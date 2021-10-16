@@ -129,6 +129,7 @@ abstract class AbstractBase
                     $record
                 );
             } else {
+                // TODO: Do this once, by pushing every item to an array
                 $this->database->delete_records(
                     Database::TABLE_MAIN,
                     ["id" => $record->id]
@@ -143,7 +144,7 @@ abstract class AbstractBase
             ->addMainTableNewIndexes();
     }
 
-    /**
+    /**``
      * @return array A pair. The first element is whether to keep the record or
      * not, the second is the updated record.
      */
