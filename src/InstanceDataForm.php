@@ -246,6 +246,12 @@ abstract class InstanceDataForm extends \moodleform_mod
 
     private static function generateRolesAsHtmlSelectOptions(): array
     {
+        /*
+         * As function get_all_roles() return roles in a way that keys represent
+         * role IDs, so we rely on that; instead of extracting role IDs by
+         * another array_map() and combining the keys and values to generate
+         * the result.
+         */
         return array_map(function (object $roleSpec) {
             return $roleSpec->localname;
         }, \role_fix_names(\get_all_roles()));
@@ -260,10 +266,12 @@ abstract class InstanceDataForm extends \moodleform_mod
         } else {
             /*
              * Default value.
+             *
              * Including the roles manager, course creator, editing teacher,
-             * teacher, and student.
+             * teacher, and student. The values are as strings for keeping
+             * consistency with the form itself.
              */
-            return [1, 2, 3, 4, 5];
+            return ["1", "2", "3", "4", "5"];
         }
     }
 }
