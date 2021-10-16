@@ -22,7 +22,7 @@ class English
 
         "gharar:addinstance" => "-",
         "gharar:view" => "-",
-        "gharar:enter_room_as_admin" => "-",
+        "gharar:room_admin" => "-",
         // }
 
         "plugin_name" => self::PLUGIN_NAME,

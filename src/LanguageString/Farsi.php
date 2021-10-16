@@ -17,7 +17,7 @@ class Farsi
 
         "gharar:addinstance" => "افزودن فعالیت قرار",
         "gharar:view" => "مشاهده‌ی فعالیت قرار",
-        "gharar:enter_room_as_admin" => "ورود به اتاق قرار به عنوان مدیر",
+        "gharar:room_admin" => "ورود به اتاق قرار به عنوان مدیر",
         // TODO: Add modulename_help
         // }
 

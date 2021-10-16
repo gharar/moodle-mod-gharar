@@ -11,8 +11,7 @@ class Capability
 {
     public const ADD_INSTANCE = "mod/gharar:addinstance";
     public const VIEW_INSTANCE = "mod/gharar:view";
-    /** @todo Rename this */
-    public const ENTER_ROOM_AS_ADMIN = "mod/gharar:enter_room_as_admin";
+    public const ROOM_ADMIN = "mod/gharar:room_admin";
 
     public const DEFINITIONS = [
         self::ADD_INSTANCE => [
@@ -40,7 +39,7 @@ class Capability
             ],
         ],
 
-        self::ENTER_ROOM_AS_ADMIN => [
+        self::ROOM_ADMIN => [
             Property::CAP_TYPE => CapabilityType::READ,
             Property::CONTEXT_LEVEL => CONTEXT_MODULE,
             Property::ARCHE_TYPES => [
