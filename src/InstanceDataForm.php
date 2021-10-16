@@ -162,7 +162,8 @@ abstract class InstanceDataForm extends \moodleform_mod
         $this->_form->addElement(
             self::FIELD_ADDRESS_TYPE,
             self::FIELD_ADDRESS_NAME,
-            $this->instance->address
+            // Default value is for the case of adding an instance
+            $this->instance->address ?? ""
         );
 
         $this->_form->setType(
