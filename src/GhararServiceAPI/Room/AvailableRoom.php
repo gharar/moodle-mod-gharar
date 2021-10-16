@@ -93,7 +93,7 @@ class AvailableRoom extends AbstractRoom
     public function getShareUrl(): string
     {
         return $this->shareUrl ??
-            "https://room.gharar.ir/" . $this->getAddress();
+            "https://gharar.ir/room/" . $this->getAddress();
     }
 
     public function isActive(): bool
