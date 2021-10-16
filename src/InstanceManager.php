@@ -128,7 +128,11 @@ class InstanceManager
             ["id" => $recordId]
         );
 
-        $this->api->destroyRoom($record->address);
+        /*
+         * We don't destroy the room, as the user may have recordings on it, or
+         * simply need it. In the future, a confirmation make be taken from the
+         * user to do so.
+         */
 
         return $deleteResult;
     }
