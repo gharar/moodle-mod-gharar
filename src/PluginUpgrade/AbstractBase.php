@@ -40,6 +40,7 @@ abstract class AbstractBase
     protected const FIELD_NOT_NULL = "notnull";
     protected const FIELD_SEQUENCE = "sequence";
     protected const FIELD_DEFAULT = "default";
+    protected const FIELD_PREVIOUS = "previous";
     protected const FIELD_NEW_NAME = "new_name";
 
     protected const INDEX_NAME = "name";
@@ -245,7 +246,8 @@ abstract class AbstractBase
             $fieldProps[self::FIELD_UNSINGED] ?? null,
             $fieldProps[self::FIELD_NOT_NULL] ?? null,
             $fieldProps[self::FIELD_SEQUENCE] ?? null,
-            $fieldProps[self::FIELD_DEFAULT] ?? null
+            $fieldProps[self::FIELD_DEFAULT] ?? null,
+            $fieldProps[self::FIELD_PREVIOUS] ?? null
         );
     }
 

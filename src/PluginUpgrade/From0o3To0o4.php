@@ -9,6 +9,7 @@ class From0o3To0o4 extends AbstractBase
         self::FIELD_TYPE => \XMLDB_TYPE_TEXT,
         self::FIELD_NOT_NULL => false,
         self::FIELD_SEQUENCE => false,
+        self::FIELD_PREVIOUS => "name",
     ];
     private const NEW_FIELD_INTRO_FORMAT = [
         self::FIELD_NAME => "introformat",
@@ -17,6 +18,7 @@ class From0o3To0o4 extends AbstractBase
         self::FIELD_NOT_NULL => true,
         self::FIELD_DEFAULT => 1,
         self::FIELD_SEQUENCE => false,
+        self::FIELD_PREVIOUS => "intro",
     ];
     private const NEW_FIELD_ROLES_CAN_VIEW_RECORDINGS = [
         self::FIELD_NAME => "roles_can_view_recordings",
