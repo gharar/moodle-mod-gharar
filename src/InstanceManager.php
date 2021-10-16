@@ -37,22 +37,40 @@ class InstanceManager
      */
     public function add(object $instance)
     {
-        $room = $this->api->createRoom(new ToBeCreatedRoom(
-            $instance->room_name,
-            $instance->is_private
-        ));
+        /*
+         * One can inject room address into the hidden address field in data
+         * form to make use of existing room, instead of creating a new one.
+         */
+        if (!$this->instanceHasAddress($instance)) {
+            $room = $this->createNewRoomFromInstance($instance);
+            $instance->address = $room->getAddress();
+        }
 
-        $newRecord = $instance;
-        $newRecord->address = $room->getAddress();
+        $instance->roles_can_view_recordings = json_encode(
+            $instance->roles_can_view_recordings
+        );
 
         /*
          * Here, if a record with the same "room_name" or "address" exists,
          * because of them being unique fields, an error is occurred.
          */
         $id = Globals::getDatabase()
-            ->insert_record(Database::TABLE_MAIN, $newRecord);
+            ->insert_record(Database::TABLE_MAIN, $instance);
 
         return $id;
+    }
+
+    private function instanceHasAddress(object $instance): bool
+    {
+        return (bool)(\preg_match(API::REGEX_ROOM_ADDRESS, $instance->address));
+    }
+
+    private function createNewRoomFromInstance(object $instance): AvailableRoom
+    {
+        return $this->api->createRoom(new ToBeCreatedRoom(
+            $instance->room_name,
+            $instance->is_private
+        ));
     }
 
     /**
