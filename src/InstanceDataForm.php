@@ -287,14 +287,17 @@ abstract class InstanceDataForm extends \moodleform_mod
                 $this->instance->roles_can_view_recordings
             );
         } else {
-            /*
-             * Default value.
-             *
-             * Including the roles manager, course creator, editing teacher,
-             * teacher, and student. The values are as strings for keeping
-             * consistency with the form itself.
-             */
-            return ["1", "2", "3", "4", "5"];
+            return $this->getRolesCanViewRecordingsFieldDefault();
         }
+    }
+
+    private static function getRolesCanViewRecordingsFieldDefault(): array
+    {
+        /*
+         * Including the roles manager, course creator, editing teacher,
+         * teacher, and student. The values are as strings for keeping
+         * consistency with the form itself.
+         */
+        return ["1", "2", "3", "4", "5"];
     }
 }

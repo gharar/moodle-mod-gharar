@@ -45,8 +45,12 @@ class From0o3To0o4 extends AbstractBase
 
     protected function upgradeMainTableRecord(\stdClass $record): array
     {
-        // An empty json-decoded array
-        $record->roles_can_view_recordings = "[]";
+        /*
+         * Hard-coding the default value, because of not relying on other
+         * classes that would change any time in the future. By the way, see
+         * InstanceDataForm::getRolesCanViewRecordingsFieldDefault().
+         */
+        $record->roles_can_view_recordings = '["1", "2", "3", "4", "5"]';
 
         return [true, $record];
     }
