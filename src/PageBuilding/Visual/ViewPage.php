@@ -24,6 +24,8 @@ use MAChitgarha\MoodleModGharar\Database;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 use MAChitgarha\MoodleModGharar\LanguageString\StringId;
+use MAChitgarha\MoodleModGharar\PageBuilding\Redirect\EnterRoomPage;
+use MAChitgarha\MoodleModGharar\PageBuilding\Redirect\EnterLivePage;
 
 class ViewPage
 {
@@ -35,13 +37,8 @@ class ViewPage
         ContextInitializerTrait,
         ApiInitializerTrait;
 
-    public const URL = Plugin::RELATIVE_PATH . "/view.php";
+    public const RELATIVE_URL = Plugin::RELATIVE_PATH . "/view.php";
     public const TEMPLATE_NAME = Plugin::COMPONENT_NAME . "/view";
-
-    private const PAGE_RELATIVE_PATH_ENTER_ROOM =
-        "pages/redirect/enter-room.php";
-    private const PAGE_RELATIVE_PATH_ENTER_LIVE =
-        "pages/redirect/enter-live.php";
 
     /** @var int */
     private $instanceId;
@@ -99,7 +96,7 @@ class ViewPage
     {
         $page = Globals::getPage();
 
-        $page->set_url(self::URL, ["id" => $this->instanceId]);
+        $page->set_url(self::RELATIVE_URL, ["id" => $this->instanceId]);
         $page->set_title(
             "{$this->course->shortname}: {$this->instance->name}"
         );
@@ -136,12 +133,8 @@ class ViewPage
             ),
             "enter_live" => Util::getString(StringId::PAGE_VIEW_ENTER_LIVE),
 
-            "enter_room_link" => Util::getPageUrl(
-                self::PAGE_RELATIVE_PATH_ENTER_ROOM
-            ),
-            "enter_live_link" => Util::getPageUrl(
-                self::PAGE_RELATIVE_PATH_ENTER_LIVE
-            ),
+            "enter_room_link" => Util::getPageUrl(EnterRoomPage::RELATIVE_URL),
+            "enter_live_link" => Util::getPageUrl(EnterLivePage::RELATIVE_URL),
         ];
     }
 }

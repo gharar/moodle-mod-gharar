@@ -46,12 +46,11 @@ class Util
         return Globals::getPage()->get_renderer("core");
     }
 
-    public static function generatePageUrl(string $pathRelativeToModule): string
+    public static function generatePageUrl(string $pathRelativeToMoodle): string
     {
         return Path::join(
             Globals::getConfig()->wwwroot,
-            Plugin::RELATIVE_PATH,
-            $pathRelativeToModule
+            $pathRelativeToMoodle
         );
     }
 }

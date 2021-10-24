@@ -19,7 +19,7 @@ class IndexPage
         VisualPageBuilderTrait,
         VisualPageOutputMakerTrait;
 
-    private const URL = Plugin::RELATIVE_PATH . "/index.php";
+    private const RELATIVE_URL = Plugin::RELATIVE_PATH . "/index.php";
 
     /** @var int */
     private $courseId;
@@ -66,7 +66,7 @@ class IndexPage
     {
         $page = Globals::getPage();
 
-        $page->set_url(self::URL, ["id" => $this->courseId]);
+        $page->set_url(self::RELATIVE_URL, ["id" => $this->courseId]);
         $page->set_title(
             "{$this->course->shortname} " .
             Util::getString(StringId::PLUGIN_NAME_PLURAL)
