@@ -2,6 +2,9 @@
 
 namespace MAChitgarha\MoodleModGharar;
 
+use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use core_renderer;
+
 class Util
 {
     public static function forbidNonMoodleAccess(): void
@@ -31,5 +34,10 @@ class Util
     public static function getConfig(string $which)
     {
         return \get_config(Plugin::COMPONENT_NAME, $which);
+    }
+
+    public static function getPageRenderer(): core_renderer
+    {
+        return Globals::getPage()->get_renderer("core");
     }
 }

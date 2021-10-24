@@ -2,13 +2,20 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
+use MAChitgarha\MoodleModGharar\PageBuilding\Traits\{
+    VisualPageBuilderTrait,
+    VisualPageOutputMakerTrait,
+};
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
 use MAChitgarha\MoodleModGharar\Database;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 
-class IndexPageBuilder extends AbstractPageBuilder
+class IndexPageBuilder
 {
+    use VisualPageBuilderTrait,
+        VisualPageOutputMakerTrait;
+
     private const URL = Plugin::RELATIVE_PATH . "/index.php";
 
     /** @var int */
@@ -52,7 +59,7 @@ class IndexPageBuilder extends AbstractPageBuilder
         return $this;
     }
 
-    protected function buildPage(): self
+    protected function configure(): self
     {
         $page = Globals::getPage();
 
