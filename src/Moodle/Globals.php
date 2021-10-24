@@ -4,7 +4,6 @@ namespace MAChitgarha\MoodleModGharar\Moodle;
 
 use moodle_database;
 use stdClass;
-use bootstrap_renderer;
 use moodle_page;
 use admin_root;
 
@@ -30,12 +29,6 @@ class Globals
     {
         global $CFG;
         return $CFG;
-    }
-
-    public static function getOutput(): bootstrap_renderer
-    {
-        global $OUTPUT;
-        return $OUTPUT;
     }
 
     public static function getPage(): moodle_page
