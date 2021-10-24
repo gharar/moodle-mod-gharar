@@ -4,8 +4,6 @@ namespace MAChitgarha\MoodleModGharar\PageBuilding\Visual;
 
 use MAChitgarha\MoodleModGharar\PageBuilding\Traits\{
     MoodleConfigLoaderTrait,
-    VisualPageBuilderTrait,
-    VisualPageOutputMakerTrait,
     CourseAndModuleInfoInitializerTrait,
     InstanceInitializerTrait,
     ContextInitializerTrait,
@@ -30,8 +28,7 @@ use MAChitgarha\MoodleModGharar\PageBuilding\Redirect\EnterLivePage;
 class ViewPage
 {
     use MoodleConfigLoaderTrait,
-        VisualPageBuilderTrait,
-        VisualPageOutputMakerTrait,
+        Traits\PageBuilderTrait,
         CourseAndModuleInfoInitializerTrait,
         InstanceInitializerTrait,
         ContextInitializerTrait,
