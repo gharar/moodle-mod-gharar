@@ -3,13 +3,14 @@
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Exception;
 
 use MAChitgarha\MoodleModGharar\Util;
+use MAChitgarha\MoodleModGharar\LanguageString\StringId;
 
 class UnauthorizedException extends Exception
 {
     public function __construct()
     {
         parent::__construct(
-            Util::getString("error_api_request_unauthorized")
+            Util::getString(StringId::ERROR_API_UNAUTHORIZED)
         );
     }
 }

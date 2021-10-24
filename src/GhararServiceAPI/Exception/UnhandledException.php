@@ -3,6 +3,7 @@
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Exception;
 
 use MAChitgarha\MoodleModGharar\Util;
+use MAChitgarha\MoodleModGharar\LanguageString\StringId;
 
 class UnhandledException extends Exception
 {
@@ -10,7 +11,7 @@ class UnhandledException extends Exception
     {
         parent::__construct(
             Util::getString(
-                "error_api_request_unhandled",
+                StringId::ERROR_API_UNHANDLED,
                 (object)[
                     "message" => $message,
                     "statusCode" => $code,

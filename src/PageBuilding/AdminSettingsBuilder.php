@@ -5,6 +5,7 @@ namespace MAChitgarha\MoodleModGharar\PageBuilding;
 use admin_root;
 use admin_settingpage;
 use admin_setting_configtext;
+use MAChitgarha\MoodleModGharar\LanguageString\StringId;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
@@ -46,8 +47,8 @@ class AdminSettingsBuilder
     {
         $config = new admin_setting_configtext(
             self::generateFullConfigName(self::CONFIG_ACCESS_TOKEN_NAME),
-            Util::getString("access_token"),
-            Util::getString("access_token_description"),
+            Util::getString(StringId::CONFIG_ACCESS_TOKEN),
+            Util::getString(StringId::CONFIG_ACCESS_TOKEN_DESCRIPTION),
             /* default: */ ""
         );
 

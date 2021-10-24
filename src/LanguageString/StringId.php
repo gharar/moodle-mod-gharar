@@ -1,4 +1,4 @@
-<?php
+self::FORM_INSTANCE_FIELD_PREFIX . "<?php
 
 namespace MAChitgarha\MoodleModGharar\LanguageString;
 
@@ -15,18 +15,22 @@ class StringId
     public const CAPABILITY_VIEW_INSTANCE = "gharar:view";
     public const CAPABILITY_ROOM_ADMIN = "gharar:room_admin";
 
+    public const FORM_INSTANCE_FIELD_PREFIX = "form_instance_field_";
+    public const FORM_INSTANCE_BLOCK_PREFIX = "form_instance_block_";
+
     public const FORM_INSTANCE_FIELD_NAME =
-        "form_instance_field_name";
+        self::FORM_INSTANCE_FIELD_PREFIX . "name";
     public const FORM_INSTANCE_FIELD_ROOM_NAME =
-        "form_instance_field_room_name";
+        self::FORM_INSTANCE_FIELD_PREFIX . "room_name";
     public const FORM_INSTANCE_FIELD_IS_PRIVATE =
-        "form_instance_field_is_private";
+        self::FORM_INSTANCE_FIELD_PREFIX . "is_private";
     public const FORM_INSTANCE_FIELD_ROLES_CAN_VIEW_RECORDINGS =
-        "form_instance_field_roles_can_view_recordings";
+        self::FORM_INSTANCE_FIELD_PREFIX . "roles_can_view_recordings";
+
     public const FORM_INSTANCE_BLOCK_ROOM_SETTINGS =
-        "form_instance_block_room_settings";
+        self::FORM_INSTANCE_BLOCK_PREFIX . "room_settings";
     public const FORM_INSTANCE_BLOCK_RECORDINGS =
-        "form_instance_block_recordings";
+        self::FORM_INSTANCE_BLOCK_PREFIX . "recordings";
 
     public const PAGE_VIEW_ENTER_ROOM =
         "page_view_enter_room";

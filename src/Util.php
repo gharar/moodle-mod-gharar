@@ -20,11 +20,15 @@ class Util
     }
 
     /**
-     * @param mixed ...$otherArgs
+     * @param string|object|array $fields
+     * @return string
      */
-    public static function getString(string $which, ...$otherArgs): string
-    {
-        return \get_string($which, Plugin::COMPONENT_NAME, ...$otherArgs);
+    public static function getString(
+        string $which,
+        $fields = null,
+        bool $lazyLoad = false
+    ): string {
+        return \get_string($which, Plugin::COMPONENT_NAME, $fields, $lazyLoad);
     }
 
     /**

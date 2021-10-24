@@ -6,6 +6,7 @@ use MAChitgarha\MoodleModGharar\PageBuilding\Traits\{
     VisualPageBuilderTrait,
     VisualPageOutputMakerTrait,
 };
+use MAChitgarha\MoodleModGharar\LanguageString\StringId;
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
 use MAChitgarha\MoodleModGharar\Database;
@@ -66,7 +67,7 @@ class IndexPageBuilder
         $page->set_url(self::URL, ["id" => $this->courseId]);
         $page->set_title(
             "{$this->course->shortname} " .
-            Util::getString("plugin_name_plural")
+            Util::getString(StringId::PLUGIN_NAME_PLURAL)
         );
         $page->set_heading($this->course->fullname);
         $page->set_cacheable(false);
@@ -79,7 +80,7 @@ class IndexPageBuilder
 
     protected function generateOutputHeading(): string
     {
-        return Util::getString("plugin_name_plural");
+        return Util::getString(StringId::PLUGIN_NAME_PLURAL);
     }
 
     protected function generateOutputMainContent(): string
@@ -89,8 +90,8 @@ class IndexPageBuilder
         $table->attributes["class"] = "generaltable mod_index";
 
         $table->head = [
-            Util::getString("name"),
-            Util::getString("room_name"),
+            Util::getString(StringId::FORM_INSTANCE_FIELD_NAME),
+            Util::getString(StringId::FORM_INSTANCE_FIELD_ROOM_NAME),
         ];
         $table->align = ["center", "center"];
 

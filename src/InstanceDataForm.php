@@ -3,6 +3,7 @@
 namespace MAChitgarha\MoodleModGharar;
 
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use MAChitgarha\MoodleModGharar\LanguageString\StringId;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
 use MAChitgarha\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
 use MAChitgarha\MoodleModGharar\Util;
@@ -77,12 +78,16 @@ abstract class InstanceDataForm extends \moodleform_mod
 
     private static function getFieldString(string $fieldName): string
     {
-        return Util::getString("instance_data_form_field_$fieldName");
+        return Util::getString(
+            StringId::FORM_INSTANCE_FIELD_PREFIX . $fieldName
+        );
     }
 
     private static function getBlockString(string $blockName): string
     {
-        return Util::getString("instance_data_form_block_$blockName");
+        return Util::getString(
+            StringId::FORM_INSTANCE_BLOCK_PREFIX . $blockName
+        );
     }
 
     public function definition(): void
