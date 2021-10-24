@@ -39,7 +39,7 @@ class API
         "/^[\da-f]{8}(-[\da-f]{4}){3}-[\da-f]{12}\$/i";
 
     private const CONFIG_BASE_URI = "https://gharar.ir/api/v1/service/";
-    private const CONFIG_REQUEST_TIMEOUT = 4.0;
+    private const CONFIG_REQUEST_TIMEOUT = 5.0;
 
     /** @var Client */
     private $client;
