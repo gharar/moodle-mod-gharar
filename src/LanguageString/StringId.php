@@ -1,4 +1,4 @@
-self::FORM_INSTANCE_FIELD_PREFIX . "<?php
+<?php
 
 namespace MAChitgarha\MoodleModGharar\LanguageString;
 

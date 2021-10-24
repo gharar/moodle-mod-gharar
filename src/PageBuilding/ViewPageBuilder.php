@@ -2,14 +2,8 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
-use cm_info;
-use html_writer;
-use context_module;
-use MAChitgarha\MoodleModGharar\Capability;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\AuthToken;
 use MAChitgarha\MoodleModGharar\PageBuilding\Traits\{
+    MoodleConfigLoaderTrait,
     VisualPageBuilderTrait,
     VisualPageOutputMakerTrait,
     CourseAndModuleInfoInitializerTrait,
@@ -17,15 +11,23 @@ use MAChitgarha\MoodleModGharar\PageBuilding\Traits\{
     ContextInitializerTrait,
     ApiInitializerTrait,
 };
+use cm_info;
+use html_writer;
+use context_module;
+use MAChitgarha\MoodleModGharar\Capability;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\AuthToken;
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
 use MAChitgarha\MoodleModGharar\Database;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 
-class ViewPageBuilder extends AbstractPageBuilder
+class ViewPageBuilder
 {
-    use VisualPageBuilderTrait,
+    use MoodleConfigLoaderTrait,
+        VisualPageBuilderTrait,
         VisualPageOutputMakerTrait,
         CourseAndModuleInfoInitializerTrait,
         InstanceInitializerTrait,
