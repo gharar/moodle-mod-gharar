@@ -1,6 +1,6 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PageBuilding;
+namespace MAChitgarha\MoodleModGharar\PageBuilding\Visual;
 
 use MAChitgarha\MoodleModGharar\PageBuilding\Traits\{
     MoodleConfigLoaderTrait,
@@ -25,7 +25,7 @@ use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 use MAChitgarha\MoodleModGharar\LanguageString\StringId;
 
-class ViewPageBuilder
+class ViewPage
 {
     use MoodleConfigLoaderTrait,
         VisualPageBuilderTrait,

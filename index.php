@@ -2,8 +2,8 @@
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-use MAChitgarha\MoodleModGharar\PageBuilding\IndexPageBuilder;
+use MAChitgarha\MoodleModGharar\PageBuilding\Visual\IndexPage;
 
-echo (new IndexPageBuilder())
+echo (new IndexPage())
     ->build()
     ->getOutput();
