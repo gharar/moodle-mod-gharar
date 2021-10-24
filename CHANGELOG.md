@@ -27,6 +27,10 @@
 
 ### توسعه
 
+#### افزوده‌شده
+
+-   بهره‌گیری از قالب‌های ماستش برای تولید خروجی صفحه‌ها
+
 #### تغییریافته
 
 -   بهبود مدیریت رشته‌ها
@@ -113,6 +117,7 @@
 -   بهره‌گیری از قوانین خودبارگریِ (autoloading) پی‌اس‌آر۴ (PSR-4) برای کلاس‌ها، به جای جایگزین مودل آن
 -   **نکته**: دو مورد بالا برای بهبود تکمیل خودکار در آی‌دی‌ای‌ها و کمک به پایشگرهای کد (از جمله پی‌سالم) در نظر گرفته شده‌اند.
 
+[۰.۳.۱]: https://github.com/machitgarha/moodle-mod-gharar/compare/0.3.1...HEAD
 [۰.۳.۱]: https://github.com/machitgarha/moodle-mod-gharar/compare/0.3.0...0.3.1
 [۰.۳.۰]: https://github.com/machitgarha/moodle-mod-gharar/compare/0.2.1...0.3.0
 [۰.۲.۱]: https://github.com/machitgarha/moodle-mod-gharar/compare/0.2.0...0.2.1

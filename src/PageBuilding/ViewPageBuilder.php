@@ -12,7 +12,7 @@ use MAChitgarha\MoodleModGharar\PageBuilding\Traits\{
     ApiInitializerTrait,
 };
 use cm_info;
-use html_writer;
+use moodle_url;
 use context_module;
 use MAChitgarha\MoodleModGharar\Capability;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
@@ -23,6 +23,7 @@ use MAChitgarha\MoodleModGharar\Plugin;
 use MAChitgarha\MoodleModGharar\Database;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
+use MAChitgarha\MoodleModGharar\LanguageString\StringId;
 
 class ViewPageBuilder
 {
@@ -35,6 +36,12 @@ class ViewPageBuilder
         ApiInitializerTrait;
 
     public const URL = Plugin::RELATIVE_PATH . "/view.php";
+    public const TEMPLATE_NAME = Plugin::COMPONENT_NAME . "/view";
+
+    private const PAGE_RELATIVE_PATH_ENTER_ROOM =
+        "pages/redirect/enter-room.php";
+    private const PAGE_RELATIVE_PATH_ENTER_LIVE =
+        "pages/redirect/enter-live.php";
 
     /** @var int */
     private $instanceId;
@@ -88,18 +95,6 @@ class ViewPageBuilder
         );
     }
 
-    private function isCurrentRoomHavingLive(): bool
-    {
-        return $this->roomInfo->hasLive();
-    }
-
-    private function isCurrentUserNonAdminHavingLive(): bool
-    {
-        return
-            $this->isCurrentRoomHavingLive() &&
-            !$this->isCurrentUserRoomAdmin();
-    }
-
     protected function configure(): self
     {
         $page = Globals::getPage();
@@ -116,31 +111,37 @@ class ViewPageBuilder
 
     protected function generateOutputHeading(): string
     {
+        // TODO: Append a "(live)" to the name if the room is live
         return $this->instance->name;
     }
 
     protected function generateOutputMainContent(): string
     {
-        if (!$this->isCurrentRoomHavingLive()) {
-            $url = implode([
-                $this->roomInfo->getShareUrl(),
-                "?jwt=",
-                $this->authToken->getToken(),
-            ]);
-            $string = "enter_room";
-        } else {
-            $url = implode([
-                $this->roomInfo->getLiveUrl(),
-                "?token=",
-                $this->authToken->getToken(),
-            ]);
-            $string = "enter_live";
-        }
+        return Util::getPageRenderer()
+            ->render_from_template(
+                self::TEMPLATE_NAME,
+                $this->generateTemplateData()
+            );
+    }
 
-        return html_writer::link(
-            $url,
-            Util::getString($string),
-            ["target" => "_blank"]
-        );
+    private function generateTemplateData(): array
+    {
+        return [
+            "enter_room_only" => !$this->roomInfo->hasLive(),
+            "enter_room_and_live" => $this->roomInfo->hasLive(),
+
+            "enter_room" => Util::getString(StringId::PAGE_VIEW_ENTER_ROOM),
+            "enter_room_having_live" => Util::getString(
+                StringId::PAGE_VIEW_ENTER_ROOM_HAVING_LIVE
+            ),
+            "enter_live" => Util::getString(StringId::PAGE_VIEW_ENTER_LIVE),
+
+            "enter_room_link" => Util::getPageUrl(
+                self::PAGE_RELATIVE_PATH_ENTER_ROOM
+            ),
+            "enter_live_link" => Util::getPageUrl(
+                self::PAGE_RELATIVE_PATH_ENTER_LIVE
+            ),
+        ];
     }
 }

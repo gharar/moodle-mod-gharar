@@ -1,0 +1,24 @@
+<style>
+    .btn-margin-top {
+        margin-top: 5px;
+    }
+</style>
+
+{{#enter_room_only}}
+    <a class="btn btn-primary btn-margin-top" target="_blank"
+        href="{{enter_room_link}}">
+        {{enter_room}}
+    </a>
+{{/enter_room_only}}
+
+{{#enter_room_and_live}}
+    <a class="btn btn-primary btn-margin-top" target="_blank"
+        href="{{enter_room_link}}">
+        {{enter_room_having_live}}
+    </a>
+    <br/>
+    <a class="btn btn-primary btn-margin-top" target="_blank"
+        href="{{enter_live_link}}">
+        {{enter_live}}
+    </a>
+{{/enter_room_and_live}}
