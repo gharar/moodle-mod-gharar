@@ -130,8 +130,15 @@ class ViewPage
             ),
             "enter_live" => Util::getString(StringId::PAGE_VIEW_ENTER_LIVE),
 
-            "enter_room_link" => Util::getPageUrl(EnterRoomPage::RELATIVE_URL),
-            "enter_live_link" => Util::getPageUrl(EnterLivePage::RELATIVE_URL),
+            "enter_room_link" => (new moodle_url(
+                EnterRoomPage::RELATIVE_URL,
+                ["id" => $this->instanceId]
+            ))->out(),
+
+            "enter_live_link" => (new moodle_url(
+                EnterLivePage::RELATIVE_URL,
+                ["id" => $this->instanceId]
+            ))->out(),
         ];
     }
 }

@@ -2,6 +2,8 @@
 
 namespace MAChitgarha\MoodleModGharar;
 
+use moodle_url;
+
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use core_renderer;
 use Webmozart\PathUtil\Path;
@@ -44,13 +46,5 @@ class Util
     public static function getPageRenderer(): core_renderer
     {
         return Globals::getPage()->get_renderer("core");
-    }
-
-    public static function generatePageUrl(string $pathRelativeToMoodle): string
-    {
-        return Path::join(
-            Globals::getConfig()->wwwroot,
-            $pathRelativeToMoodle
-        );
     }
 }
