@@ -24,6 +24,10 @@ class ViewPage
         BaseTraits\ApiInitializerTrait,
         BaseTraits\RoomInfoInitializerTrait;
 
+    use BaseTraits\RequireLoginTrait {
+        requireCourseModuleLogin as requireLogin;
+    }
+
     public const RELATIVE_URL = Plugin::RELATIVE_PATH . "/view.php";
     public const TEMPLATE_NAME = Plugin::COMPONENT_NAME . "/view";
 
@@ -35,7 +39,7 @@ class ViewPage
         $this
             ->initParams()
             ->initCourseAndModuleInfo($this->instanceId, Plugin::MODULE_NAME)
-            ->requireLogin()
+            ->requireLogin($this->course, $this->moduleInfo)
             ->initInstance($this->moduleInfo)
             ->initApi()
             ->initRoomInfo();
@@ -44,13 +48,6 @@ class ViewPage
     private function initParams(): self
     {
         $this->instanceId = \required_param("id", \PARAM_INT);
-
-        return $this;
-    }
-
-    private function requireLogin(): self
-    {
-        \require_login($this->course, true, $this->moduleInfo);
 
         return $this;
     }

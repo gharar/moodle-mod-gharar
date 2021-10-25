@@ -14,6 +14,10 @@ class IndexPage
     use Traits\PageBuilderTrait,
         BaseTraits\MoodleConfigLoaderTrait;
 
+    use BaseTraits\RequireLoginTrait {
+        requireCourseLogin as requireLogin;
+    }
+
     private const RELATIVE_URL = Plugin::RELATIVE_PATH . "/index.php";
 
     /** @var int */
@@ -27,7 +31,7 @@ class IndexPage
         $this
             ->initParams()
             ->initCourse()
-            ->requireLogin();
+            ->requireLogin($this->courseId);
     }
 
     private function initParams(): self
@@ -46,13 +50,6 @@ class IndexPage
                 "*",
                 \MUST_EXIST
             );
-
-        return $this;
-    }
-
-    private function requireLogin(): self
-    {
-        \require_login($this->course);
 
         return $this;
     }
