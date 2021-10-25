@@ -2,6 +2,8 @@
 
 namespace MAChitgarha\MoodleModGharar;
 
+use stdClass;
+
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
@@ -71,9 +73,9 @@ class InstanceManager
         ));
     }
 
-    private function setRolesCanViewRecordings(object $instance): void
+    private function setRolesCanViewRecordings(stdClass $instance): void
     {
-        $instance->roles_can_view_recordings = json_encode(
+        $instance->roles_can_view_recordings = \json_encode(
             $instance->roles_can_view_recordings
         );
     }
@@ -99,11 +101,20 @@ class InstanceManager
         $room = $this->api->updateRoom($room);
 
         $this->setRolesCanViewRecordings($instance);
+        $this->setIntroFormatDefault($instance);
 
         $result = Globals::getDatabase()
             ->update_record(Database::TABLE_MAIN, $instance);
 
         return $result;
+    }
+
+    /**
+     * @todo This is a workaround and should be fixed.
+     */
+    private function setIntroFormatDefault(stdClass $instance): void
+    {
+        $instance->introformat = $instance->introformat ?? 1;
     }
 
     /**
