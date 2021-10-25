@@ -32,7 +32,7 @@ require_once "{$CFG->dirroot}/course/moodleform_mod.php";
  * different inputs.
  * @todo Make use of traits for code re-use.
  */
-abstract class InstanceDataForm extends \moodleform_mod
+abstract class InstanceForm extends \moodleform_mod
 {
     private const FIELD_TYPE_TEXT = "text";
     private const FIELD_TYPE_CHECKBOX = "checkbox";
