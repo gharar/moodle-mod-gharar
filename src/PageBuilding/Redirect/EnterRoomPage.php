@@ -2,11 +2,11 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding\Redirect;
 
+use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Capability;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 use MAChitgarha\MoodleModGharar\Plugin;
 use stdClass;
 
