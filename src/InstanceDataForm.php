@@ -30,6 +30,7 @@ require_once "{$CFG->dirroot}/course/moodleform_mod.php";
  * Util class.
  * @todo Add visual helps (i.e. shown as a question mark in a blue circle) for
  * different inputs.
+ * @todo Make use of traits for code re-use.
  */
 abstract class InstanceDataForm extends \moodleform_mod
 {
@@ -73,6 +74,9 @@ abstract class InstanceDataForm extends \moodleform_mod
     private const FIELD_ROLES_CAN_VIEW_RECORDING_TYPE = self::FIELD_TYPE_SELECT;
     private const FIELD_ROLES_CAN_VIEW_RECORDING_PARAM_TYPE = \PARAM_RAW;
 
+    private const JS_INSTANCE_FORM_MODULE = "mod_gharar/instance-form";
+    private const JS_INSTANCE_FORM_INIT_FUNC = "init";
+
     /** @var object|null */
     private $instance = null;
 
@@ -100,6 +104,9 @@ abstract class InstanceDataForm extends \moodleform_mod
 
         $this->standard_coursemodule_elements();
         $this->add_action_buttons();
+
+        // Pretty hacky, don't touch and don't move it, it has to sit here
+        $this->initJsModules();
     }
 
     private function initInstanceIfUpdating(): self
@@ -113,6 +120,17 @@ abstract class InstanceDataForm extends \moodleform_mod
                     \MUST_EXIST
                 );
         }
+
+        return $this;
+    }
+
+    private function initJsModules(): self
+    {
+        Globals::getPage()->requires->js_call_amd(
+            self::JS_INSTANCE_FORM_MODULE,
+            self::JS_INSTANCE_FORM_INIT_FUNC,
+            [$this->get_course()->fullname]
+        );
 
         return $this;
     }
@@ -200,7 +218,22 @@ abstract class InstanceDataForm extends \moodleform_mod
             self::RULE_VALIDATION_CLIENT
         );
 
+        $this->_form->setDefault(
+            self::FIELD_ROOM_NAME_NAME,
+            $this->getRoomNameFieldValue()
+        );
+
         return $this;
+    }
+
+    private function getRoomNameFieldValue(): string
+    {
+        if ($this->isUpdatingExistingInstance()) {
+            return $this->instance->room_name;
+        } else {
+            // Default value
+            return $this->get_course()->fullname . " - ";
+        }
     }
 
     private function addIsPrivateField(): self
