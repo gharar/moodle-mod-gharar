@@ -17,7 +17,7 @@ use moodle_url;
 
 class ViewPage
 {
-    use Traits\PageBuilderTrait,
+    use Traits\TemplateBasedPageBuilderTrait,
         BaseTraits\MoodleConfigLoaderTrait,
         BaseTraits\CourseAndModuleInfoInitializerTrait,
         BaseTraits\InstanceInitializerTrait,
@@ -29,7 +29,6 @@ class ViewPage
     }
 
     public const RELATIVE_URL = Plugin::RELATIVE_PATH . "/view.php";
-    public const TEMPLATE_NAME = Plugin::COMPONENT_NAME . "/view";
 
     /** @var int */
     private $instanceId;
@@ -72,16 +71,12 @@ class ViewPage
         return $this->instance->name;
     }
 
-    protected function generateOutputMainContent(): string
+    protected function getTemplateName(): string
     {
-        return Util::getPageRenderer()
-            ->render_from_template(
-                self::TEMPLATE_NAME,
-                $this->generateTemplateData()
-            );
+        return Plugin::COMPONENT_NAME . "/view";
     }
 
-    private function generateTemplateData(): array
+    protected function generateTemplateData(): array
     {
         return [
             "enter_room_only" => !$this->roomInfo->hasLive(),

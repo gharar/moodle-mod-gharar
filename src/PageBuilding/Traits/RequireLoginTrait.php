@@ -7,9 +7,9 @@ use function \require_login;
 
 trait RequireLoginTrait
 {
-    private function requireCourseLogin(stdClass $course): self
+    private function requireCourseLogin(int $courseId): self
     {
-        require_login($this->course);
+        require_login($courseId);
 
         return $this;
     }

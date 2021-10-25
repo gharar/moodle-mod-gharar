@@ -8,10 +8,11 @@ use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
 use MAChitgarha\MoodleModGharar\Database;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use stdClass;
 
 class IndexPage
 {
-    use Traits\PageBuilderTrait,
+    use Traits\TemplateBasedPageBuilderTrait,
         BaseTraits\MoodleConfigLoaderTrait;
 
     use BaseTraits\RequireLoginTrait {
@@ -77,32 +78,31 @@ class IndexPage
         return Util::getString(StringId::PLUGIN_NAME_PLURAL);
     }
 
-    protected function generateOutputMainContent(): string
+    protected function getTemplateName(): string
     {
-        // TODO: Wrap it inside a renderable
-        $table = new \html_table();
-        $table->attributes["class"] = "generaltable mod_index";
+        return Plugin::COMPONENT_NAME . "/index";
+    }
 
-        $table->head = [
-            Util::getString(StringId::FORM_INSTANCE_FIELD_NAME),
-            Util::getString(StringId::FORM_INSTANCE_FIELD_ROOM_NAME),
+    protected function generateTemplateData(): array
+    {
+        return [
+            "name" =>
+                Util::getString(StringId::FORM_INSTANCE_FIELD_NAME),
+            "room_name" =>
+                Util::getString(StringId::FORM_INSTANCE_FIELD_ROOM_NAME),
+
+            "records" => \array_values(\array_map(
+                function (stdClass $instance) {
+                    return [
+                        "name" => $instance->name,
+                        "room_name" => $instance->room_name,
+                    ];
+                },
+                Globals::getDatabase()->get_records(
+                    Database::TABLE_MAIN,
+                    ["course" => $this->courseId]
+                )
+            )),
         ];
-        $table->align = ["center", "center"];
-
-        $instances = Globals::getDatabase()
-            ->get_records(
-                Database::TABLE_MAIN,
-                ["course" => $this->courseId]
-            );
-
-        foreach ($instances as $instance) {
-            $table->data[] = [
-                $instance->name,
-                // TODO: Make it a link
-                $instance->room_name
-            ];
-        }
-
-        return \html_writer::table($table);
     }
 }

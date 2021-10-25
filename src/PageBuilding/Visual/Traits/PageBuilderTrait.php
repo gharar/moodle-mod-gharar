@@ -5,11 +5,12 @@ namespace MAChitgarha\MoodleModGharar\PageBuilding\Visual\Traits;
 use MAChitgarha\MoodleModGharar\PageBuilding\Traits\{
     PageBuilderTrait as BasePageBuilderTrait
 };
+use MAChitgarha\MoodleModGharar\Util;
 
 trait PageBuilderTrait
 {
     use BasePageBuilderTrait {
-        build as baseBuild
+        build as baseBuild;
     }
 
     /** @var string */
