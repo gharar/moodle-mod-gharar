@@ -41,7 +41,7 @@ class ViewPage
             ->requireLogin($this->course, $this->moduleInfo)
             ->initInstance($this->moduleInfo)
             ->initApi()
-            ->initRoomInfo();
+            ->initRoomInfo($this->api, $this->instance->address);
     }
 
     private function initParams(): self
