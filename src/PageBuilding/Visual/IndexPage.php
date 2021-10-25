@@ -2,7 +2,7 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding\Visual;
 
-use MAChitgarha\MoodleModGharar\PageBuilding\Traits\MoodleConfigLoaderTrait;
+use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 use MAChitgarha\MoodleModGharar\LanguageString\StringId;
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
@@ -11,8 +11,8 @@ use MAChitgarha\MoodleModGharar\Moodle\Globals;
 
 class IndexPage
 {
-    use MoodleConfigLoaderTrait,
-        Traits\PageBuilderTrait;
+    use Traits\PageBuilderTrait,
+        BaseTraits\MoodleConfigLoaderTrait;
 
     private const RELATIVE_URL = Plugin::RELATIVE_PATH . "/index.php";
 

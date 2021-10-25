@@ -11,7 +11,7 @@ trait ApiInitializerTrait
     /** @var API */
     private $api;
 
-    private function initAPI(): self
+    private function initApi(): self
     {
         $this->api = new API(
             Util::getConfig(AdminSettingsBuilder::CONFIG_ACCESS_TOKEN_NAME)

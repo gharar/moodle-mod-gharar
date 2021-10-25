@@ -2,37 +2,27 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding\Visual;
 
-use MAChitgarha\MoodleModGharar\PageBuilding\Traits\{
-    MoodleConfigLoaderTrait,
-    CourseAndModuleInfoInitializerTrait,
-    InstanceInitializerTrait,
-    ContextInitializerTrait,
-    ApiInitializerTrait,
-};
-use cm_info;
-use moodle_url;
-use context_module;
+use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 use MAChitgarha\MoodleModGharar\Capability;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\AuthToken;
 use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\Plugin;
-use MAChitgarha\MoodleModGharar\Database;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 use MAChitgarha\MoodleModGharar\LanguageString\StringId;
 use MAChitgarha\MoodleModGharar\PageBuilding\Redirect\EnterRoomPage;
 use MAChitgarha\MoodleModGharar\PageBuilding\Redirect\EnterLivePage;
+use moodle_url;
 
 class ViewPage
 {
-    use MoodleConfigLoaderTrait,
-        Traits\PageBuilderTrait,
-        CourseAndModuleInfoInitializerTrait,
-        InstanceInitializerTrait,
-        ContextInitializerTrait,
-        ApiInitializerTrait;
+    use Traits\PageBuilderTrait,
+        BaseTraits\MoodleConfigLoaderTrait,
+        BaseTraits\CourseAndModuleInfoInitializerTrait,
+        BaseTraits\InstanceInitializerTrait,
+        BaseTraits\ApiInitializerTrait,
+        BaseTraits\RoomInfoInitializerTrait;
 
     public const RELATIVE_URL = Plugin::RELATIVE_PATH . "/view.php";
     public const TEMPLATE_NAME = Plugin::COMPONENT_NAME . "/view";
@@ -40,20 +30,13 @@ class ViewPage
     /** @var int */
     private $instanceId;
 
-    /** @var AvailableRoom */
-    private $roomInfo;
-
-    /** @var AuthToken */
-    private $authToken;
-
     public function __construct()
     {
         $this
             ->initParams()
             ->initCourseAndModuleInfo($this->instanceId, Plugin::MODULE_NAME)
-            ->initInstance($this->moduleInfo)
-            ->initContext($this->instanceId)
             ->requireLogin()
+            ->initInstance($this->moduleInfo)
             ->initApi()
             ->initRoomInfo();
     }
@@ -70,23 +53,6 @@ class ViewPage
         \require_login($this->course, true, $this->moduleInfo);
 
         return $this;
-    }
-
-    private function initRoomInfo(): self
-    {
-        $this->roomInfo = $this->api->retrieveRoom(
-            $this->instance->address
-        );
-
-        return $this;
-    }
-
-    private function isCurrentUserRoomAdmin(): bool
-    {
-        return has_capability(
-            Capability::ROOM_ADMIN,
-            $this->context
-        );
     }
 
     protected function configure(): self
