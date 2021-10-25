@@ -15,7 +15,7 @@ trait ContextInitializerTrait
 
     private function initModuleContext(int $instanceId): self
     {
-        $this->context = context_module::instance($instanceId);
+        $this->moduleContext = context_module::instance($instanceId);
 
         return $this;
     }

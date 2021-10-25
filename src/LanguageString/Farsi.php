@@ -35,6 +35,8 @@ class Farsi
         StringId::PAGE_VIEW_ENTER_ROOM_HAVING_LIVE =>
             "ورود به اتاق ارائه‌دهندگان",
         StringId::PAGE_VIEW_ENTER_LIVE => "ورود به صفحه‌ی بینندگان",
+        StringId::PAGE_VIEW_NO_RECORDINGS_AVAILABLE => "موردی یافت نشد.",
+        StringId::PAGE_VIEW_HEADING_RECORDINGS => "ضبط‌شده‌ها",
 
         StringId::ERROR_API_TIMEOUT => "زمان درخواست به سرورهای قرار از حد " .
             "انتظار فراتر رفت. دوباره تلاش کنید.",

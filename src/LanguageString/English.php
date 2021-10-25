@@ -42,6 +42,8 @@ class English
         StringId::PAGE_VIEW_ENTER_ROOM => "Enter",
         StringId::PAGE_VIEW_ENTER_ROOM_HAVING_LIVE => self::NONE,
         StringId::PAGE_VIEW_ENTER_LIVE => self::NONE,
+        StringId::PAGE_VIEW_NO_RECORDINGS_AVAILABLE => self::NONE,
+        StringId::PAGE_VIEW_HEADING_RECORDINGS => self::NONE,
 
         StringId::ERROR_API_TIMEOUT => self::NONE,
         StringId::ERROR_API_UNAUTHORIZED => self::NONE,

@@ -38,6 +38,10 @@ class StringId
         "page_view_enter_room_having_live";
     public const PAGE_VIEW_ENTER_LIVE =
         "page_view_enter_live";
+    public const PAGE_VIEW_NO_RECORDINGS_AVAILABLE =
+        "page_view_no_recordings_available";
+    public const PAGE_VIEW_HEADING_RECORDINGS =
+        "page_view_heading_recordings";
 
     public const CONFIG_ACCESS_TOKEN = "config_access_token";
     public const CONFIG_ACCESS_TOKEN_DESCRIPTION = "config_access_token_desc";
