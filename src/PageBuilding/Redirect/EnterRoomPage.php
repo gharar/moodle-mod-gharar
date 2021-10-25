@@ -39,7 +39,7 @@ class EnterRoomPage
             ->initCourseAndModuleInfo($this->instanceId, Plugin::MODULE_NAME)
             ->requireLogin($this->course, $this->moduleInfo)
             ->initInstance($this->moduleInfo)
-            ->initContext($this->instanceId)
+            ->initModuleContext($this->instanceId)
             ->initApi()
             ->initRoomInfo($this->api, $this->instance->address);
     }
@@ -81,7 +81,7 @@ class EnterRoomPage
 
     private function isCurrentUserRoomAdmin(): bool
     {
-        return \has_capability(Capability::ROOM_ADMIN, $this->context);
+        return \has_capability(Capability::ROOM_ADMIN, $this->moduleContext);
     }
 
     private function ensurePresentUpdatedRoomMember(

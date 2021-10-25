@@ -11,7 +11,6 @@ class EnterLivePage
         BaseTraits\MoodleConfigLoaderTrait,
         BaseTraits\CourseAndModuleInfoInitializerTrait,
         BaseTraits\InstanceInitializerTrait,
-        BaseTraits\ContextInitializerTrait,
         BaseTraits\ApiInitializerTrait,
         BaseTraits\RoomInfoInitializerTrait;
 
@@ -34,7 +33,6 @@ class EnterLivePage
             ->initCourseAndModuleInfo($this->instanceId, Plugin::MODULE_NAME)
             ->requireLogin($this->course, $this->moduleInfo)
             ->initInstance($this->moduleInfo)
-            ->initContext($this->instanceId)
             ->initApi()
             ->initRoomInfo($this->api, $this->instance->address)
             ->validateRoomHavingLive();
