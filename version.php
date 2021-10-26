@@ -18,7 +18,7 @@ Util::forbidNonMoodleAccess();
  * release, and update the version number as described.
  */
 $plugin->component = "mod_gharar";
-$plugin->version = 20211026;
+$plugin->version = 2021102600;
 $plugin->release = "0.4.0-alpha.1";
 $plugin->maturity = MATURITY_ALPHA;
 
