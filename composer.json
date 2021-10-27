@@ -1,14 +1,15 @@
 {
-    "name": "machitgarha/moodle-mod-gharar",
-    "description": "Gharar plugin for Moodle",
+    "name": "gharar/moodle-mod-gharar",
+    "description": "Gharar plugin (activity module) for Moodle",
     "type": "library",
     "license": "GPLv3",
+    "homepage": "https://github.com/gharar/moodle-mod-gharar",
     "authors": [
         {
             "name": "Mohammad Amin Chitgarha",
             "email": "machitgarha@outlook.com",
             "homepage": "https://github.com/machitgarha",
-            "role": "Creator"
+            "role": "Creator & Maintainer"
         }
     ],
     "require": {
