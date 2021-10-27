@@ -2,18 +2,16 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding\Visual;
 
-use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 use MAChitgarha\MoodleModGharar\LanguageString\StringId;
-use MAChitgarha\MoodleModGharar\Util;
-use MAChitgarha\MoodleModGharar\Plugin;
-use MAChitgarha\MoodleModGharar\Database;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
+use MAChitgarha\MoodleModGharar\{Database, Plugin, Util};
 use stdClass;
 
 class IndexPage
 {
-    use Traits\TemplateBasedPageBuilderTrait,
-        BaseTraits\MoodleConfigLoaderTrait;
+    use Traits\TemplateBasedPageBuilderTrait;
+    use BaseTraits\MoodleConfigLoaderTrait;
 
     use BaseTraits\RequireLoginTrait {
         requireCourseLogin as requireLogin;

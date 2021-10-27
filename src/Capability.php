@@ -2,10 +2,10 @@
 
 namespace MAChitgarha\MoodleModGharar;
 
-use const RISK_XSS;
 use const CAP_ALLOW;
 use const CONTEXT_COURSE;
 use const CONTEXT_MODULE;
+use const RISK_XSS;
 
 class Capability
 {

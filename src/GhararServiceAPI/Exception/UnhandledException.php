@@ -2,8 +2,8 @@
 
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Exception;
 
-use MAChitgarha\MoodleModGharar\Util;
 use MAChitgarha\MoodleModGharar\LanguageString\StringId;
+use MAChitgarha\MoodleModGharar\Util;
 
 class UnhandledException extends Exception
 {

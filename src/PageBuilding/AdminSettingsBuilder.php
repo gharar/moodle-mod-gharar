@@ -3,12 +3,11 @@
 namespace MAChitgarha\MoodleModGharar\PageBuilding;
 
 use admin_root;
-use admin_settingpage;
 use admin_setting_configtext;
+use admin_settingpage;
 use MAChitgarha\MoodleModGharar\LanguageString\StringId;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use MAChitgarha\MoodleModGharar\Util;
-use MAChitgarha\MoodleModGharar\Plugin;
+use MAChitgarha\MoodleModGharar\{Plugin, Util};
 
 class AdminSettingsBuilder
 {
@@ -49,7 +48,8 @@ class AdminSettingsBuilder
             self::generateFullConfigName(self::CONFIG_ACCESS_TOKEN_NAME),
             Util::getString(StringId::CONFIG_ACCESS_TOKEN),
             Util::getString(StringId::CONFIG_ACCESS_TOKEN_DESCRIPTION),
-            /* default: */ ""
+            /* default: */ 
+            ""
         );
 
         $this->mainPage->add($config);

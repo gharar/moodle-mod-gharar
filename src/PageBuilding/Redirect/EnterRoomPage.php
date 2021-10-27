@@ -2,23 +2,21 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding\Redirect;
 
-use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
-use MAChitgarha\MoodleModGharar\Util;
-use MAChitgarha\MoodleModGharar\Capability;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use MAChitgarha\MoodleModGharar\Plugin;
+use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
+use MAChitgarha\MoodleModGharar\{Capability, Plugin, Util};
 use stdClass;
 
 class EnterRoomPage
 {
-    use Traits\PageBuilderTrait,
-        BaseTraits\MoodleConfigLoaderTrait,
-        BaseTraits\CourseAndModuleInfoInitializerTrait,
-        BaseTraits\InstanceInitializerTrait,
-        BaseTraits\ContextInitializerTrait,
-        BaseTraits\ApiInitializerTrait,
-        BaseTraits\RoomInfoInitializerTrait;
+    use Traits\PageBuilderTrait;
+    use BaseTraits\MoodleConfigLoaderTrait;
+    use BaseTraits\CourseAndModuleInfoInitializerTrait;
+    use BaseTraits\InstanceInitializerTrait;
+    use BaseTraits\ContextInitializerTrait;
+    use BaseTraits\ApiInitializerTrait;
+    use BaseTraits\RoomInfoInitializerTrait;
 
     use BaseTraits\RequireLoginTrait {
         requireCourseModuleLogin as requireLogin;

@@ -2,26 +2,18 @@
 
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
 
-use Webmozart\Json\JsonDecoder;
-use GuzzleHttp\Client;
-use GuzzleHttp\RequestOptions;
-use GuzzleHttp\Exception\ConnectException;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Exception\TransferException;
-use Psr\Http\Message\ResponseInterface;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AbstractMember;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\ToBeCreatedRoomMember;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\ToBeCreatedLiveMember;
+use GuzzleHttp\Exception\{ConnectException, RequestException, TransferException};
+use GuzzleHttp\{Client, RequestOptions};
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Exception\{
+    DuplicatedRoomNameException,
     TimeoutException,
     UnauthorizedException,
     UnhandledException,
-    DuplicatedRoomNameException,
 };
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\{AbstractMember, AvailableLiveMember, AvailableRoomMember, ToBeCreatedLiveMember, ToBeCreatedRoomMember};
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\{AvailableRoom, ToBeCreatedRoom};
+use Psr\Http\Message\ResponseInterface;
+use Webmozart\Json\JsonDecoder;
 
 /**
  * @todo Prevent error messages from being exposed, in each and every case. For

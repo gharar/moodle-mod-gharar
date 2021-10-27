@@ -2,30 +2,27 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding\Visual;
 
-use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
-use MAChitgarha\MoodleModGharar\Capability;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\AuthToken;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Recording;
-use MAChitgarha\MoodleModGharar\Util;
-use MAChitgarha\MoodleModGharar\Plugin;
-use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\{
+    AvailableLiveMember,
+    AvailableRoomMember,
+};
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\{AuthToken, Recording};
 use MAChitgarha\MoodleModGharar\LanguageString\StringId;
-use MAChitgarha\MoodleModGharar\PageBuilding\Redirect\EnterRoomPage;
-use MAChitgarha\MoodleModGharar\PageBuilding\Redirect\EnterLivePage;
+use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use MAChitgarha\MoodleModGharar\PageBuilding\Redirect\{EnterLivePage, EnterRoomPage};
+use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
+use MAChitgarha\MoodleModGharar\{Capability, Plugin, Util};
 use moodle_url;
 
 class ViewPage
 {
-    use Traits\TemplateBasedPageBuilderTrait,
-        BaseTraits\MoodleConfigLoaderTrait,
-        BaseTraits\CourseAndModuleInfoInitializerTrait,
-        BaseTraits\InstanceInitializerTrait,
-        BaseTraits\ApiInitializerTrait,
-        BaseTraits\RoomInfoInitializerTrait,
-        BaseTraits\ContextInitializerTrait;
-
+    use Traits\TemplateBasedPageBuilderTrait;
+    use BaseTraits\MoodleConfigLoaderTrait;
+    use BaseTraits\CourseAndModuleInfoInitializerTrait;
+    use BaseTraits\InstanceInitializerTrait;
+    use BaseTraits\ApiInitializerTrait;
+    use BaseTraits\RoomInfoInitializerTrait;
+    use BaseTraits\ContextInitializerTrait;
     use BaseTraits\RequireLoginTrait {
         requireCourseModuleLogin as requireLogin;
     }

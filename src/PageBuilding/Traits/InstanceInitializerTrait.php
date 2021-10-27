@@ -3,8 +3,8 @@
 namespace MAChitgarha\MoodleModGharar\PageBuilding\Traits;
 
 use cm_info;
-use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\Database;
+use MAChitgarha\MoodleModGharar\Moodle\Globals;
 
 trait InstanceInitializerTrait
 {

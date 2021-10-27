@@ -2,17 +2,17 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding\Redirect;
 
-use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
+use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 
 class EnterLivePage
 {
-    use Traits\PageBuilderTrait,
-        BaseTraits\MoodleConfigLoaderTrait,
-        BaseTraits\CourseAndModuleInfoInitializerTrait,
-        BaseTraits\InstanceInitializerTrait,
-        BaseTraits\ApiInitializerTrait,
-        BaseTraits\RoomInfoInitializerTrait;
+    use Traits\PageBuilderTrait;
+    use BaseTraits\MoodleConfigLoaderTrait;
+    use BaseTraits\CourseAndModuleInfoInitializerTrait;
+    use BaseTraits\InstanceInitializerTrait;
+    use BaseTraits\ApiInitializerTrait;
+    use BaseTraits\RoomInfoInitializerTrait;
 
     use BaseTraits\RequireLoginTrait {
         requireCourseModuleLogin as requireLogin;

@@ -2,8 +2,7 @@
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-use MAChitgarha\MoodleModGharar\Util;
-use MAChitgarha\MoodleModGharar\InstanceManager;
+use MAChitgarha\MoodleModGharar\{InstanceManager, Util};
 
 Util::forbidNonMoodleAccess();
 

@@ -2,8 +2,8 @@
 
 namespace MAChitgarha\MoodleModGharar\PluginUpgrade;
 
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
 use MAChitgarha\MoodleModGharar\Database;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
 
 class From0o1To0o2 extends AbstractBase
 {

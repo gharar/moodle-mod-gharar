@@ -2,10 +2,10 @@
 
 namespace MAChitgarha\MoodleModGharar\Moodle;
 
-use moodle_database;
-use stdClass;
-use moodle_page;
 use admin_root;
+use moodle_database;
+use moodle_page;
+use stdClass;
 
 /**
  * For using $CFG global.

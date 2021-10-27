@@ -2,9 +2,9 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding\Traits;
 
-use stdClass;
 use cm_info;
 use MAChitgarha\MoodleModGharar\Plugin;
+use stdClass;
 
 trait CourseAndModuleInfoInitializerTrait
 {

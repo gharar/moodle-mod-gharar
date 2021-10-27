@@ -2,9 +2,9 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding\Traits;
 
-use stdClass;
 use cm_info;
-use function \require_login;
+use function require_login;
+use stdClass;
 
 trait RequireLoginTrait
 {

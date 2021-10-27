@@ -2,13 +2,13 @@
 
 namespace MAChitgarha\MoodleModGharar\PluginUpgrade;
 
-use moodle_database;
 use database_manager;
-use xmldb_table;
-use xmldb_field;
-use xmldb_index;
 use MAChitgarha\MoodleModGharar\Database;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use moodle_database;
+use xmldb_field;
+use xmldb_index;
+use xmldb_table;
 
 /*
  * The class name of children classes are in the following form (wrt semantic

@@ -2,8 +2,8 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding\Traits;
 
-use context_module;
 use context_course;
+use context_module;
 
 trait ContextInitializerTrait
 {

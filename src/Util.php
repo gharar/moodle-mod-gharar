@@ -2,10 +2,10 @@
 
 namespace MAChitgarha\MoodleModGharar;
 
-use moodle_url;
+use core_renderer;
 
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use core_renderer;
+use moodle_url;
 use Webmozart\PathUtil\Path;
 
 class Util

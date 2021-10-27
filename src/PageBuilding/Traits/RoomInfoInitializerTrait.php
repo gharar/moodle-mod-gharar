@@ -2,8 +2,8 @@
 
 namespace MAChitgarha\MoodleModGharar\PageBuilding\Traits;
 
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 
 trait RoomInfoInitializerTrait
 {

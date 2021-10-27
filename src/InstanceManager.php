@@ -2,14 +2,13 @@
 
 namespace MAChitgarha\MoodleModGharar;
 
-use stdClass;
+use MAChitgarha\MoodleModGharar\Database;
 
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\{AvailableRoom, ToBeCreatedRoom};
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use MAChitgarha\MoodleModGharar\Database;
 use MAChitgarha\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
+use stdClass;
 
 class InstanceManager
 {

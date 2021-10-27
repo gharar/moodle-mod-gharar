@@ -2,9 +2,9 @@
 
 namespace MAChitgarha\MoodleModGharar;
 
-use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use MAChitgarha\MoodleModGharar\LanguageString\StringId;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
+use MAChitgarha\MoodleModGharar\LanguageString\StringId;
+use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
 use MAChitgarha\MoodleModGharar\Util;
 use Webmozart\Json\JsonDecoder;
