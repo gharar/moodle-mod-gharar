@@ -28,7 +28,8 @@ cd "$tmpDir"
 rsync -av "$mainRepoDir/" "./$pluginName" \
     --exclude "$outputFilename" --exclude ".git" --exclude ".gitignore" \
     --exclude ".phan" --exclude "bin/" --exclude ".php-cs-fixer.cache" \
-    --exclude ".php-cs-fixer.dist.php" --exclude "psalm.xml" > /dev/null
+    --exclude ".php-cs-fixer.dist.php" --exclude "psalm.xml" \
+    --exclude "composer.lock" > /dev/null
 
 # Remove previous zip file to prevent extra removed files to remain there
 if [[ -e "$zipFilePath" ]]; then
