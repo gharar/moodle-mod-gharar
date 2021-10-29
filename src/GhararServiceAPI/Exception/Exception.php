@@ -1,6 +1,6 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Exception;
+namespace Gharar\MoodleModGharar\GhararServiceAPI\Exception;
 
 class Exception extends \Exception
 {

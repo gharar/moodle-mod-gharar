@@ -1,9 +1,9 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PageBuilding\Redirect;
+namespace Gharar\MoodleModGharar\PageBuilding\Redirect;
 
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
-use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
+use Gharar\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
+use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 
 class EnterLivePage
 {

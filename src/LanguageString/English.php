@@ -1,6 +1,6 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\LanguageString;
+namespace Gharar\MoodleModGharar\LanguageString;
 
 /**
  * Although the support for English language is not in priority, and may not be

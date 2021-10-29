@@ -1,6 +1,6 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Room;
+namespace Gharar\MoodleModGharar\GhararServiceAPI\Room;
 
 /**
  * A room that is supposed to be created. It may or may not exist. Because of

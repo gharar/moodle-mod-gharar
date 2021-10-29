@@ -1,9 +1,9 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar;
+namespace Gharar\MoodleModGharar;
 
 use core_renderer;
-use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use Gharar\MoodleModGharar\Moodle\Globals;
 use moodle_url;
 use Webmozart\PathUtil\Path;
 

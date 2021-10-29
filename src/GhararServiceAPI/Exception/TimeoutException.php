@@ -1,9 +1,9 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\GhararServiceAPI\Exception;
+namespace Gharar\MoodleModGharar\GhararServiceAPI\Exception;
 
-use MAChitgarha\MoodleModGharar\LanguageString\StringId;
-use MAChitgarha\MoodleModGharar\Util;
+use Gharar\MoodleModGharar\LanguageString\StringId;
+use Gharar\MoodleModGharar\Util;
 
 class TimeoutException extends Exception
 {

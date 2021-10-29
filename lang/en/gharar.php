@@ -2,8 +2,8 @@
 
 require_once __DIR__ . "/../../vendor/autoload.php";
 
-use MAChitgarha\MoodleModGharar\LanguageString\English;
-use MAChitgarha\MoodleModGharar\Util;
+use Gharar\MoodleModGharar\LanguageString\English;
+use Gharar\MoodleModGharar\Util;
 
 Util::forbidNonMoodleAccess();
 

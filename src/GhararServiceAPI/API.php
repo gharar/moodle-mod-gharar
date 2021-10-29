@@ -1,6 +1,6 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
+namespace Gharar\MoodleModGharar\GhararServiceAPI;
 
 use GuzzleHttp\Exception\{
     ConnectException,
@@ -11,20 +11,20 @@ use GuzzleHttp\{
     Client,
     RequestOptions
 };
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Exception\{
+use Gharar\MoodleModGharar\GhararServiceAPI\Exception\{
     DuplicatedRoomNameException,
     TimeoutException,
     UnauthorizedException,
     UnhandledException,
 };
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\{
+use Gharar\MoodleModGharar\GhararServiceAPI\Member\{
     AbstractMember,
     AvailableLiveMember,
     AvailableRoomMember,
     ToBeCreatedLiveMember,
     ToBeCreatedRoomMember
 };
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\{
+use Gharar\MoodleModGharar\GhararServiceAPI\Room\{
     AvailableRoom,
     ToBeCreatedRoom
 };

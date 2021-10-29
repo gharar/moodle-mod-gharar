@@ -1,9 +1,9 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PluginUpgrade;
+namespace Gharar\MoodleModGharar\PluginUpgrade;
 
-use MAChitgarha\MoodleModGharar\Database;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
+use Gharar\MoodleModGharar\Database;
+use Gharar\MoodleModGharar\GhararServiceAPI\API;
 
 class From0o1To0o2 extends AbstractBase
 {

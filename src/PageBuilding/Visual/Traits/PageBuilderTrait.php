@@ -1,11 +1,11 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PageBuilding\Visual\Traits;
+namespace Gharar\MoodleModGharar\PageBuilding\Visual\Traits;
 
-use MAChitgarha\MoodleModGharar\PageBuilding\Traits\{
+use Gharar\MoodleModGharar\PageBuilding\Traits\{
     PageBuilderTrait as BasePageBuilderTrait
 };
-use MAChitgarha\MoodleModGharar\Util;
+use Gharar\MoodleModGharar\Util;
 
 trait PageBuilderTrait
 {

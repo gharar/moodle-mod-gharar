@@ -1,6 +1,6 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
+namespace Gharar\MoodleModGharar\GhararServiceAPI;
 
 class AuthToken
 {

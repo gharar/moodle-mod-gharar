@@ -1,12 +1,12 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar;
+namespace Gharar\MoodleModGharar;
 
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
-use MAChitgarha\MoodleModGharar\LanguageString\StringId;
-use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use MAChitgarha\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
-use MAChitgarha\MoodleModGharar\Util;
+use Gharar\MoodleModGharar\GhararServiceAPI\API;
+use Gharar\MoodleModGharar\LanguageString\StringId;
+use Gharar\MoodleModGharar\Moodle\Globals;
+use Gharar\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
+use Gharar\MoodleModGharar\Util;
 use Webmozart\Json\JsonDecoder;
 
 /*

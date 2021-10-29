@@ -1,10 +1,10 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PageBuilding\Traits;
+namespace Gharar\MoodleModGharar\PageBuilding\Traits;
 
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
-use MAChitgarha\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
-use MAChitgarha\MoodleModGharar\Util;
+use Gharar\MoodleModGharar\GhararServiceAPI\API;
+use Gharar\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
+use Gharar\MoodleModGharar\Util;
 
 trait ApiInitializerTrait
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar;
+namespace Gharar\MoodleModGharar;
 
-use MAChitgarha\MoodleModGharar\PluginUpgrade\VersionMapper;
+use Gharar\MoodleModGharar\PluginUpgrade\VersionMapper;
 
 class PluginManager
 {

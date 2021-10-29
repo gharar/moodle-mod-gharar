@@ -1,11 +1,11 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PageBuilding\Redirect;
+namespace Gharar\MoodleModGharar\PageBuilding\Redirect;
 
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
-use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
-use MAChitgarha\MoodleModGharar\{
+use Gharar\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
+use Gharar\MoodleModGharar\Moodle\Globals;
+use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
+use Gharar\MoodleModGharar\{
     Capability,
     Plugin,
     Util

@@ -2,8 +2,8 @@
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-use MAChitgarha\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
-use MAChitgarha\MoodleModGharar\Util;
+use Gharar\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
+use Gharar\MoodleModGharar\Util;
 
 Util::forbidNonMoodleAccess();
 

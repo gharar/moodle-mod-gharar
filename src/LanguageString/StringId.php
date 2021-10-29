@@ -1,6 +1,6 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\LanguageString;
+namespace Gharar\MoodleModGharar\LanguageString;
 
 class StringId
 {

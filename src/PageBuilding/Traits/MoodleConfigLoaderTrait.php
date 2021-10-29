@@ -1,6 +1,6 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PageBuilding\Traits;
+namespace Gharar\MoodleModGharar\PageBuilding\Traits;
 
 require_once __DIR__ . "/../../../../../config.php";
 

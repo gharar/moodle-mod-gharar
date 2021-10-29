@@ -1,6 +1,6 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PluginUpgrade;
+namespace Gharar\MoodleModGharar\PluginUpgrade;
 
 /*
  * See version.php for more information.

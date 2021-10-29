@@ -1,13 +1,13 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PageBuilding;
+namespace Gharar\MoodleModGharar\PageBuilding;
 
 use admin_root;
 use admin_setting_configtext;
 use admin_settingpage;
-use MAChitgarha\MoodleModGharar\LanguageString\StringId;
-use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use MAChitgarha\MoodleModGharar\{
+use Gharar\MoodleModGharar\LanguageString\StringId;
+use Gharar\MoodleModGharar\Moodle\Globals;
+use Gharar\MoodleModGharar\{
     Plugin,
     Util
 };

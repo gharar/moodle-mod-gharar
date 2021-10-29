@@ -1,6 +1,6 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\Moodle;
+namespace Gharar\MoodleModGharar\Moodle;
 
 use admin_root;
 use moodle_database;

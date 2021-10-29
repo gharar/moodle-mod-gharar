@@ -1,9 +1,9 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PageBuilding\Traits;
+namespace Gharar\MoodleModGharar\PageBuilding\Traits;
 
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
+use Gharar\MoodleModGharar\GhararServiceAPI\API;
+use Gharar\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
 
 trait RoomInfoInitializerTrait
 {

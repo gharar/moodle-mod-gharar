@@ -1,8 +1,8 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PageBuilding\Redirect;
+namespace Gharar\MoodleModGharar\PageBuilding\Redirect;
 
-use MAChitgarha\MoodleModGharar\Plugin;
+use Gharar\MoodleModGharar\Plugin;
 
 class Base
 {

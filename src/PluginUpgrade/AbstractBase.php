@@ -1,10 +1,10 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PluginUpgrade;
+namespace Gharar\MoodleModGharar\PluginUpgrade;
 
 use database_manager;
-use MAChitgarha\MoodleModGharar\Database;
-use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use Gharar\MoodleModGharar\Database;
+use Gharar\MoodleModGharar\Moodle\Globals;
 use moodle_database;
 use xmldb_field;
 use xmldb_index;

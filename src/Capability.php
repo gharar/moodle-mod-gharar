@@ -1,6 +1,6 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar;
+namespace Gharar\MoodleModGharar;
 
 use const CAP_ALLOW;
 use const CONTEXT_COURSE;

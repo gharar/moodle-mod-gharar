@@ -1,9 +1,9 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PageBuilding\Traits;
+namespace Gharar\MoodleModGharar\PageBuilding\Traits;
 
 use cm_info;
-use MAChitgarha\MoodleModGharar\Plugin;
+use Gharar\MoodleModGharar\Plugin;
 use stdClass;
 
 trait CourseAndModuleInfoInitializerTrait

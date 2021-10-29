@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/../../vendor/autoload.php";
 
-use MAChitgarha\MoodleModGharar\PageBuilding\Redirect\EnterLivePage;
+use Gharar\MoodleModGharar\PageBuilding\Redirect\EnterLivePage;
 
 (new EnterLivePage())
     ->build()

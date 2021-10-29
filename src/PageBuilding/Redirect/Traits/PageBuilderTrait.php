@@ -1,8 +1,8 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PageBuilding\Redirect\Traits;
+namespace Gharar\MoodleModGharar\PageBuilding\Redirect\Traits;
 
-use MAChitgarha\MoodleModGharar\PageBuilding\Traits\{
+use Gharar\MoodleModGharar\PageBuilding\Traits\{
     PageBuilderTrait as BasePageBuilderTrait
 };
 

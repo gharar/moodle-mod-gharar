@@ -1,6 +1,6 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar;
+namespace Gharar\MoodleModGharar;
 
 /**
  * @todo Move this class to a new namespace Database, and add enum-like classes

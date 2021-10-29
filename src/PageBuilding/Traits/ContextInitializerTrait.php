@@ -1,6 +1,6 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PageBuilding\Traits;
+namespace Gharar\MoodleModGharar\PageBuilding\Traits;
 
 use context_course;
 use context_module;

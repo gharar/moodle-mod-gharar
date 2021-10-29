@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-use MAChitgarha\MoodleModGharar\PageBuilding\Visual\ViewPage;
+use Gharar\MoodleModGharar\PageBuilding\Visual\ViewPage;
 
 echo (new ViewPage())
     ->build()

@@ -1,6 +1,6 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PluginUpgrade;
+namespace Gharar\MoodleModGharar\PluginUpgrade;
 
 class StubUpgrader extends AbstractBase
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PageBuilding\Traits;
+namespace Gharar\MoodleModGharar\PageBuilding\Traits;
 
 use cm_info;
-use MAChitgarha\MoodleModGharar\Database;
-use MAChitgarha\MoodleModGharar\Moodle\Globals;
+use Gharar\MoodleModGharar\Database;
+use Gharar\MoodleModGharar\Moodle\Globals;
 
 trait InstanceInitializerTrait
 {
