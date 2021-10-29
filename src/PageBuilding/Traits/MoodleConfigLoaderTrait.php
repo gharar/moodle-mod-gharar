@@ -2,6 +2,9 @@
 
 namespace Gharar\MoodleModGharar\PageBuilding\Traits;
 
+/**
+ * @psalm-suppress MissingFile
+ */
 require_once __DIR__ . "/../../../../../config.php";
 
 /**
