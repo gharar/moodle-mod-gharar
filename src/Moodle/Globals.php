@@ -8,7 +8,7 @@ use moodle_page;
 use stdClass;
 
 /**
- * For using $CFG global.
+ * For using $CFG global (and possibly other globals as well).
  * @psalm-suppress MissingFile
  */
 require_once __DIR__ . "/../../../../config.php";
