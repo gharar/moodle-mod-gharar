@@ -2,6 +2,7 @@
 
 namespace Gharar\MoodleModGharar\PageBuilding\Redirect;
 
+use Gharar\MoodleModGharar\ServiceApi\AuthToken;
 use Gharar\MoodleModGharar\ServiceApi\Member\AvailableRoomMember;
 use Gharar\MoodleModGharar\Moodle\Globals;
 use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;

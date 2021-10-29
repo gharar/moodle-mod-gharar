@@ -323,20 +323,20 @@ class Api
                         RelativeURI::getLiveMembers($roomAddress)
                     )
                 )->invitees;
+
+            $liveMemberList = [];
+            foreach ($liveMemberListRaw as $liveMemberRaw) {
+                $liveMemberList[] = AvailableLiveMember::fromRawObject(
+                    $liveMemberRaw
+                );
+            }
+
+            return $liveMemberList;
         } catch (TransferException $e) {
             (new ErrorHandler($e))
                 ->handleGeneralErrors()
                 ->unhandled();
         }
-
-        $liveMemberList = [];
-        foreach ($liveMemberListRaw as $liveMemberRaw) {
-            $liveMemberList[] = AvailableLiveMember::fromRawObject(
-                $liveMemberRaw
-            );
-        }
-
-        return $liveMemberList;
     }
 
     public function createLiveMember(
@@ -355,13 +355,13 @@ class Api
                     ]]
                 )
             )->users[0];
+
+            return AvailableLiveMember::fromRawObject($memberRaw);
         } catch (TransferException $e) {
             (new ErrorHandler($e))
                 ->handleGeneralErrors()
                 ->unhandled();
         }
-
-        return AvailableLiveMember::fromRawObject($memberRaw);
     }
 
     public function hasLiveMember(
@@ -391,13 +391,13 @@ class Api
                     ]]
                 )
             );
+
+            return AuthToken::fromRawObject($authTokenRaw);
         } catch (TransferException $e) {
             (new ErrorHandler($e))
                 ->handleGeneralErrors()
                 ->unhandled();
         }
-
-        return AuthToken::fromRawObject($authTokenRaw);
     }
 
     public function listRoomRecordings(string $roomAddress): array
@@ -409,18 +409,19 @@ class Api
                         RelativeURI::getRoomRecordings($roomAddress)
                     )
                 )->recordings;
+
+            $roomRecordingList = [];
+            foreach ($roomRecordingListRaw as $roomRecordingRaw) {
+                $roomRecordingList[] =
+                    Recording::fromRawObject($roomRecordingRaw);
+            }
+
+            return $roomRecordingList;
         } catch (TransferException $e) {
             (new ErrorHandler($e))
                 ->handleGeneralErrors()
                 ->unhandled();
         }
-
-        $roomRecordingList = [];
-        foreach ($roomRecordingListRaw as $roomRecordingRaw) {
-            $roomRecordingList[] = Recording::fromRawObject($roomRecordingRaw);
-        }
-
-        return $roomRecordingList;
     }
 
     /**

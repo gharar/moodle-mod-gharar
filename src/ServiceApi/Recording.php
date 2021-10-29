@@ -20,7 +20,11 @@ class Recording
 
     public static function fromRawObject(object $object): self
     {
-        $recording = new self($url);
+        $recording = new self(
+            $object->{self::PROP_URL}
+        );
+
+        return $recording;
     }
 
     private function setUrl(string $url): self

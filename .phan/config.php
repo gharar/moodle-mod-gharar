@@ -11,5 +11,6 @@ return [
     ],
     "suppress_issue_types" => [
         "PhanUndeclaredConstant",
+        "PhanTypeInvalidTraitReturn",
     ],
 ];

@@ -3,7 +3,6 @@
 namespace Gharar\MoodleModGharar\PageBuilding\Traits;
 
 use cm_info;
-use Gharar\MoodleModGharar\Plugin;
 use stdClass;
 
 trait CourseAndModuleInfoInitializerTrait

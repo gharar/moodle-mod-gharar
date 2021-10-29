@@ -2,14 +2,7 @@
 
 namespace Gharar\MoodleModGharar\PageBuilding\Visual;
 
-use Gharar\MoodleModGharar\ServiceApi\Member\{
-    AvailableLiveMember,
-    AvailableRoomMember,
-};
-use Gharar\MoodleModGharar\ServiceApi\{
-    AuthToken,
-    Recording,
-};
+use Gharar\MoodleModGharar\ServiceApi\Recording;
 use Gharar\MoodleModGharar\LanguageString\StringId;
 use Gharar\MoodleModGharar\Moodle\Globals;
 use Gharar\MoodleModGharar\PageBuilding\Redirect\{
@@ -18,7 +11,6 @@ use Gharar\MoodleModGharar\PageBuilding\Redirect\{
 };
 use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 use Gharar\MoodleModGharar\{
-    Capability,
     Plugin,
     Util,
 };

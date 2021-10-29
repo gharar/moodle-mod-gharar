@@ -2,8 +2,16 @@
 
 namespace Gharar\MoodleModGharar\PageBuilding\Redirect;
 
+use Gharar\MoodleModGharar\ServiceApi\AuthToken;
 use Gharar\MoodleModGharar\ServiceApi\Member\AvailableLiveMember;
 use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
+use Gharar\MoodleModGharar\Moodle\Globals;
+use Gharar\MoodleModGharar\{
+    Plugin,
+    Util
+};
+use stdClass;
+
 
 class EnterLivePage
 {

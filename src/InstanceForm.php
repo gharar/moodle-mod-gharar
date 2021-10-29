@@ -129,7 +129,10 @@ abstract class InstanceForm extends \moodleform_mod
         Globals::getPage()->requires->js_call_amd(
             self::JS_INSTANCE_FORM_MODULE,
             self::JS_INSTANCE_FORM_INIT_FUNC,
-            [$this->get_course()->fullname]
+            [
+                /* @phan-suppress-next-line PhanTypeExpectedObjectPropAccess */
+                $this->get_course()->fullname
+            ]
         );
 
         return $this;
@@ -232,6 +235,7 @@ abstract class InstanceForm extends \moodleform_mod
             return $this->instance->room_name;
         } else {
             // Default value
+            /* @phan-suppress-next-line PhanTypeExpectedObjectPropAccess */
             return $this->get_course()->fullname . " - ";
         }
     }

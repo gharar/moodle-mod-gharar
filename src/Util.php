@@ -3,9 +3,8 @@
 namespace Gharar\MoodleModGharar;
 
 use core_renderer;
+use RuntimeException;
 use Gharar\MoodleModGharar\Moodle\Globals;
-use moodle_url;
-use Webmozart\PathUtil\Path;
 
 class Util
 {
@@ -44,6 +43,14 @@ class Util
 
     public static function getPageRenderer(): core_renderer
     {
-        return Globals::getPage()->get_renderer("core");
+        $renderer = Globals::getPage()->get_renderer("core");
+
+        if ($renderer instanceof core_renderer) {
+            return $renderer;
+        }
+
+        throw new RuntimeException(
+            "Expected the renderer from Moodle to be core_renderer"
+        );
     }
 }
