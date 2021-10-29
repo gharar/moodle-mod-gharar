@@ -12,7 +12,7 @@ class VersionMapper
     public const VERSION_0_1 = 20210716;
     public const VERSION_0_2 = 20210905;
     public const VERSION_0_3 = 20210924;
-    public const VERSION_0_4 = self::VERSION_UNKNOWN;
+    public const VERSION_0_4 = 20211026;
 
     /**
      * Maps every version to the pair of (1) the class that does the upgrade to
