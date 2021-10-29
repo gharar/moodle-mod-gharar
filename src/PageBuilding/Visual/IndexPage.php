@@ -5,7 +5,11 @@ namespace MAChitgarha\MoodleModGharar\PageBuilding\Visual;
 use MAChitgarha\MoodleModGharar\LanguageString\StringId;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
-use MAChitgarha\MoodleModGharar\{Database, Plugin, Util};
+use MAChitgarha\MoodleModGharar\{
+    Database,
+    Plugin,
+    Util
+};
 use stdClass;
 
 class IndexPage

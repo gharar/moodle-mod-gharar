@@ -2,16 +2,32 @@
 
 namespace MAChitgarha\MoodleModGharar\GhararServiceAPI;
 
-use GuzzleHttp\Exception\{ConnectException, RequestException, TransferException};
-use GuzzleHttp\{Client, RequestOptions};
+use GuzzleHttp\Exception\{
+    ConnectException,
+    RequestException,
+    TransferException
+};
+use GuzzleHttp\{
+    Client,
+    RequestOptions
+};
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Exception\{
     DuplicatedRoomNameException,
     TimeoutException,
     UnauthorizedException,
     UnhandledException,
 };
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\{AbstractMember, AvailableLiveMember, AvailableRoomMember, ToBeCreatedLiveMember, ToBeCreatedRoomMember};
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\{AvailableRoom, ToBeCreatedRoom};
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\{
+    AbstractMember,
+    AvailableLiveMember,
+    AvailableRoomMember,
+    ToBeCreatedLiveMember,
+    ToBeCreatedRoomMember
+};
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\{
+    AvailableRoom,
+    ToBeCreatedRoom
+};
 use Psr\Http\Message\ResponseInterface;
 use Webmozart\Json\JsonDecoder;
 
@@ -68,6 +84,7 @@ class API
     private function initJsonDecoder(): self
     {
         $this->jsonDecoder = new JsonDecoder();
+
         return $this;
     }
 

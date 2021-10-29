@@ -3,14 +3,13 @@
 namespace MAChitgarha\MoodleModGharar\PageBuilding\Traits;
 
 use cm_info;
-use function require_login;
 use stdClass;
 
 trait RequireLoginTrait
 {
     private function requireCourseLogin(int $courseId): self
     {
-        require_login($courseId);
+        \require_login($courseId);
 
         return $this;
     }
@@ -20,7 +19,7 @@ trait RequireLoginTrait
         cm_info $moduleInfo,
         bool $autoLoginGuest = true
     ): self {
-        require_login($course, $autoLoginGuest, $moduleInfo);
+        \require_login($course, $autoLoginGuest, $moduleInfo);
 
         return $this;
     }

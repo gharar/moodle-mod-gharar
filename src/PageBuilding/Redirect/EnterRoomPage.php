@@ -5,7 +5,11 @@ namespace MAChitgarha\MoodleModGharar\PageBuilding\Redirect;
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\AvailableRoomMember;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
-use MAChitgarha\MoodleModGharar\{Capability, Plugin, Util};
+use MAChitgarha\MoodleModGharar\{
+    Capability,
+    Plugin,
+    Util
+};
 use stdClass;
 
 class EnterRoomPage

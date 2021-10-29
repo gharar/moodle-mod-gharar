@@ -5,7 +5,10 @@ namespace MAChitgarha\MoodleModGharar;
 use MAChitgarha\MoodleModGharar\Database;
 
 use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\{AvailableRoom, ToBeCreatedRoom};
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\{
+    AvailableRoom,
+    ToBeCreatedRoom
+};
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
 use MAChitgarha\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
 use stdClass;

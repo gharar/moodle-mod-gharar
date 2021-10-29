@@ -6,12 +6,22 @@ use MAChitgarha\MoodleModGharar\GhararServiceAPI\Member\{
     AvailableLiveMember,
     AvailableRoomMember,
 };
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\{AuthToken, Recording};
+use MAChitgarha\MoodleModGharar\GhararServiceAPI\{
+    AuthToken,
+    Recording,
+};
 use MAChitgarha\MoodleModGharar\LanguageString\StringId;
 use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use MAChitgarha\MoodleModGharar\PageBuilding\Redirect\{EnterLivePage, EnterRoomPage};
+use MAChitgarha\MoodleModGharar\PageBuilding\Redirect\{
+    EnterLivePage,
+    EnterRoomPage,
+};
 use MAChitgarha\MoodleModGharar\PageBuilding\Traits as BaseTraits;
-use MAChitgarha\MoodleModGharar\{Capability, Plugin, Util};
+use MAChitgarha\MoodleModGharar\{
+    Capability,
+    Plugin,
+    Util,
+};
 use moodle_url;
 
 class ViewPage
