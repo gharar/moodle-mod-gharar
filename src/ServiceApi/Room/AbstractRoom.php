@@ -1,6 +1,6 @@
 <?php
 
-namespace Gharar\MoodleModGharar\GhararServiceAPI\Room;
+namespace Gharar\MoodleModGharar\ServiceApi\Room;
 
 use Webmozart\Assert\Assert;
 

@@ -2,11 +2,11 @@
 
 namespace Gharar\MoodleModGharar\PageBuilding\Visual;
 
-use Gharar\MoodleModGharar\GhararServiceAPI\Member\{
+use Gharar\MoodleModGharar\ServiceApi\Member\{
     AvailableLiveMember,
     AvailableRoomMember,
 };
-use Gharar\MoodleModGharar\GhararServiceAPI\{
+use Gharar\MoodleModGharar\ServiceApi\{
     AuthToken,
     Recording,
 };

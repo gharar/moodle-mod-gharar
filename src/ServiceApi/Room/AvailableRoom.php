@@ -1,6 +1,6 @@
 <?php
 
-namespace Gharar\MoodleModGharar\GhararServiceAPI\Room;
+namespace Gharar\MoodleModGharar\ServiceApi\Room;
 
 /**
  * A room that is supposed to be available and exist. In other words, you can

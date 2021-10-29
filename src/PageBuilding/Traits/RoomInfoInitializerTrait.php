@@ -2,8 +2,8 @@
 
 namespace Gharar\MoodleModGharar\PageBuilding\Traits;
 
-use Gharar\MoodleModGharar\GhararServiceAPI\API;
-use Gharar\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
+use Gharar\MoodleModGharar\ServiceApi\Api;
+use Gharar\MoodleModGharar\ServiceApi\Room\AvailableRoom;
 
 trait RoomInfoInitializerTrait
 {

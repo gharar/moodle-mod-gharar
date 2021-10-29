@@ -1,6 +1,6 @@
 <?php
 
-namespace Gharar\MoodleModGharar\GhararServiceAPI;
+namespace Gharar\MoodleModGharar\ServiceApi;
 
 use GuzzleHttp\Exception\{
     ConnectException,
@@ -11,20 +11,20 @@ use GuzzleHttp\{
     Client,
     RequestOptions
 };
-use Gharar\MoodleModGharar\GhararServiceAPI\Exception\{
+use Gharar\MoodleModGharar\ServiceApi\Exception\{
     DuplicatedRoomNameException,
     TimeoutException,
     UnauthorizedException,
     UnhandledException,
 };
-use Gharar\MoodleModGharar\GhararServiceAPI\Member\{
+use Gharar\MoodleModGharar\ServiceApi\Member\{
     AbstractMember,
     AvailableLiveMember,
     AvailableRoomMember,
     ToBeCreatedLiveMember,
     ToBeCreatedRoomMember
 };
-use Gharar\MoodleModGharar\GhararServiceAPI\Room\{
+use Gharar\MoodleModGharar\ServiceApi\Room\{
     AvailableRoom,
     ToBeCreatedRoom
 };
@@ -39,7 +39,7 @@ use Webmozart\Json\JsonDecoder;
  * an instance of the class. In this case, maybe, the class should remain
  * singleton.
  */
-class API
+class Api
 {
     public const REGEX_ACCESS_TOKEN =
         "/^[\da-f]{40}\$/i";

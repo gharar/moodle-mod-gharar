@@ -136,7 +136,7 @@ abstract class AbstractBase
 
     protected function prepareMainTable(): self
     {
-        $this->mainTable = new xmldb_table(Database::TABLE_MAIN);
+        $this->mainTable = new xmldb_table(Database\Table::MAIN);
         return $this;
     }
 
@@ -154,19 +154,19 @@ abstract class AbstractBase
     protected function updateRecords(): self
     {
         foreach ($this->database->get_records(
-            Database::TABLE_MAIN
+            Database\Table::MAIN
         ) as $record) {
             [$keepIt, $record] = $this->upgradeMainTableRecord($record);
 
             if ($keepIt) {
                 $this->database->update_record(
-                    Database::TABLE_MAIN,
+                    Database\Table::MAIN,
                     $record
                 );
             } else {
                 // TODO: Do this once, by pushing every item to an array
                 $this->database->delete_records(
-                    Database::TABLE_MAIN,
+                    Database\Table::MAIN,
                     ["id" => $record->id]
                 );
             }

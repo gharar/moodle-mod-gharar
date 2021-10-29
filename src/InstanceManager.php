@@ -2,10 +2,8 @@
 
 namespace Gharar\MoodleModGharar;
 
-use Gharar\MoodleModGharar\Database;
-
-use Gharar\MoodleModGharar\GhararServiceAPI\API;
-use Gharar\MoodleModGharar\GhararServiceAPI\Room\{
+use Gharar\MoodleModGharar\ServiceApi\Api;
+use Gharar\MoodleModGharar\ServiceApi\Room\{
     AvailableRoom,
     ToBeCreatedRoom
 };
@@ -23,7 +21,7 @@ class InstanceManager
 
     private function __construct()
     {
-        $this->api = new API(
+        $this->api = new Api(
             Util::getConfig(AdminSettingsBuilder::CONFIG_ACCESS_TOKEN_NAME)
         );
     }
@@ -57,7 +55,7 @@ class InstanceManager
          * because of them being unique fields, an error is occurred.
          */
         $id = Globals::getDatabase()
-            ->insert_record(Database::TABLE_MAIN, $instance);
+            ->insert_record(Database\Table::MAIN, $instance);
 
         return $id;
     }
@@ -106,7 +104,7 @@ class InstanceManager
         $this->setIntroFormatDefault($instance);
 
         $result = Globals::getDatabase()
-            ->update_record(Database::TABLE_MAIN, $instance);
+            ->update_record(Database\Table::MAIN, $instance);
 
         return $result;
     }
@@ -128,7 +126,7 @@ class InstanceManager
         $database = Globals::getDatabase();
 
         $record = $database->get_record(
-            Database::TABLE_MAIN,
+            Database\Table::MAIN,
             ["id" => $recordId]
         );
 
@@ -137,7 +135,7 @@ class InstanceManager
         }
 
         $deleteResult = $database->delete_records(
-            Database::TABLE_MAIN,
+            Database\Table::MAIN,
             ["id" => $recordId]
         );
 

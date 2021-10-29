@@ -15,7 +15,7 @@ trait InstanceInitializerTrait
     {
         $this->instance = Globals::getDatabase()
             ->get_record(
-                Database::TABLE_MAIN,
+                Database\Table::MAIN,
                 ["id" => $moduleInfo->instance],
                 "*",
                 \MUST_EXIST

@@ -101,7 +101,7 @@ class IndexPage
                     ];
                 },
                 Globals::getDatabase()->get_records(
-                    Database::TABLE_MAIN,
+                    Database\Table::MAIN,
                     ["course" => $this->courseId]
                 )
             )),

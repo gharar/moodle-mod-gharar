@@ -2,7 +2,7 @@
 
 namespace Gharar\MoodleModGharar\PageBuilding\Redirect;
 
-use Gharar\MoodleModGharar\GhararServiceAPI\Member\AvailableLiveMember;
+use Gharar\MoodleModGharar\ServiceApi\Member\AvailableLiveMember;
 use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 
 class EnterLivePage

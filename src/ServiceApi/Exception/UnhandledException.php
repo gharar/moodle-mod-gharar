@@ -1,6 +1,6 @@
 <?php
 
-namespace Gharar\MoodleModGharar\GhararServiceAPI\Exception;
+namespace Gharar\MoodleModGharar\ServiceApi\Exception;
 
 use Gharar\MoodleModGharar\LanguageString\StringId;
 use Gharar\MoodleModGharar\Util;

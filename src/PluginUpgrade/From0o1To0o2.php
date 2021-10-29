@@ -3,7 +3,7 @@
 namespace Gharar\MoodleModGharar\PluginUpgrade;
 
 use Gharar\MoodleModGharar\Database;
-use Gharar\MoodleModGharar\GhararServiceAPI\API;
+use Gharar\MoodleModGharar\ServiceApi\Api;
 
 class From0o1To0o2 extends AbstractBase
 {
@@ -62,7 +62,7 @@ class From0o1To0o2 extends AbstractBase
         if (
             $record->address === null ||
             $this->database->record_exists(
-                Database::TABLE_MAIN,
+                Database\Table::MAIN,
                 ["address" => $record->address]
             )
         ) {
@@ -110,7 +110,7 @@ class From0o1To0o2 extends AbstractBase
     private function makeRoomNameUnique(string $roomName): string
     {
         if (!$this->database->record_exists(
-            Database::TABLE_MAIN,
+            Database\Table::MAIN,
             ["room_name" => $roomName]
         )) {
             return $roomName;

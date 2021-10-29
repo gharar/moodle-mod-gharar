@@ -1,6 +1,6 @@
 <?php
 
-namespace Gharar\MoodleModGharar\GhararServiceAPI\Member;
+namespace Gharar\MoodleModGharar\ServiceApi\Member;
 
 class ToBeCreatedRoomMember extends AbstractMember
 {

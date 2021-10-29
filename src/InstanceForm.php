@@ -2,7 +2,7 @@
 
 namespace Gharar\MoodleModGharar;
 
-use Gharar\MoodleModGharar\GhararServiceAPI\API;
+use Gharar\MoodleModGharar\ServiceApi\Api;
 use Gharar\MoodleModGharar\LanguageString\StringId;
 use Gharar\MoodleModGharar\Moodle\Globals;
 use Gharar\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
@@ -114,7 +114,7 @@ abstract class InstanceForm extends \moodleform_mod
         if ($this->isUpdatingExistingInstance()) {
             $this->instance = Globals::getDatabase()
                 ->get_record(
-                    Database::TABLE_MAIN,
+                    Database\Table::MAIN,
                     ["id" => $this->_instance],
                     "*",
                     \MUST_EXIST
@@ -260,7 +260,7 @@ abstract class InstanceForm extends \moodleform_mod
     private function getIsPrivateFieldValue(): bool
     {
         if ($this->isUpdatingExistingInstance()) {
-            return (new API(
+            return (new Api(
                 Util::getConfig(AdminSettingsBuilder::CONFIG_ACCESS_TOKEN_NAME)
             ))
                 ->retrieveRoom($this->instance->address)
