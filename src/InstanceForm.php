@@ -2,10 +2,16 @@
 
 namespace Gharar\MoodleModGharar;
 
-use Gharar\MoodleModGharar\ServiceApi\Api;
+use Gharar\MoodleModGharar\InstanceForm\{
+    FieldType,
+    ElementType,
+    RuleType,
+    RuleValidationWhere,
+};
 use Gharar\MoodleModGharar\LanguageString\StringId;
 use Gharar\MoodleModGharar\Moodle\Globals;
 use Gharar\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
+use Gharar\MoodleModGharar\ServiceApi\Api;
 use Gharar\MoodleModGharar\Util;
 use Webmozart\Json\JsonDecoder;
 
@@ -34,44 +40,30 @@ require_once "{$CFG->dirroot}/course/moodleform_mod.php";
  */
 abstract class InstanceForm extends \moodleform_mod
 {
-    private const FIELD_TYPE_TEXT = "text";
-    private const FIELD_TYPE_CHECKBOX = "checkbox";
-    private const FIELD_TYPE_ADVANCED_CHECKBOX = "advcheckbox";
-    private const FIELD_TYPE_SELECT = "select";
-    private const FIELD_TYPE_HIDDEN = "hidden";
-
-    private const ELEMENT_TYPE_BLOCK = "header";
-
-    private const RULE_TYPE_REQUIRED = "required";
-    private const RULE_TYPE_REGEX = "regex";
-
-    private const RULE_VALIDATION_CLIENT = "client";
-    private const RULE_VALIDATION_SERVER = "server";
-
     public const BLOCK_ROOM_SETTINGS_NAME = "room_settings";
     public const BLOCK_RECORDINGS_NAME = "recordings";
 
     public const FIELD_NAME_NAME = "name";
-    private const FIELD_NAME_TYPE = self::FIELD_TYPE_TEXT;
+    private const FIELD_NAME_TYPE = FieldType::TEXT;
     private const FIELD_NAME_LENGTH = 255;
     private const FIELD_NAME_PARAM_TYPE = \PARAM_TEXT;
 
     private const FIELD_ADDRESS_NAME = "address";
-    private const FIELD_ADDRESS_TYPE = self::FIELD_TYPE_HIDDEN;
+    private const FIELD_ADDRESS_TYPE = FieldType::HIDDEN;
     private const FIELD_ADDRESS_PARAM_TYPE = \PARAM_TEXT;
 
     public const FIELD_ROOM_NAME_NAME = "room_name";
-    private const FIELD_ROOM_NAME_TYPE = self::FIELD_TYPE_TEXT;
+    private const FIELD_ROOM_NAME_TYPE = FieldType::TEXT;
     private const FIELD_ROOM_NAME_LENGTH = 255;
     private const FIELD_ROOM_NAME_PARAM_TYPE = \PARAM_TEXT;
 
     public const FIELD_IS_PRIVATE_NAME = "is_private";
-    private const FIELD_IS_PRIVATE_TYPE = self::FIELD_TYPE_ADVANCED_CHECKBOX;
+    private const FIELD_IS_PRIVATE_TYPE = FieldType::ADVANCED_CHECKBOX;
     private const FIELD_IS_PRIVATE_PARAM_TYPE = \PARAM_BOOL;
 
     public const FIELD_ROLES_CAN_VIEW_RECORDING_NAME =
         "roles_can_view_recordings";
-    private const FIELD_ROLES_CAN_VIEW_RECORDING_TYPE = self::FIELD_TYPE_SELECT;
+    private const FIELD_ROLES_CAN_VIEW_RECORDING_TYPE = FieldType::SELECT;
     private const FIELD_ROLES_CAN_VIEW_RECORDING_PARAM_TYPE = \PARAM_RAW;
 
     private const JS_INSTANCE_FORM_MODULE = "mod_gharar/instance-form";
@@ -143,6 +135,19 @@ abstract class InstanceForm extends \moodleform_mod
         return !empty($this->_instance);
     }
 
+    private function makeFieldRequiredAtClient(string $fieldName): self
+    {
+        $this->_form->addRule(
+            $fieldName,
+            null,
+            RuleType::REQUIRED,
+            null,
+            RuleValidationWhere::CLIENT
+        );
+
+        return $this;
+    }
+
     private function addNameField(): self
     {
         $this->_form->addElement(
@@ -156,13 +161,8 @@ abstract class InstanceForm extends \moodleform_mod
             self::FIELD_NAME_NAME,
             self::FIELD_NAME_PARAM_TYPE
         );
-        $this->_form->addRule(
-            self::FIELD_NAME_NAME,
-            null,
-            self::RULE_TYPE_REQUIRED,
-            null,
-            self::RULE_VALIDATION_CLIENT
-        );
+
+        $this->makeFieldRequiredAtClient(self::FIELD_NAME_NAME);
 
         return $this;
     }
@@ -170,7 +170,7 @@ abstract class InstanceForm extends \moodleform_mod
     private function addRoomSettingsBlock(): self
     {
         $this->_form->addElement(
-            self::ELEMENT_TYPE_BLOCK,
+            ElementType::BLOCK,
             self::BLOCK_ROOM_SETTINGS_NAME,
             self::getBlockString(self::BLOCK_ROOM_SETTINGS_NAME)
         );
@@ -213,13 +213,8 @@ abstract class InstanceForm extends \moodleform_mod
             self::FIELD_ROOM_NAME_NAME,
             self::FIELD_ROOM_NAME_PARAM_TYPE
         );
-        $this->_form->addRule(
-            self::FIELD_ROOM_NAME_NAME,
-            null,
-            self::RULE_TYPE_REQUIRED,
-            null,
-            self::RULE_VALIDATION_CLIENT
-        );
+
+        $this->makeFieldRequiredAtClient(self::FIELD_ROOM_NAME_NAME);
 
         $this->_form->setDefault(
             self::FIELD_ROOM_NAME_NAME,
@@ -278,7 +273,7 @@ abstract class InstanceForm extends \moodleform_mod
     private function addRecordingsBlock(): self
     {
         $this->_form->addElement(
-            self::ELEMENT_TYPE_BLOCK,
+            ElementType::BLOCK,
             self::BLOCK_RECORDINGS_NAME,
             self::getBlockString(self::BLOCK_RECORDINGS_NAME)
         );
@@ -342,4 +337,32 @@ abstract class InstanceForm extends \moodleform_mod
          */
         return ["1", "2", "3", "4", "5"];
     }
+}
+
+namespace Gharar\MoodleModGharar\InstanceForm;
+
+class FieldType
+{
+    public const TEXT = "text";
+    public const CHECKBOX = "checkbox";
+    public const ADVANCED_CHECKBOX = "advcheckbox";
+    public const SELECT = "select";
+    public const HIDDEN = "hidden";
+}
+
+class ElementType
+{
+    public const BLOCK = "header";
+}
+
+class RuleType
+{
+    public const REQUIRED = "required";
+    public const REGEX = "regex";
+}
+
+class RuleValidationWhere
+{
+    public const CLIENT = "client";
+    public const SERVER = "server";
 }

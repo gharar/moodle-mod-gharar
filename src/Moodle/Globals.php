@@ -15,10 +15,6 @@ require_once __DIR__ . "/../../../../config.php";
 
 class Globals
 {
-    private function __construct()
-    {
-    }
-
     public static function getDatabase(): moodle_database
     {
         global $DB;
