@@ -7,6 +7,12 @@ use const CONTEXT_COURSE;
 use const CONTEXT_MODULE;
 use const RISK_XSS;
 
+use Gharar\MoodleModGharar\Capability\{
+    Property,
+    Type,
+    Role,
+};
+
 class Capability
 {
     public const ADD_INSTANCE = "mod/gharar:addinstance";
@@ -15,7 +21,7 @@ class Capability
 
     public const DEFINITIONS = [
         self::ADD_INSTANCE => [
-            Property::CAP_TYPE => CapabilityType::WRITE,
+            Property::CAP_TYPE => Type::WRITE,
             Property::RISK_BITMASK => RISK_XSS,
             Property::CONTEXT_LEVEL => CONTEXT_COURSE,
             Property::ARCHE_TYPES => [
@@ -28,7 +34,7 @@ class Capability
         ],
 
         self::VIEW_INSTANCE => [
-            Property::CAP_TYPE => CapabilityType::READ,
+            Property::CAP_TYPE => Type::READ,
             Property::CONTEXT_LEVEL => CONTEXT_MODULE,
             Property::ARCHE_TYPES => [
                 Role::MANAGER => CAP_ALLOW,
@@ -40,7 +46,7 @@ class Capability
         ],
 
         self::ROOM_ADMIN => [
-            Property::CAP_TYPE => CapabilityType::READ,
+            Property::CAP_TYPE => Type::READ,
             Property::CONTEXT_LEVEL => CONTEXT_MODULE,
             Property::ARCHE_TYPES => [
                 Role::MANAGER => CAP_ALLOW,
@@ -51,6 +57,8 @@ class Capability
     ];
 }
 
+namespace Gharar\MoodleModGharar\Capability;
+
 class Property
 {
     public const CAP_TYPE = "captype";
@@ -60,7 +68,7 @@ class Property
     public const CLONE_PERMISSIONS_FROM = "clonepermissionsfrom";
 }
 
-class CapabilityType
+class Type
 {
     public const WRITE = "write";
     public const READ = "read";
