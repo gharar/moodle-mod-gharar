@@ -10,6 +10,7 @@ use Gharar\MoodleModGharar\ServiceApi\Room\{
 use Gharar\MoodleModGharar\Moodle\Globals;
 use Gharar\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
 use stdClass;
+use Webmozart\Json\JsonEncoder;
 
 class InstanceManager
 {
@@ -75,8 +76,8 @@ class InstanceManager
 
     private function setRolesCanViewRecordings(stdClass $instance): void
     {
-        $instance->roles_can_view_recordings = \json_encode(
-            $instance->roles_can_view_recordings
+        $instance->roles_can_view_recordings = (new JsonEncoder())->encode(
+            $instance->roles_can_view_recordings_select
         );
     }
 
@@ -101,7 +102,7 @@ class InstanceManager
         $room = $this->api->updateRoom($room);
 
         $this->setRolesCanViewRecordings($instance);
-        $this->setIntroFormatDefault($instance);
+        $this->unsetIntroFormat($instance);
 
         $result = Globals::getDatabase()
             ->update_record(Database\Table::MAIN, $instance);
@@ -109,12 +110,9 @@ class InstanceManager
         return $result;
     }
 
-    /**
-     * @todo This is a workaround and should be fixed.
-     */
-    private function setIntroFormatDefault(stdClass $instance): void
+    private function unsetIntroFormat(stdClass $instance): void
     {
-        $instance->introformat = $instance->introformat ?? 1;
+        unset($instance->introformat);
     }
 
     /**

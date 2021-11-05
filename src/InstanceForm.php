@@ -62,7 +62,7 @@ abstract class InstanceForm extends \moodleform_mod
     private const FIELD_IS_PRIVATE_PARAM_TYPE = \PARAM_BOOL;
 
     public const FIELD_ROLES_CAN_VIEW_RECORDING_NAME =
-        "roles_can_view_recordings";
+        "roles_can_view_recordings_select";
     private const FIELD_ROLES_CAN_VIEW_RECORDING_TYPE = FieldType::SELECT;
     private const FIELD_ROLES_CAN_VIEW_RECORDING_PARAM_TYPE = \PARAM_RAW;
 

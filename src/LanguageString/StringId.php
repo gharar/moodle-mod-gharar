@@ -25,7 +25,7 @@ class StringId
     public const FORM_INSTANCE_FIELD_IS_PRIVATE =
         self::FORM_INSTANCE_FIELD_PREFIX . "is_private";
     public const FORM_INSTANCE_FIELD_ROLES_CAN_VIEW_RECORDINGS =
-        self::FORM_INSTANCE_FIELD_PREFIX . "roles_can_view_recordings";
+        self::FORM_INSTANCE_FIELD_PREFIX . "roles_can_view_recordings_select";
 
     public const FORM_INSTANCE_BLOCK_ROOM_SETTINGS =
         self::FORM_INSTANCE_BLOCK_PREFIX . "room_settings";
