@@ -18,10 +18,11 @@ class Capability
     public const ADD_INSTANCE = "mod/gharar:addinstance";
     public const VIEW_INSTANCE = "mod/gharar:view";
     public const ROOM_ADMIN = "mod/gharar:room_admin";
+    public const LIVE_PRESENTER = "mod/gharar:live_presenter";
 
     public const DEFINITIONS = [
         self::ADD_INSTANCE => [
-            Property::CAP_TYPE => Type::WRITE,
+            Property::TYPE => Type::WRITE,
             Property::RISK_BITMASK => RISK_XSS,
             Property::CONTEXT_LEVEL => CONTEXT_COURSE,
             Property::ARCHE_TYPES => [
@@ -34,7 +35,7 @@ class Capability
         ],
 
         self::VIEW_INSTANCE => [
-            Property::CAP_TYPE => Type::READ,
+            Property::TYPE => Type::READ,
             Property::CONTEXT_LEVEL => CONTEXT_MODULE,
             Property::ARCHE_TYPES => [
                 Role::MANAGER => CAP_ALLOW,
@@ -46,13 +47,23 @@ class Capability
         ],
 
         self::ROOM_ADMIN => [
-            Property::CAP_TYPE => Type::READ,
+            Property::TYPE => Type::READ,
             Property::CONTEXT_LEVEL => CONTEXT_MODULE,
             Property::ARCHE_TYPES => [
                 Role::MANAGER => CAP_ALLOW,
                 Role::EDITING_TEACHER => CAP_ALLOW,
                 Role::TEACHER => CAP_ALLOW,
-            ]
+            ],
+        ],
+
+        self::LIVE_PRESENTER => [
+            Property::TYPE => Type::READ,
+            Property::CONTEXT_LEVEL => CONTEXT_MODULE,
+            Property::ARCHE_TYPES => [
+                Role::MANAGER => CAP_ALLOW,
+                Role::EDITING_TEACHER => CAP_ALLOW,
+                Role::TEACHER => CAP_ALLOW,
+            ],
         ],
     ];
 }
@@ -61,7 +72,7 @@ namespace Gharar\MoodleModGharar\Capability;
 
 class Property
 {
-    public const CAP_TYPE = "captype";
+    public const TYPE = "captype";
     public const RISK_BITMASK = "riskbitmask";
     public const CONTEXT_LEVEL = "contextlevel";
     public const ARCHE_TYPES = "archetypes";
