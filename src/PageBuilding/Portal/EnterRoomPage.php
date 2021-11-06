@@ -1,6 +1,6 @@
 <?php
 
-namespace Gharar\MoodleModGharar\PageBuilding\Redirect;
+namespace Gharar\MoodleModGharar\PageBuilding\Portal;
 
 use Gharar\MoodleModGharar\ServiceApi\AuthToken;
 use Gharar\MoodleModGharar\ServiceApi\Member\AvailableRoomMember;

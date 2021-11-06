@@ -1,6 +1,6 @@
 <?php
 
-namespace Gharar\MoodleModGharar\PageBuilding\Redirect\Traits;
+namespace Gharar\MoodleModGharar\PageBuilding\Portal\Traits;
 
 use Gharar\MoodleModGharar\PageBuilding\Traits\{
     PageBuilderTrait as BasePageBuilderTrait
