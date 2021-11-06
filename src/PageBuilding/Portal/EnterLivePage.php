@@ -12,7 +12,6 @@ use Gharar\MoodleModGharar\{
 };
 use stdClass;
 
-
 class EnterLivePage
 {
     use Traits\PageBuilderTrait;

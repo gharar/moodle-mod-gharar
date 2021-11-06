@@ -79,30 +79,6 @@ abstract class AbstractBase
      */
     protected const TABLE_MAIN_OLD_INDEXES = [];
 
-    #[Deprecated]
-    protected const FIELD_ATTR_NAME = self::FIELD_NAME;
-    #[Deprecated]
-    protected const FIELD_ATTR_TYPE = self::FIELD_TYPE;
-    #[Deprecated]
-    protected const FIELD_ATTR_LENGTH = self::FIELD_LENGTH;
-    #[Deprecated]
-    protected const FIELD_ATTR_PRECISION = self::FIELD_ATTR_LENGTH;
-    #[Deprecated]
-    protected const FIELD_ATTR_UNSINGED = self::FIELD_UNSINGED;
-    #[Deprecated]
-    protected const FIELD_ATTR_NOT_NULL = self::FIELD_NOT_NULL;
-    #[Deprecated]
-    protected const FIELD_ATTR_SEQUENCE = self::FIELD_SEQUENCE;
-    #[Deprecated]
-    protected const FIELD_ATTR_DEFAULT = self::FIELD_DEFAULT;
-
-    #[Deprecated]
-    protected const FIELD_INDEX_NAME = self::INDEX_NAME;
-    #[Deprecated]
-    protected const FIELD_INDEX_UNIQUE = self::INDEX_UNIQUE;
-    #[Deprecated]
-    protected const FIELD_INDEX_FIELDS = self::INDEX_FIELDS;
-
     public function __construct(moodle_database $database = null)
     {
         $this->database = $database ?? Globals::getDatabase();

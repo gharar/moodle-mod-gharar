@@ -16,14 +16,14 @@ class AvailableRoom extends AbstractRoom
     /** @var string */
     private $address;
 
-    /** @var string|null */
-    private $shareUrl = null;
-
     /** @var bool|null */
     private $isActive = null;
 
     /** @var bool|null */
     private $hasLive = null;
+
+    /** @var string|null */
+    private $liveUrl = null;
 
     public function __construct(string $name, string $address)
     {

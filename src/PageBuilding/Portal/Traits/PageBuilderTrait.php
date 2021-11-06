@@ -15,8 +15,8 @@ trait PageBuilderTrait
     public function build(): self
     {
         return $this
-            ->baseBuild()
-            ->prepare();
+            ->prepare()
+            ->baseBuild();
     }
 
     abstract protected function prepare(): self;
