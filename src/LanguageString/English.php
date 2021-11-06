@@ -27,6 +27,7 @@ class English
         StringId::CAPABILITY_ADD_INSTANCE => self::NONE,
         StringId::CAPABILITY_VIEW_INSTANCE => self::NONE,
         StringId::CAPABILITY_ROOM_ADMIN => self::NONE,
+        StringId::CAPABILITY_LIVE_PRESENTER => self::NONE,
 
         StringId::FORM_INSTANCE_FIELD_NAME => "Name",
         StringId::FORM_INSTANCE_FIELD_ROOM_NAME => "Room name",
@@ -39,8 +40,8 @@ class English
         StringId::CONFIG_ACCESS_TOKEN => "Access token",
         StringId::CONFIG_ACCESS_TOKEN_DESCRIPTION => self::NONE,
 
-        StringId::PAGE_VIEW_ENTER_ROOM => "Enter",
-        StringId::PAGE_VIEW_ENTER_ROOM_HAVING_LIVE => self::NONE,
+        StringId::PAGE_VIEW_ENTER => "Enter",
+        StringId::PAGE_VIEW_ENTER_ROOM => self::NONE,
         StringId::PAGE_VIEW_ENTER_LIVE => self::NONE,
         StringId::PAGE_VIEW_NO_RECORDINGS_AVAILABLE => self::NONE,
         StringId::PAGE_VIEW_HEADING_RECORDINGS => self::NONE,

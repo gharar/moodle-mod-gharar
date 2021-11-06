@@ -18,6 +18,7 @@ class Farsi
         StringId::CAPABILITY_ADD_INSTANCE => "افزودن فعالیت قرار",
         StringId::CAPABILITY_VIEW_INSTANCE => "مشاهده‌ی فعالیت قرار",
         StringId::CAPABILITY_ROOM_ADMIN => "مدیر اتاق‌ها بودن",
+        StringId::CAPABILITY_LIVE_PRESENTER => "رفتن به اتاق ارائه در وبینارها",
 
         StringId::FORM_INSTANCE_FIELD_NAME => "نام",
         StringId::FORM_INSTANCE_FIELD_ROOM_NAME => "نام اتاق",
@@ -31,9 +32,8 @@ class Farsi
         StringId::CONFIG_ACCESS_TOKEN_DESCRIPTION =>
             "کد خصوصی یکتای دسترسی به قرار",
 
-        StringId::PAGE_VIEW_ENTER_ROOM => "ورود",
-        StringId::PAGE_VIEW_ENTER_ROOM_HAVING_LIVE =>
-            "ورود به اتاق ارائه‌دهندگان",
+        StringId::PAGE_VIEW_ENTER => "ورود",
+        StringId::PAGE_VIEW_ENTER_ROOM => "ورود به اتاق ارائه‌دهندگان",
         StringId::PAGE_VIEW_ENTER_LIVE => "ورود به صفحه‌ی بینندگان",
         StringId::PAGE_VIEW_NO_RECORDINGS_AVAILABLE => "موردی یافت نشد.",
         StringId::PAGE_VIEW_HEADING_RECORDINGS => "ضبط‌شده‌ها",
