@@ -86,19 +86,25 @@ class AvailableRoom extends AbstractRoom
 
     public function isActive(): bool
     {
-        $this->assertPropertyIsNotNull($this->isActive, "isActive");
-        return $this->isActive;
+        if ($this->isActive !== null) {
+            return $this->isActive;
+        }
+        $this->throwPropertyIsNullException("isActive");
     }
 
     public function hasLive(): bool
     {
-        $this->assertPropertyIsNotNull($this->hasLive, "hasLive");
-        return $this->hasLive;
+        if ($this->hasLive !== null) {
+            return $this->hasLive;
+        }
+        $this->throwPropertyIsNullException("hasLive");
     }
 
     public function getLiveUrl(): string
     {
-        $this->assertPropertyIsNotNull($this->liveUrl, "liveUrl");
-        return $this->liveUrl;
+        if ($this->liveUrl !== null) {
+            return $this->liveUrl;
+        }
+        $this->throwPropertyIsNullException("liveUrl");
     }
 }

@@ -2,8 +2,6 @@
 
 namespace Gharar\MoodleModGharar\ServiceApi\Room;
 
-use Webmozart\Assert\Assert;
-
 abstract class AbstractRoom
 {
     public const PROP_NAME = "name";
@@ -45,16 +43,18 @@ abstract class AbstractRoom
 
     public function isPrivate(): bool
     {
-        $this->assertPropertyIsNotNull($this->isPrivate, "isPrivate");
-        return $this->isPrivate;
+        if ($this->isPrivate !== null) {
+            return $this->isPrivate;
+        }
+        $this->throwPropertyIsNullException("isPrivate");
     }
 
-    protected function assertPropertyIsNotNull(
-        $propertyValue,
-        string $propertyName
-    ): void {
-        Assert::notNull(
-            $propertyValue,
+    /**
+     * @return no-return
+     */
+    protected function throwPropertyIsNullException(string $propertyName): void
+    {
+        throw new \UnexpectedValueException(
             "Property '$propertyName' must not be null"
         );
     }
