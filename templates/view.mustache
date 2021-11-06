@@ -8,27 +8,22 @@
     }
 </style>
 
-{{#section_enter_room_only}}
-    <a class="btn btn-primary btn-margin-top" target="_blank"
-        href="{{url_enter_room}}">
-        {{enter_room}}
-    </a>
-{{/section_enter_room_only}}
-
-{{#section_enter_room_and_live}}
-    <a class="btn btn-primary btn-margin-top" target="_blank"
-        href="{{url_enter_room}}">
-        {{enter_room_having_live}}
-    </a>
-    <br/>
+{{#section_enter_live}}
     <a class="btn btn-primary btn-margin-top" target="_blank"
         href="{{url_enter_live}}">
         {{enter_live}}
     </a>
-{{/section_enter_room_and_live}}
+{{/section_enter_live}}
+
+{{#section_enter_room}}
+    <a class="btn btn-primary btn-margin-top" target="_blank"
+        href="{{url_enter_room}}">
+        {{enter_room}}
+    </a>
+{{/section_enter_room}}
 
 {{#section_recordings}}
-    <h2 id="heading_recordings">{{heading_recordings}}</h2>
+    <h3 id="heading_recordings">{{heading_recordings}}</h3>
     {{#list_recordings}}
         <a target="_blank"
             href="{{url}}">

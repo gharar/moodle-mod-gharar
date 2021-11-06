@@ -2,10 +2,11 @@
 
 namespace Gharar\MoodleModGharar\PageBuilding\Visual;
 
+use Gharar\MoodleModGharar\Capability;
 use Gharar\MoodleModGharar\ServiceApi\Recording;
 use Gharar\MoodleModGharar\LanguageString\StringId;
 use Gharar\MoodleModGharar\Moodle\Globals;
-use Gharar\MoodleModGharar\PageBuilding\Redirect\{
+use Gharar\MoodleModGharar\PageBuilding\Portal\{
     EnterLivePage,
     EnterRoomPage,
 };
@@ -80,33 +81,78 @@ class ViewPage
 
     protected function generateTemplateData(): array
     {
-        return $this->generateRoomEntranceTemplateData()
-            + $this->generateRecordingsTemplateData();
+        return \array_merge(
+            $this->generatePortalLinksTemplateData(),
+            $this->generateRecordingsTemplateData()
+        );
     }
 
-    private function generateRoomEntranceTemplateData(): array
+    private function generatePortalLinksTemplateData(): array
+    {
+        $templateData = \array_merge(
+            $this->generatePortalLinksVisibilityTemplateData(),
+            $this->generatePortalLinksUrlTemplateData()
+        );
+
+        $templateData = \array_merge(
+            $templateData,
+            $this->generatePortalLinksLabelTemplateData($templateData)
+        );
+
+        return $templateData;
+    }
+
+    private function generatePortalLinksVisibilityTemplateData(): array
+    {
+        if ($this->roomInfo->hasLive()) {
+            return [
+                "section_enter_room" => \has_capability(
+                    Capability::LIVE_PRESENTER,
+                    $this->moduleContext
+                ),
+                "section_enter_live" => true,
+            ];
+        } else {
+            return [
+                "section_enter_room" => true,
+                "section_enter_live" => false,
+            ];
+        }
+    }
+
+    private function generatePortalLinksUrlTemplateData(): array
     {
         return [
-            "section_enter_room_only" => !$this->roomInfo->hasLive(),
-            "section_enter_room_and_live" => $this->roomInfo->hasLive(),
-
             "url_enter_room" => (new moodle_url(
                 EnterRoomPage::RELATIVE_URL,
                 ["id" => $this->instanceId]
             ))->out(),
-
             "url_enter_live" => (new moodle_url(
                 EnterLivePage::RELATIVE_URL,
                 ["id" => $this->instanceId]
             ))->out(),
-
-            // Labels
-            "enter_room" => Util::getString(StringId::PAGE_VIEW_ENTER_ROOM),
-            "enter_room_having_live" => Util::getString(
-                StringId::PAGE_VIEW_ENTER_ROOM_HAVING_LIVE
-            ),
-            "enter_live" => Util::getString(StringId::PAGE_VIEW_ENTER_LIVE),
         ];
+    }
+
+    private function generatePortalLinksLabelTemplateData(
+        array $currentTemplateData
+    ): array {
+        if (
+            $currentTemplateData["section_enter_room"] &&
+            $currentTemplateData["section_enter_live"]
+        ) {
+            return [
+                "enter_room" => Util::getString(StringId::PAGE_VIEW_ENTER_ROOM),
+                "enter_live" => Util::getString(StringId::PAGE_VIEW_ENTER_LIVE),
+            ];
+        } elseif ($currentTemplateData["section_enter_room"]) {
+            return ["enter_room" => Util::getString(StringId::PAGE_VIEW_ENTER)];
+        } elseif ($currentTemplateData["section_enter_live"]) {
+            return ["enter_live" => Util::getString(StringId::PAGE_VIEW_ENTER)];
+        }
+
+        // TODO: Set a message for it! :)
+        throw new \LogicException();
     }
 
     private function generateRecordingsTemplateData(): array
