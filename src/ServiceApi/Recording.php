@@ -13,15 +13,18 @@ class Recording
     /** @var string */
     private $name;
 
-    public function __construct(string $url)
+    public function __construct(string $url, string $name)
     {
-        $this->setUrl($url);
+        $this
+            ->setUrl($url)
+            ->setName($name);
     }
 
     public static function fromRawObject(object $object): self
     {
         $recording = new self(
-            $object->{self::PROP_URL}
+            $object->{self::PROP_URL},
+            $object->{self::PROP_NAME}
         );
 
         return $recording;
