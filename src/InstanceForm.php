@@ -13,7 +13,6 @@ use Gharar\MoodleModGharar\Moodle\Globals;
 use Gharar\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
 use Gharar\MoodleModGharar\ServiceApi\Api;
 use Gharar\MoodleModGharar\Util;
-use Webmozart\Json\JsonDecoder;
 
 /*
  * Defining this global variable is necessary here, because the moodleform_mod
@@ -320,7 +319,7 @@ abstract class InstanceForm extends \moodleform_mod
     private function getRolesCanViewRecordingsFieldValue(): array
     {
         if ($this->isUpdatingExistingInstance()) {
-            return (new JsonDecoder())->decode(
+            return Util::jsonDecode(
                 $this->instance->roles_can_view_recordings
             );
         } else {

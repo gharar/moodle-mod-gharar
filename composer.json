@@ -13,12 +13,12 @@
         }
     ],
     "require": {
-        "php": "7.2 - 7.4",
+        "php": ">=7.2",
         "guzzlehttp/guzzle": "^7.3",
-        "webmozart/json": "^1.2",
-        "webmozart/assert": "^1.10"
+        "symfony/serializer": "^5.3"
     },
     "require-dev": {
+        "php": ">=7.2",
         "vimeo/psalm": "^4.9",
         "phan/phan": "^5.2",
         "machitgarha/bimoo": "3.9.*",

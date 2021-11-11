@@ -5,6 +5,7 @@ namespace Gharar\MoodleModGharar;
 use core_renderer;
 use RuntimeException;
 use Gharar\MoodleModGharar\Moodle\Globals;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 class Util
 {
@@ -52,5 +53,15 @@ class Util
         throw new RuntimeException(
             "Expected the renderer from Moodle to be core_renderer"
         );
+    }
+
+    public static function jsonEncode($data): string
+    {
+        return (new JsonEncoder())->encode($data, "");
+    }
+
+    public static function jsonDecode(string $data)
+    {
+        return (new JsonEncoder())->decode($data, "");
     }
 }

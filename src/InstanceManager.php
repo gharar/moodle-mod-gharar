@@ -10,7 +10,6 @@ use Gharar\MoodleModGharar\ServiceApi\Room\{
 use Gharar\MoodleModGharar\Moodle\Globals;
 use Gharar\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
 use stdClass;
-use Webmozart\Json\JsonEncoder;
 
 class InstanceManager
 {
@@ -76,7 +75,7 @@ class InstanceManager
 
     private function setRolesCanViewRecordings(stdClass $instance): void
     {
-        $instance->roles_can_view_recordings = (new JsonEncoder())->encode(
+        $instance->roles_can_view_recordings = Util::jsonEncode(
             $instance->roles_can_view_recordings_select
         );
     }

@@ -28,8 +28,8 @@ use Gharar\MoodleModGharar\ServiceApi\Room\{
     AvailableRoom,
     ToBeCreatedRoom
 };
+use Gharar\MoodleModGharar\Util;
 use Psr\Http\Message\ResponseInterface;
-use Webmozart\Json\JsonDecoder;
 
 /**
  * @todo Prevent error messages from being exposed, in each and every case. For
@@ -52,14 +52,9 @@ class Api
     /** @var Client */
     private $client;
 
-    /** @var JsonDecoder */
-    private $jsonDecoder;
-
     public function __construct(string $token)
     {
-        $this
-            ->initClient($token)
-            ->initJsonDecoder();
+        $this->initClient($token);
     }
 
     private function initClient(string $token): self
@@ -430,7 +425,7 @@ class Api
     private function getSuccessfulJsonResponseDecodedContents(
         ResponseInterface $response
     ) {
-        return $this->jsonDecoder->decode(
+        return Util::jsonDecode(
             self::getSuccessfulResponseContents($response)
         );
     }
