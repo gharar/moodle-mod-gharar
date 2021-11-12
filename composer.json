@@ -15,7 +15,8 @@
     "require": {
         "php": ">=7.2",
         "guzzlehttp/guzzle": "^7.3",
-        "symfony/serializer": "^5.3"
+        "symfony/serializer": "^5.3",
+        "symfony/property-access": "^5.3"
     },
     "require-dev": {
         "php": ">=7.2",
