@@ -1,9 +1,9 @@
 <?php
 
-namespace Gharar\MoodleModGharar\PageBuilding\Traits;
+namespace Gharar\MoodleModGharar\Traits;
 
-use cm_info;
 use Gharar\MoodleModGharar\Database;
+use Gharar\MoodleModGharar\Util;
 use Gharar\MoodleModGharar\Moodle\Globals;
 
 trait InstanceInitializer
@@ -11,15 +11,19 @@ trait InstanceInitializer
     /** @var object */
     private $instance;
 
-    private function initInstance(cm_info $moduleInfo): self
+    private function initInstance(int $instanceId): self
     {
         $this->instance = Globals::getDatabase()
             ->get_record(
                 Database\Table::MAIN,
-                ["id" => $moduleInfo->instance],
+                ["id" => $instanceId],
                 "*",
                 \MUST_EXIST
             );
+
+        $this->instance->roles_can_view_recordings = Util::jsonDecode(
+            $this->instance->roles_can_view_recordings
+        );
 
         return $this;
     }

@@ -11,6 +11,7 @@ use Gharar\MoodleModGharar\PageBuilding\Portal\{
     EnterRoomPage,
 };
 use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
+use Gharar\MoodleModGharar\Traits as RootTraits;
 use Gharar\MoodleModGharar\{
     Plugin,
     Util,
@@ -22,13 +23,13 @@ class ViewPage
     use Traits\TemplateBasedPageBuilder;
     use BaseTraits\MoodleConfigLoader;
     use BaseTraits\CourseAndModuleInfoInitializer;
-    use BaseTraits\InstanceInitializer;
     use BaseTraits\ApiInitializer;
     use BaseTraits\RoomInfoInitializer;
     use BaseTraits\ContextInitializer;
     use BaseTraits\RequireLogin {
         requireCourseModuleLogin as requireLogin;
     }
+    use RootTraits\InstanceInitializer;
 
     public const RELATIVE_URL = Plugin::RELATIVE_PATH . "/view.php";
 
@@ -41,7 +42,7 @@ class ViewPage
             ->initParams()
             ->initCourseAndModuleInfo($this->instanceId, Plugin::MODULE_NAME)
             ->requireLogin($this->course, $this->moduleInfo)
-            ->initInstance($this->moduleInfo)
+            ->initInstance($this->moduleInfo->instance)
             ->initModuleContext($this->instanceId)
             ->initApi()
             ->initRoomInfo($this->api, $this->instance->address);
@@ -186,7 +187,10 @@ class ViewPage
         $userRoles = \get_user_roles($this->moduleContext, $userId, true);
 
         foreach ($userRoles as $userRole) {
-            if ($userRole->id === $this->instance->roles_can_view_recordings) {
+            if (\in_array(
+                $userRole->id,
+                $this->instance->roles_can_view_recordings
+            )) {
                 return true;
             }
         }

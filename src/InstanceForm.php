@@ -39,6 +39,8 @@ require_once "{$CFG->dirroot}/course/moodleform_mod.php";
  */
 abstract class InstanceForm extends \moodleform_mod
 {
+    use Traits\InstanceInitializer;
+
     public const BLOCK_ROOM_SETTINGS_NAME = "room_settings";
     public const BLOCK_RECORDINGS_NAME = "recordings";
 
@@ -103,15 +105,8 @@ abstract class InstanceForm extends \moodleform_mod
     private function initInstanceIfUpdating(): self
     {
         if ($this->isUpdatingExistingInstance()) {
-            $this->instance = Globals::getDatabase()
-                ->get_record(
-                    Database\Table::MAIN,
-                    ["id" => $this->_instance],
-                    "*",
-                    \MUST_EXIST
-                );
+            $this->initInstance($this->_instance);
         }
-
         return $this;
     }
 
@@ -318,13 +313,9 @@ abstract class InstanceForm extends \moodleform_mod
 
     private function getRolesCanViewRecordingsFieldValue(): array
     {
-        if ($this->isUpdatingExistingInstance()) {
-            return Util::jsonDecode(
-                $this->instance->roles_can_view_recordings
-            );
-        } else {
-            return $this->getRolesCanViewRecordingsFieldDefault();
-        }
+        return $this->isUpdatingExistingInstance()
+            ? $this->instance->roles_can_view_recordings
+            : $this->getRolesCanViewRecordingsFieldDefault();
     }
 
     private static function getRolesCanViewRecordingsFieldDefault(): array

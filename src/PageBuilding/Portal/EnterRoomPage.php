@@ -6,6 +6,7 @@ use Gharar\MoodleModGharar\ServiceApi\AuthToken;
 use Gharar\MoodleModGharar\ServiceApi\Member\AvailableRoomMember;
 use Gharar\MoodleModGharar\Moodle\Globals;
 use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
+use Gharar\MoodleModGharar\Traits as RootTraits;
 use Gharar\MoodleModGharar\{
     Capability,
     Plugin,
@@ -18,13 +19,13 @@ class EnterRoomPage
     use Traits\PageBuilder;
     use BaseTraits\MoodleConfigLoader;
     use BaseTraits\CourseAndModuleInfoInitializer;
-    use BaseTraits\InstanceInitializer;
     use BaseTraits\ContextInitializer;
     use BaseTraits\ApiInitializer;
     use BaseTraits\RoomInfoInitializer;
     use BaseTraits\RequireLogin {
         requireCourseModuleLogin as requireLogin;
     }
+    use RootTraits\InstanceInitializer;
 
     public const RELATIVE_URL = Base::RELATIVE_PATH . "/enter-room.php";
 
@@ -40,7 +41,7 @@ class EnterRoomPage
             ->initParams()
             ->initCourseAndModuleInfo($this->instanceId, Plugin::MODULE_NAME)
             ->requireLogin($this->course, $this->moduleInfo)
-            ->initInstance($this->moduleInfo)
+            ->initInstance($this->moduleInfo->instance)
             ->initModuleContext($this->instanceId)
             ->initApi()
             ->initRoomInfo($this->api, $this->instance->address);
