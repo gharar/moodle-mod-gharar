@@ -103,18 +103,11 @@ class Api
     public function listRooms(): array
     {
         try {
-            return \array_map(
-                function (array $room): AvailableRoom {
-                    return $this->jsonSerializer->denormalize(
-                        $room,
-                        AvailableRoom::class
-                    );
-                },
-                $this->decodeResponse(
-                    $this->client->get(
-                        RelativeURI::getRooms()
-                    )
-                )
+            return $this->deserializeResponseContainingList(
+                $this->client->get(
+                    RelativeURI::getRooms()
+                ),
+                AvailableRoom::class
             );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
@@ -203,18 +196,11 @@ class Api
     public function listRoomMembers(string $roomAddress): array
     {
         try {
-            return \array_map(
-                function (array $roomMember): AvailableRoomMember {
-                    return $this->jsonSerializer->denormalize(
-                        $roomMember,
-                        AvailableRoomMember::class
-                    );
-                },
-                $this->decodeResponse(
-                    $this->client->get(
-                        RelativeURI::getRoomMembers($roomAddress)
-                    )
-                )
+            return $this->deserializeResponseContainingList(
+                $this->client->get(
+                    RelativeURI::getRoomMembers($roomAddress)
+                ),
+                AvailableRoomMember::class
             );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
@@ -308,18 +294,13 @@ class Api
     public function listLiveMembers(string $roomAddress): array
     {
         try {
-            return \array_map(
-                function (array $liveMember): AvailableLiveMember {
-                    return $this->jsonSerializer->denormalize(
-                        $liveMember,
-                        AvailableLiveMember::class
-                    );
-                },
+            return $this->denormalizeEntityList(
                 $this->decodeResponse(
                     $this->client->get(
                         RelativeURI::getLiveMembers($roomAddress)
                     )
-                )["invitees"]
+                )["invitees"],
+                AvailableLiveMember::class
             );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
@@ -333,18 +314,16 @@ class Api
         ToBeCreatedLiveMember $newMember
     ): AvailableLiveMember {
         try {
-            $liveMember = $this->decodeResponse(
-                $this->client->post(
-                    RelativeURI::getLiveMembers($roomAddress),
-                    [RequestOptions::FORM_PARAMS => [
-                        Member\Property::PHONE => $newMember->getPhone(),
-                        Member\Property::NAME => $newMember->getName(),
-                    ]]
-                )
-            )["users"][0];
-
             return $this->jsonSerializer->denormalize(
-                $liveMember,
+                $this->decodeResponse(
+                    $this->client->post(
+                        RelativeURI::getLiveMembers($roomAddress),
+                        [RequestOptions::FORM_PARAMS => [
+                            Member\Property::PHONE => $newMember->getPhone(),
+                            Member\Property::NAME => $newMember->getName(),
+                        ]]
+                    )
+                )["users"][0],
                 AvailableLiveMember::class
             );
         } catch (TransferException $e) {
@@ -389,18 +368,13 @@ class Api
     public function listRoomRecordings(string $roomAddress): array
     {
         try {
-            return \array_map(
-                function (array $recording): Recording {
-                    return $this->jsonSerializer->denormalize(
-                        $recording,
-                        Recording::class
-                    );
-                },
+            return $this->denormalizeEntityList(
                 $this->decodeResponse(
                     $this->client->get(
                         RelativeURI::getRoomRecordings($roomAddress)
                     )
-                )["recordings"]
+                )["recordings"],
+                Recording::class
             );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
@@ -409,22 +383,49 @@ class Api
         }
     }
 
-    private function deserializeResponse(
-        ResponseInterface $response,
-        string $resultingObjectType
-    ): object {
-        return $this->jsonSerializer->deserialize(
-            $response->getBody()->getContents(),
-            $resultingObjectType,
-            JsonEncoder::FORMAT
-        );
-    }
-
     private function decodeResponse(ResponseInterface $response)
     {
         return $this->jsonSerializer->decode(
             $response->getBody()->getContents(),
             JsonEncoder::FORMAT
+        );
+    }
+
+    private function deserializeResponse(
+        ResponseInterface $response,
+        string $entityType
+    ): object {
+        return $this->jsonSerializer->deserialize(
+            $response->getBody()->getContents(),
+            $entityType,
+            JsonEncoder::FORMAT
+        );
+    }
+
+    private function denormalizeEntityList(
+        array $entityList,
+        string $entityType
+    ): array {
+        return \array_map(
+            function (array $entityProperties) use ($entityType): object {
+                return $this->jsonSerializer->denormalize(
+                    $entityProperties,
+                    $entityType
+                );
+            },
+            $entityList
+        );
+    }
+
+    private function deserializeResponseContainingList(
+        ResponseInterface $response,
+        string $entityType
+    ): array {
+        return $this->denormalizeEntityList(
+            $this->decodeResponse(
+                $response
+            ),
+            $entityType
         );
     }
 }
