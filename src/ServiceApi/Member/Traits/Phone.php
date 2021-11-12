@@ -7,7 +7,7 @@ trait Phone
     /** @var string */
     private $phone;
 
-    public function setPhone(string $phone): self
+    private function setPhone(string $phone): self
     {
         $this->phone = $phone;
         return $this;

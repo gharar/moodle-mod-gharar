@@ -7,7 +7,7 @@ trait IsAdmin
     /** @var bool */
     private $isAdmin;
 
-    public function setIsAdmin(bool $isAdmin): self
+    private function setIsAdmin(bool $isAdmin): self
     {
         $this->isAdmin = $isAdmin;
         return $this;
