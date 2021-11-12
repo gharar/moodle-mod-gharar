@@ -2,16 +2,21 @@
 
 namespace Gharar\MoodleModGharar\ServiceApi\Member;
 
-class AvailableRoomMember extends ToBeCreatedRoomMember
+class AvailableRoomMember implements
+    Interfaces\AvailableMember
 {
-    public static function fromRawObject(object $object): self
-    {
-        $member = new self(
-            $object->{self::PROP_PHONE},
-            $object->{self::PROP_IS_ADMIN}
-        );
-        $member->setName($object->{self::PROP_NAME});
+    use Traits\Phone {
+        setPhone as private;
+    }
+    use Traits\IsAdmin {
+        setIsAdmin as private;
+    }
+    use Traits\OptionalName;
 
-        return $member;
+    public function __construct(string $phone, bool $isAdmin)
+    {
+        $this
+            ->setPhone($phone)
+            ->setIsAdmin($isAdmin);
     }
 }

@@ -2,27 +2,20 @@
 
 namespace Gharar\MoodleModGharar\ServiceApi\Member;
 
-class ToBeCreatedRoomMember extends AbstractMember
+class ToBeCreatedRoomMember
 {
-    public const PROP_IS_ADMIN = "is_admin";
-
-    /** @var bool */
-    private $isAdmin;
+    use Traits\Phone {
+        setPhone as private;
+    }
+    use Traits\IsAdmin {
+        setIsAdmin as private;
+    }
+    use Traits\OptionalName;
 
     public function __construct(string $phone, bool $isAdmin)
     {
-        parent::__construct($phone);
-        $this->setIsAdmin($isAdmin);
-    }
-
-    private function setIsAdmin(bool $isAdmin): self
-    {
-        $this->isAdmin = $isAdmin;
-        return $this;
-    }
-
-    public function isAdmin(): bool
-    {
-        return $this->isAdmin;
+        $this
+            ->setPhone($phone)
+            ->setIsAdmin($isAdmin);
     }
 }

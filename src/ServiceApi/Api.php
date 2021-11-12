@@ -17,12 +17,13 @@ use Gharar\MoodleModGharar\ServiceApi\Exception\{
     UnauthorizedException,
     UnhandledException,
 };
+use Gharar\MoodleModGharar\ServiceApi\Member;
 use Gharar\MoodleModGharar\ServiceApi\Member\{
-    AbstractMember,
     AvailableLiveMember,
     AvailableRoomMember,
     ToBeCreatedLiveMember,
-    ToBeCreatedRoomMember
+    ToBeCreatedRoomMember,
+    Interfaces\AvailableMember,
 };
 use Gharar\MoodleModGharar\ServiceApi\Room\{
     AvailableRoom,
@@ -231,12 +232,9 @@ class Api
                 $this->client->post(
                     RelativeURI::getRoomMembers($roomAddress),
                     [RequestOptions::FORM_PARAMS => [
-                        ToBeCreatedRoomMember::PROP_PHONE =>
-                            $newMember->getPhone(),
-                        ToBeCreatedRoomMember::PROP_IS_ADMIN =>
-                            $newMember->isAdmin(),
-                        ToBeCreatedRoomMember::PROP_NAME =>
-                            $newMember->getName(),
+                        Member\Property::PHONE => $newMember->getPhone(),
+                        Member\Property::IS_ADMIN => $newMember->isAdmin(),
+                        Member\Property::NAME => $newMember->getName(),
                     ]]
                 ),
                 AvailableRoomMember::class
@@ -260,12 +258,9 @@ class Api
                         $member->getPhone()
                     ),
                     [RequestOptions::FORM_PARAMS => [
-                        AvailableRoomMember::PROP_PHONE =>
-                            $member->getPhone(),
-                        AvailableRoomMember::PROP_IS_ADMIN =>
-                            $member->isAdmin(),
-                        AvailableRoomMember::PROP_NAME =>
-                            $member->getName(),
+                        Member\Property::PHONE => $member->getPhone(),
+                        Member\Property::IS_ADMIN => $member->isAdmin(),
+                        Member\Property::NAME => $member->getName(),
                     ]]
                 ),
                 AvailableRoomMember::class
@@ -342,10 +337,8 @@ class Api
                 $this->client->post(
                     RelativeURI::getLiveMembers($roomAddress),
                     [RequestOptions::FORM_PARAMS => [
-                        ToBeCreatedLiveMember::PROP_PHONE =>
-                            $newMember->getPhone(),
-                        ToBeCreatedLiveMember::PROP_NAME =>
-                            $newMember->getName(),
+                        Member\Property::PHONE => $newMember->getPhone(),
+                        Member\Property::NAME => $newMember->getName(),
                     ]]
                 )
             )["users"][0];
@@ -373,15 +366,15 @@ class Api
         return false;
     }
 
-    public function generateAuthToken(AbstractMember $member): AuthToken
+    public function generateAuthToken(AvailableMember $member): AuthToken
     {
         try {
             return $this->deserializeResponse(
                 $this->client->post(
                     RelativeURI::getAuthToken(),
                     [RequestOptions::FORM_PARAMS => [
-                        AbstractMember::PROP_PHONE => $member->getPhone(),
-                        AbstractMember::PROP_NAME => $member->getName(),
+                        Member\Property::PHONE => $member->getPhone(),
+                        Member\Property::NAME => $member->getName(),
                     ]]
                 ),
                 AuthToken::class

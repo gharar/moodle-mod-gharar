@@ -2,18 +2,16 @@
 
 namespace Gharar\MoodleModGharar\ServiceApi\Member;
 
-class AvailableLiveMember extends ToBeCreatedLiveMember
+class AvailableLiveMember implements
+    Interfaces\AvailableMember
 {
-    /**
-     * @return static
-     */
-    public static function fromRawObject(object $object)
-    {
-        $member = new static(
-            $object->{self::PROP_PHONE}
-        );
-        $member->setName($object->{self::PROP_NAME});
+    use Traits\Phone {
+        setPhone as private;
+    }
+    use Traits\OptionalName;
 
-        return $member;
+    public function __construct(string $phone)
+    {
+        $this->setPhone($phone);
     }
 }
