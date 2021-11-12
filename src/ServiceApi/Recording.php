@@ -4,9 +4,6 @@ namespace Gharar\MoodleModGharar\ServiceApi;
 
 class Recording
 {
-    public const PROP_URL = "url";
-    public const PROP_NAME = "name";
-
     /** @var string */
     private $url;
 
@@ -18,16 +15,6 @@ class Recording
         $this
             ->setUrl($url)
             ->setName($name);
-    }
-
-    public static function fromRawObject(object $object): self
-    {
-        $recording = new self(
-            $object->{self::PROP_URL},
-            $object->{self::PROP_NAME}
-        );
-
-        return $recording;
     }
 
     private function setUrl(string $url): self

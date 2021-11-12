@@ -5,16 +5,15 @@ namespace Gharar\MoodleModGharar\ServiceApi\Room;
 /**
  * A room that is supposed to be available and exist. In other words, you can
  * retrieve its information using {@link Api::retrieveRoom()}.
+ * @todo Move all its individual properties to traits.
  */
-class AvailableRoom extends AbstractRoom
+class AvailableRoom
 {
-    public const PROP_ADDRESS = "address";
-    public const PROP_IS_ACTIVE = "is_active";
-    public const PROP_HAS_LIVE = "has_live";
-    public const PROP_LIVE_URL = "live_url";
-
-    /** @var string */
-    private $address;
+    use Traits\Name;
+    use Traits\Address;
+    use Traits\IsPrivate {
+        setIsPrivate as public;
+    }
 
     /** @var bool|null */
     private $isActive = null;
@@ -27,33 +26,9 @@ class AvailableRoom extends AbstractRoom
 
     public function __construct(string $name, string $address)
     {
-        parent::__construct($name);
-        $this->setAddress($address);
-    }
-
-    /**
-     * @param object $object The decoded JSON, grabbed from the API call.
-     */
-    public static function fromRawObject(object $object): self
-    {
-        $room = new self(
-            $object->{self::PROP_NAME},
-            $object->{self::PROP_ADDRESS}
-        );
-
-        $room
-            ->setIsPrivate($object->{self::PROP_IS_PRIVATE})
-            ->setIsActive($object->{self::PROP_IS_ACTIVE})
-            ->setHasLive($object->{self::PROP_HAS_LIVE})
-            ->setLiveUrl($object->{self::PROP_LIVE_URL});
-
-        return $room;
-    }
-
-    private function setAddress(string $address): self
-    {
-        $this->address = $address;
-        return $this;
+        $this
+            ->setName($name)
+            ->setAddress($address);
     }
 
     public function setIsActive(bool $isActive): self
@@ -72,11 +47,6 @@ class AvailableRoom extends AbstractRoom
     {
         $this->liveUrl = $liveUrl;
         return $this;
-    }
-
-    public function getAddress(): string
-    {
-        return $this->address;
     }
 
     public function getShareUrl(): string
@@ -106,5 +76,16 @@ class AvailableRoom extends AbstractRoom
             return $this->liveUrl;
         }
         $this->throwPropertyIsNullException("liveUrl");
+    }
+
+    /**
+     * @todo Move it to a trait.
+     * @return no-return
+     */
+    private function throwPropertyIsNullException(string $propertyName): void
+    {
+        throw new \UnexpectedValueException(
+            "Property '$propertyName' must not be null"
+        );
     }
 }
