@@ -21,14 +21,14 @@ use Gharar\MoodleModGharar\ServiceApi\Member;
 use Gharar\MoodleModGharar\ServiceApi\Member\{
     AvailableLiveMember,
     AvailableRoomMember,
-    ToBeCreatedLiveMember,
-    ToBeCreatedRoomMember,
+    PossibleLiveMember,
+    PossibleRoomMember,
     Interfaces\AvailableMember,
 };
 use Gharar\MoodleModGharar\ServiceApi\Room;
 use Gharar\MoodleModGharar\ServiceApi\Room\{
     AvailableRoom,
-    ToBeCreatedRoom
+    PossibleRoom,
 };
 use Gharar\MoodleModGharar\Util;
 use Psr\Http\Message\ResponseInterface;
@@ -117,7 +117,7 @@ class Api
         }
     }
 
-    public function createRoom(ToBeCreatedRoom $newRoom): AvailableRoom
+    public function createRoom(PossibleRoom $newRoom): AvailableRoom
     {
         try {
             return $this->deserializeResponse(
@@ -210,7 +210,7 @@ class Api
 
     public function createRoomMember(
         string $roomAddress,
-        ToBeCreatedRoomMember $newMember
+        PossibleRoomMember $newMember
     ): AvailableRoomMember {
         try {
             return $this->deserializeResponse(
@@ -310,7 +310,7 @@ class Api
 
     public function createLiveMember(
         string $roomAddress,
-        ToBeCreatedLiveMember $newMember
+        PossibleLiveMember $newMember
     ): AvailableLiveMember {
         try {
             return $this->jsonSerializer->denormalize(

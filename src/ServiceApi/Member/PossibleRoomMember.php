@@ -2,7 +2,7 @@
 
 namespace Gharar\MoodleModGharar\ServiceApi\Member;
 
-class ToBeCreatedRoomMember
+class PossibleRoomMember
 {
     use Traits\Phone;
     use Traits\IsAdmin;

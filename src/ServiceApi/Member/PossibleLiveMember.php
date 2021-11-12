@@ -2,7 +2,7 @@
 
 namespace Gharar\MoodleModGharar\ServiceApi\Member;
 
-class ToBeCreatedLiveMember
+class PossibleLiveMember
 {
     use Traits\Phone;
     use Traits\OptionalName;

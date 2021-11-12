@@ -5,7 +5,7 @@ namespace Gharar\MoodleModGharar;
 use Gharar\MoodleModGharar\ServiceApi\Api;
 use Gharar\MoodleModGharar\ServiceApi\Room\{
     AvailableRoom,
-    ToBeCreatedRoom
+    PossibleRoom
 };
 use Gharar\MoodleModGharar\Moodle\Globals;
 use Gharar\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
@@ -67,7 +67,7 @@ class InstanceManager
 
     private function createNewRoom(object $instance): AvailableRoom
     {
-        return $this->api->createRoom(new ToBeCreatedRoom(
+        return $this->api->createRoom(new PossibleRoom(
             $instance->room_name,
             $instance->is_private
         ));
