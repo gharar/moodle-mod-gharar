@@ -15,15 +15,14 @@ use stdClass;
 
 class EnterRoomPage
 {
-    use Traits\PageBuilderTrait;
-    use BaseTraits\MoodleConfigLoaderTrait;
-    use BaseTraits\CourseAndModuleInfoInitializerTrait;
-    use BaseTraits\InstanceInitializerTrait;
-    use BaseTraits\ContextInitializerTrait;
-    use BaseTraits\ApiInitializerTrait;
-    use BaseTraits\RoomInfoInitializerTrait;
-
-    use BaseTraits\RequireLoginTrait {
+    use Traits\PageBuilder;
+    use BaseTraits\MoodleConfigLoader;
+    use BaseTraits\CourseAndModuleInfoInitializer;
+    use BaseTraits\InstanceInitializer;
+    use BaseTraits\ContextInitializer;
+    use BaseTraits\ApiInitializer;
+    use BaseTraits\RoomInfoInitializer;
+    use BaseTraits\RequireLogin {
         requireCourseModuleLogin as requireLogin;
     }
 

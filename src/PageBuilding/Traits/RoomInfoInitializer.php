@@ -5,7 +5,7 @@ namespace Gharar\MoodleModGharar\PageBuilding\Traits;
 use Gharar\MoodleModGharar\ServiceApi\Api;
 use Gharar\MoodleModGharar\ServiceApi\Room\AvailableRoom;
 
-trait RoomInfoInitializerTrait
+trait RoomInfoInitializer
 {
     /** @var AvailableRoom */
     private $roomInfo;

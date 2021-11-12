@@ -2,7 +2,7 @@
 
 namespace Gharar\MoodleModGharar\PageBuilding\Traits;
 
-trait PageBuilderTrait
+trait PageBuilder
 {
     public function build(): self
     {

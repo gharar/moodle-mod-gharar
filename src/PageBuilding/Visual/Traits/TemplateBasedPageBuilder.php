@@ -4,9 +4,9 @@ namespace Gharar\MoodleModGharar\PageBuilding\Visual\Traits;
 
 use Gharar\MoodleModGharar\Util;
 
-trait TemplateBasedPageBuilderTrait
+trait TemplateBasedPageBuilder
 {
-    use PageBuilderTrait;
+    use PageBuilder;
 
     protected function generateOutputMainContent(): string
     {

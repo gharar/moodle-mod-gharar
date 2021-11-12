@@ -5,7 +5,7 @@ namespace Gharar\MoodleModGharar\PageBuilding\Traits;
 use cm_info;
 use stdClass;
 
-trait RequireLoginTrait
+trait RequireLogin
 {
     private function requireCourseLogin(int $courseId): self
     {

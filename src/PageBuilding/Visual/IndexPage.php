@@ -14,10 +14,9 @@ use stdClass;
 
 class IndexPage
 {
-    use Traits\TemplateBasedPageBuilderTrait;
-    use BaseTraits\MoodleConfigLoaderTrait;
-
-    use BaseTraits\RequireLoginTrait {
+    use Traits\TemplateBasedPageBuilder;
+    use BaseTraits\MoodleConfigLoader;
+    use BaseTraits\RequireLogin {
         requireCourseLogin as requireLogin;
     }
 

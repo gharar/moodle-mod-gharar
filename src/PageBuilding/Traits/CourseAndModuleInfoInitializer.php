@@ -5,7 +5,7 @@ namespace Gharar\MoodleModGharar\PageBuilding\Traits;
 use cm_info;
 use stdClass;
 
-trait CourseAndModuleInfoInitializerTrait
+trait CourseAndModuleInfoInitializer
 {
     /** @var stdClass */
     private $course;

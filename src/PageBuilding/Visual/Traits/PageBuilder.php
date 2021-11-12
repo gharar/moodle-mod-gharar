@@ -3,13 +3,13 @@
 namespace Gharar\MoodleModGharar\PageBuilding\Visual\Traits;
 
 use Gharar\MoodleModGharar\PageBuilding\Traits\{
-    PageBuilderTrait as BasePageBuilderTrait
+    PageBuilder as BasePageBuilder
 };
 use Gharar\MoodleModGharar\Util;
 
-trait PageBuilderTrait
+trait PageBuilder
 {
-    use BasePageBuilderTrait {
+    use BasePageBuilder {
         build as baseBuild;
     }
 

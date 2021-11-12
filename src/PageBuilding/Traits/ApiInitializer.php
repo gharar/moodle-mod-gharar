@@ -6,7 +6,7 @@ use Gharar\MoodleModGharar\ServiceApi\Api;
 use Gharar\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
 use Gharar\MoodleModGharar\Util;
 
-trait ApiInitializerTrait
+trait ApiInitializer
 {
     /** @var API */
     private $api;

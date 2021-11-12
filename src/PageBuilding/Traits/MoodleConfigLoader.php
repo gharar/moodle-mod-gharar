@@ -12,6 +12,6 @@ require_once __DIR__ . "/../../../../../config.php";
  * loaded. Without it, functions like \required_param() or \optional_param()
  * won't work.
  */
-trait MoodleConfigLoaderTrait
+trait MoodleConfigLoader
 {
 }

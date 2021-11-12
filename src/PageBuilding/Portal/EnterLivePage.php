@@ -14,14 +14,13 @@ use stdClass;
 
 class EnterLivePage
 {
-    use Traits\PageBuilderTrait;
-    use BaseTraits\MoodleConfigLoaderTrait;
-    use BaseTraits\CourseAndModuleInfoInitializerTrait;
-    use BaseTraits\InstanceInitializerTrait;
-    use BaseTraits\ApiInitializerTrait;
-    use BaseTraits\RoomInfoInitializerTrait;
-
-    use BaseTraits\RequireLoginTrait {
+    use Traits\PageBuilder;
+    use BaseTraits\MoodleConfigLoader;
+    use BaseTraits\CourseAndModuleInfoInitializer;
+    use BaseTraits\InstanceInitializer;
+    use BaseTraits\ApiInitializer;
+    use BaseTraits\RoomInfoInitializer;
+    use BaseTraits\RequireLogin {
         requireCourseModuleLogin as requireLogin;
     }
 

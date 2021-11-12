@@ -5,7 +5,7 @@ namespace Gharar\MoodleModGharar\PageBuilding\Traits;
 use context_course;
 use context_module;
 
-trait ContextInitializerTrait
+trait ContextInitializer
 {
     /** @var context_module */
     private $moduleContext;

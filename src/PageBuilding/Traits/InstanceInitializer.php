@@ -6,7 +6,7 @@ use cm_info;
 use Gharar\MoodleModGharar\Database;
 use Gharar\MoodleModGharar\Moodle\Globals;
 
-trait InstanceInitializerTrait
+trait InstanceInitializer
 {
     /** @var object */
     private $instance;
