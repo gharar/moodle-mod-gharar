@@ -4,7 +4,7 @@ namespace Gharar\MoodleModGharar\ServiceApi\Member\Traits;
 
 trait OptionalName
 {
-    /** @var ?string */
+    /** @var string|null */
     private $name = null;
 
     public function setName(?string $name): self

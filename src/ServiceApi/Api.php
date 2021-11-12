@@ -25,6 +25,7 @@ use Gharar\MoodleModGharar\ServiceApi\Member\{
     ToBeCreatedRoomMember,
     Interfaces\AvailableMember,
 };
+use Gharar\MoodleModGharar\ServiceApi\Room;
 use Gharar\MoodleModGharar\ServiceApi\Room\{
     AvailableRoom,
     ToBeCreatedRoom
@@ -123,10 +124,8 @@ class Api
                 $this->client->post(
                     RelativeURI::getRooms(),
                     [RequestOptions::FORM_PARAMS => [
-                        ToBeCreatedRoom::PROP_NAME =>
-                            $newRoom->getName(),
-                        ToBeCreatedRoom::PROP_IS_PRIVATE =>
-                            $newRoom->isPrivate(),
+                        Room\Property::NAME => $newRoom->getName(),
+                        Room\Property::IS_PRIVATE => $newRoom->isPrivate(),
                     ]]
                 ),
                 AvailableRoom::class
@@ -162,9 +161,9 @@ class Api
                 $this->client->put(
                     RelativeURI::getRoom($room->getAddress()),
                     [RequestOptions::FORM_PARAMS => [
-                        AvailableRoom::PROP_NAME => $room->getName(),
-                        AvailableRoom::PROP_IS_PRIVATE => $room->isPrivate(),
-                        AvailableRoom::PROP_IS_ACTIVE => $room->isActive(),
+                        Room\Property::NAME => $room->getName(),
+                        Room\Property::IS_PRIVATE => $room->isPrivate(),
+                        Room\Property::IS_ACTIVE => $room->isActive(),
                     ]]
                 ),
                 AvailableRoom::class
