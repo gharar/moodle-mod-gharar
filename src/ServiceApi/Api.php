@@ -30,6 +30,10 @@ use Gharar\MoodleModGharar\ServiceApi\Room\{
 };
 use Gharar\MoodleModGharar\Util;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * @todo Prevent error messages from being exposed, in each and every case. For
@@ -38,6 +42,7 @@ use Psr\Http\Message\ResponseInterface;
  * token config from admin settings and passes it to the constructor to create
  * an instance of the class. In this case, maybe, the class should remain
  * singleton.
+ * @todo Add tests for this.
  */
 class Api
 {
@@ -47,14 +52,19 @@ class Api
         "/^[\da-f]{8}(-[\da-f]{4}){3}-[\da-f]{12}\$/i";
 
     private const CONFIG_BASE_URI = "https://gharar.ir/api/v1/service/";
-    private const CONFIG_REQUEST_TIMEOUT = 5.0;
+    private const CONFIG_REQUEST_TIMEOUT = 20.0;
 
     /** @var Client */
     private $client;
 
+    /** @var Serializer */
+    private $jsonSerializer;
+
     public function __construct(string $token)
     {
-        $this->initClient($token);
+        $this
+            ->initClient($token)
+            ->initJsonSerializer();
     }
 
     private function initClient(string $token): self
@@ -76,9 +86,12 @@ class Api
         return "Token $token";
     }
 
-    private function initJsonDecoder(): self
+    private function initJsonSerializer(): self
     {
-        $this->jsonDecoder = new JsonDecoder();
+        $this->jsonSerializer = new Serializer(
+            [new ObjectNormalizer()],
+            [new JsonEncoder()]
+        );
 
         return $this;
     }
@@ -89,9 +102,17 @@ class Api
     public function listRooms(): array
     {
         try {
-            $roomListRaw = $this->getSuccessfulJsonResponseDecodedContents(
-                $this->client->get(
-                    RelativeURI::getRooms()
+            return \array_map(
+                function (array $room): AvailableRoom {
+                    return $this->jsonSerializer->denormalize(
+                        $room,
+                        AvailableRoom::class
+                    );
+                },
+                $this->decodeResponse(
+                    $this->client->get(
+                        RelativeURI::getRooms()
+                    )
                 )
             );
         } catch (TransferException $e) {
@@ -99,27 +120,22 @@ class Api
                 ->handleGeneralErrors()
                 ->unhandled();
         }
-
-        $roomList = [];
-        foreach ($roomListRaw as $roomRaw) {
-            $roomList[] = AvailableRoom::fromRawObject($roomRaw);
-        }
-
-        return $roomList;
     }
 
     public function createRoom(ToBeCreatedRoom $newRoom): AvailableRoom
     {
         try {
-            $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
+            return $this->deserializeResponse(
                 $this->client->post(
                     RelativeURI::getRooms(),
                     [RequestOptions::FORM_PARAMS => [
-                        ToBeCreatedRoom::PROP_NAME => $newRoom->getName(),
+                        ToBeCreatedRoom::PROP_NAME =>
+                            $newRoom->getName(),
                         ToBeCreatedRoom::PROP_IS_PRIVATE =>
                             $newRoom->isPrivate(),
                     ]]
-                )
+                ),
+                AvailableRoom::class
             );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
@@ -127,31 +143,28 @@ class Api
                 ->handleGeneralErrors()
                 ->unhandled();
         }
-
-        return AvailableRoom::fromRawObject($roomRaw);
     }
 
     public function retrieveRoom(string $roomAddress): AvailableRoom
     {
         try {
-            $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
+            return $this->deserializeResponse(
                 $this->client->get(
                     RelativeURI::getRoom($roomAddress)
-                )
+                ),
+                AvailableRoom::class
             );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
                 ->handleGeneralErrors()
                 ->unhandled();
         }
-
-        return AvailableRoom::fromRawObject($roomRaw);
     }
 
     public function updateRoom(AvailableRoom $room): AvailableRoom
     {
         try {
-            $roomRaw = $this->getSuccessfulJsonResponseDecodedContents(
+            return $this->deserializeResponse(
                 $this->client->put(
                     RelativeURI::getRoom($room->getAddress()),
                     [RequestOptions::FORM_PARAMS => [
@@ -159,7 +172,8 @@ class Api
                         AvailableRoom::PROP_IS_PRIVATE => $room->isPrivate(),
                         AvailableRoom::PROP_IS_ACTIVE => $room->isActive(),
                     ]]
-                )
+                ),
+                AvailableRoom::class
             );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
@@ -167,17 +181,13 @@ class Api
                 ->handleGeneralErrors()
                 ->unhandled();
         }
-
-        return AvailableRoom::fromRawObject($roomRaw);
     }
 
     public function destroyRoom(string $roomAddress): void
     {
         try {
-            $this->getSuccessfulJsonResponseDecodedContents(
-                $this->client->delete(
-                    RelativeURI::getRoom($roomAddress)
-                )
+            $this->client->delete(
+                RelativeURI::getRoom($roomAddress)
             );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
@@ -192,26 +202,24 @@ class Api
     public function listRoomMembers(string $roomAddress): array
     {
         try {
-            $roomMemberListRaw =
-                $this->getSuccessfulJsonResponseDecodedContents(
+            return \array_map(
+                function (array $roomMember): AvailableRoomMember {
+                    return $this->jsonSerializer->denormalize(
+                        $roomMember,
+                        AvailableRoomMember::class
+                    );
+                },
+                $this->decodeResponse(
                     $this->client->get(
                         RelativeURI::getRoomMembers($roomAddress)
                     )
-                );
+                )
+            );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
                 ->handleGeneralErrors()
                 ->unhandled();
         }
-
-        $roomMemberList = [];
-        foreach ($roomMemberListRaw as $roomMemberRaw) {
-            $roomMemberList[] = AvailableRoomMember::fromRawObject(
-                $roomMemberRaw
-            );
-        }
-
-        return $roomMemberList;
     }
 
     public function createRoomMember(
@@ -219,7 +227,7 @@ class Api
         ToBeCreatedRoomMember $newMember
     ): AvailableRoomMember {
         try {
-            $memberRaw = $this->getSuccessfulJsonResponseDecodedContents(
+            return $this->deserializeResponse(
                 $this->client->post(
                     RelativeURI::getRoomMembers($roomAddress),
                     [RequestOptions::FORM_PARAMS => [
@@ -230,15 +238,14 @@ class Api
                         ToBeCreatedRoomMember::PROP_NAME =>
                             $newMember->getName(),
                     ]]
-                )
+                ),
+                AvailableRoomMember::class
             );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
                 ->handleGeneralErrors()
                 ->unhandled();
         }
-
-        return AvailableRoomMember::fromRawObject($memberRaw);
     }
 
     public function updateRoomMember(
@@ -246,7 +253,7 @@ class Api
         AvailableRoomMember $member
     ): AvailableRoomMember {
         try {
-            $memberRaw = $this->getSuccessfulJsonResponseDecodedContents(
+            return $this->deserializeResponse(
                 $this->client->put(
                     RelativeURI::getRoomMember(
                         $roomAddress,
@@ -260,15 +267,14 @@ class Api
                         AvailableRoomMember::PROP_NAME =>
                             $member->getName(),
                     ]]
-                )
+                ),
+                AvailableRoomMember::class
             );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
                 ->handleGeneralErrors()
                 ->unhandled();
         }
-
-        return AvailableRoomMember::fromRawObject($memberRaw);
     }
 
     public function destroyRoomMember(
@@ -276,12 +282,10 @@ class Api
         string $memberPhone
     ): void {
         try {
-            $this->getSuccessfulJsonResponseDecodedContents(
-                $this->client->delete(
-                    RelativeURI::getRoomMember(
-                        $roomAddress,
-                        $memberPhone
-                    )
+            $this->client->delete(
+                RelativeURI::getRoomMember(
+                    $roomAddress,
+                    $memberPhone
                 )
             );
         } catch (TransferException $e) {
@@ -295,14 +299,11 @@ class Api
         string $roomAddress,
         string $memberPhone
     ): bool {
-        $roomMembers = $this->listRoomMembers($roomAddress);
-
-        foreach ($roomMembers as $member) {
+        foreach ($this->listRoomMembers($roomAddress) as $member) {
             if ($member->getPhone() === $memberPhone) {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -312,21 +313,19 @@ class Api
     public function listLiveMembers(string $roomAddress): array
     {
         try {
-            $liveMemberListRaw =
-                $this->getSuccessfulJsonResponseDecodedContents(
+            return \array_map(
+                function (array $liveMember): AvailableLiveMember {
+                    return $this->jsonSerializer->denormalize(
+                        $liveMember,
+                        AvailableLiveMember::class
+                    );
+                },
+                $this->decodeResponse(
                     $this->client->get(
                         RelativeURI::getLiveMembers($roomAddress)
                     )
-                )->invitees;
-
-            $liveMemberList = [];
-            foreach ($liveMemberListRaw as $liveMemberRaw) {
-                $liveMemberList[] = AvailableLiveMember::fromRawObject(
-                    $liveMemberRaw
-                );
-            }
-
-            return $liveMemberList;
+                )["invitees"]
+            );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
                 ->handleGeneralErrors()
@@ -339,7 +338,7 @@ class Api
         ToBeCreatedLiveMember $newMember
     ): AvailableLiveMember {
         try {
-            $memberRaw = $this->getSuccessfulJsonResponseDecodedContents(
+            $liveMember = $this->decodeResponse(
                 $this->client->post(
                     RelativeURI::getLiveMembers($roomAddress),
                     [RequestOptions::FORM_PARAMS => [
@@ -349,9 +348,12 @@ class Api
                             $newMember->getName(),
                     ]]
                 )
-            )->users[0];
+            )["users"][0];
 
-            return AvailableLiveMember::fromRawObject($memberRaw);
+            return $this->jsonSerializer->denormalize(
+                $liveMember,
+                AvailableLiveMember::class
+            );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
                 ->handleGeneralErrors()
@@ -363,31 +365,27 @@ class Api
         string $roomAddress,
         string $memberPhone
     ): bool {
-        $liveMembers = $this->listLiveMembers($roomAddress);
-
-        foreach ($liveMembers as $member) {
+        foreach ($this->listLiveMembers($roomAddress) as $member) {
             if ($member->getPhone() === $memberPhone) {
                 return true;
             }
         }
-
         return false;
     }
 
     public function generateAuthToken(AbstractMember $member): AuthToken
     {
         try {
-            $authTokenRaw = $this->getSuccessfulJsonResponseDecodedContents(
+            return $this->deserializeResponse(
                 $this->client->post(
                     RelativeURI::getAuthToken(),
                     [RequestOptions::FORM_PARAMS => [
                         AbstractMember::PROP_PHONE => $member->getPhone(),
                         AbstractMember::PROP_NAME => $member->getName(),
                     ]]
-                )
+                ),
+                AuthToken::class
             );
-
-            return AuthToken::fromRawObject($authTokenRaw);
         } catch (TransferException $e) {
             (new ErrorHandler($e))
                 ->handleGeneralErrors()
@@ -398,20 +396,19 @@ class Api
     public function listRoomRecordings(string $roomAddress): array
     {
         try {
-            $roomRecordingListRaw =
-                $this->getSuccessfulJsonResponseDecodedContents(
+            return \array_map(
+                function (array $recording): Recording {
+                    return $this->jsonSerializer->denormalize(
+                        $recording,
+                        Recording::class
+                    );
+                },
+                $this->decodeResponse(
                     $this->client->get(
                         RelativeURI::getRoomRecordings($roomAddress)
                     )
-                )->recordings;
-
-            $roomRecordingList = [];
-            foreach ($roomRecordingListRaw as $roomRecordingRaw) {
-                $roomRecordingList[] =
-                    Recording::fromRawObject($roomRecordingRaw);
-            }
-
-            return $roomRecordingList;
+                )["recordings"]
+            );
         } catch (TransferException $e) {
             (new ErrorHandler($e))
                 ->handleGeneralErrors()
@@ -419,23 +416,23 @@ class Api
         }
     }
 
-    /**
-     * @return object|array
-     */
-    private function getSuccessfulJsonResponseDecodedContents(
-        ResponseInterface $response
-    ) {
-        return Util::jsonDecode(
-            self::getSuccessfulResponseContents($response)
+    private function deserializeResponse(
+        ResponseInterface $response,
+        string $resultingObjectType
+    ): object {
+        return $this->jsonSerializer->deserialize(
+            $response->getBody()->getContents(),
+            $resultingObjectType,
+            JsonEncoder::FORMAT
         );
     }
 
-    private static function getSuccessfulResponseContents(
-        ResponseInterface $response
-    ): string {
-        return $response
-            ->getBody()
-            ->getContents();
+    private function decodeResponse(ResponseInterface $response)
+    {
+        return $this->jsonSerializer->decode(
+            $response->getBody()->getContents(),
+            JsonEncoder::FORMAT
+        );
     }
 }
 
