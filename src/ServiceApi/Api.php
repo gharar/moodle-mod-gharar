@@ -30,11 +30,12 @@ use Gharar\MoodleModGharar\ServiceApi\Room\{
     AvailableRoom,
     PossibleRoom,
 };
-use Gharar\MoodleModGharar\Util;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\NameConverter\{
+    CamelCaseToSnakeCaseNameConverter
+};
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 /**
@@ -91,7 +92,12 @@ class Api
     private function initJsonSerializer(): self
     {
         $this->jsonSerializer = new Serializer(
-            [new ObjectNormalizer()],
+            [
+                new ObjectNormalizer(
+                    null,
+                    new CamelCaseToSnakeCaseNameConverter()
+                )
+            ],
             [new JsonEncoder()]
         );
 
