@@ -13,17 +13,14 @@ use stdClass;
 
 class InstanceManager
 {
+    use Traits\ApiInitializer;
+
     /** @var ?self */
     private static $instance = null;
 
-    /** @var API */
-    private $api;
-
     private function __construct()
     {
-        $this->api = new Api(
-            Util::getConfig(AdminSettingsBuilder::CONFIG_ACCESS_TOKEN_NAME)
-        );
+        $this->initApi();
     }
 
     public static function getInstance(): self

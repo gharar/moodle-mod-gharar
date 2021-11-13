@@ -20,11 +20,11 @@ class EnterRoomPage
     use BaseTraits\MoodleConfigLoader;
     use BaseTraits\CourseAndModuleInfoInitializer;
     use BaseTraits\ContextInitializer;
-    use BaseTraits\ApiInitializer;
     use BaseTraits\RoomInfoInitializer;
     use BaseTraits\RequireLogin {
         requireCourseModuleLogin as requireLogin;
     }
+    use RootTraits\ApiInitializer;
     use RootTraits\InstanceInitializer;
 
     public const RELATIVE_URL = Base::RELATIVE_PATH . "/enter-room.php";

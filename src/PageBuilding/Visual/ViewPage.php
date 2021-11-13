@@ -23,12 +23,12 @@ class ViewPage
     use Traits\TemplateBasedPageBuilder;
     use BaseTraits\MoodleConfigLoader;
     use BaseTraits\CourseAndModuleInfoInitializer;
-    use BaseTraits\ApiInitializer;
     use BaseTraits\RoomInfoInitializer;
     use BaseTraits\ContextInitializer;
     use BaseTraits\RequireLogin {
         requireCourseModuleLogin as requireLogin;
     }
+    use RootTraits\ApiInitializer;
     use RootTraits\InstanceInitializer;
 
     public const RELATIVE_URL = Plugin::RELATIVE_PATH . "/view.php";

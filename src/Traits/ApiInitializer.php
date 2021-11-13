@@ -1,6 +1,6 @@
 <?php
 
-namespace Gharar\MoodleModGharar\PageBuilding\Traits;
+namespace Gharar\MoodleModGharar\Traits;
 
 use Gharar\MoodleModGharar\ServiceApi\Api;
 use Gharar\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
@@ -8,7 +8,7 @@ use Gharar\MoodleModGharar\Util;
 
 trait ApiInitializer
 {
-    /** @var API */
+    /** @var Api */
     private $api;
 
     private function initApi(): self

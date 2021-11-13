@@ -39,6 +39,7 @@ require_once "{$CFG->dirroot}/course/moodleform_mod.php";
  */
 abstract class InstanceForm extends \moodleform_mod
 {
+    use Traits\ApiInitializer;
     use Traits\InstanceInitializer;
 
     public const BLOCK_ROOM_SETTINGS_NAME = "room_settings";
@@ -91,6 +92,7 @@ abstract class InstanceForm extends \moodleform_mod
     {
         $this
             ->initInstanceIfUpdating()
+            ->initApi()
             ->addNameField()
             ->addRoomSettingsBlock()
             ->addRecordingsBlock();
@@ -253,9 +255,7 @@ abstract class InstanceForm extends \moodleform_mod
     private function getIsPrivateFieldValue(): bool
     {
         if ($this->isUpdatingExistingInstance()) {
-            return (new Api(
-                Util::getConfig(AdminSettingsBuilder::CONFIG_ACCESS_TOKEN_NAME)
-            ))
+            return $this->api
                 ->retrieveRoom($this->instance->address)
                 ->isPrivate();
         } else {
