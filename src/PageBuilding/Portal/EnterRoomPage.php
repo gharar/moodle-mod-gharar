@@ -3,7 +3,11 @@
 namespace Gharar\MoodleModGharar\PageBuilding\Portal;
 
 use Gharar\MoodleModGharar\ServiceApi\AuthToken;
-use Gharar\MoodleModGharar\ServiceApi\Member\AvailableRoomMember;
+use Gharar\MoodleModGharar\ServiceApi\Member;
+use Gharar\MoodleModGharar\ServiceApi\Member\{
+    AvailableRoomMember,
+    PossibleRoomMember,
+};
 use Gharar\MoodleModGharar\Moodle\Globals;
 use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 use Gharar\MoodleModGharar\Traits as RootTraits;
@@ -58,10 +62,8 @@ class EnterRoomPage
 
     protected function prepare(): self
     {
-        $this->ensurePresentUpdatedRoomMember(
-            $roomMember = $this->generateRoomMember(
-                Globals::getUser()
-            )
+        $roomMember = $this->makeRoomMemberAvailableAndUpdated(
+            $this->buildRoomMember(Globals::getUser())
         );
 
         $this->authToken = $this->api->generateAuthToken($roomMember);
@@ -69,17 +71,13 @@ class EnterRoomPage
         return $this;
     }
 
-    private function generateRoomMember(stdClass $user): AvailableRoomMember
+    private function buildRoomMember(stdClass $user): PossibleRoomMember
     {
-        $roomMember = new AvailableRoomMember(
+        return (new PossibleRoomMember(
             Util::generateVirtualPhoneNumberFromId($user->id),
             $this->isCurrentUserRoomAdmin()
-        );
-        $roomMember->setName(
-            "{$user->firstname} {$user->lastname}"
-        );
-
-        return $roomMember;
+        ))
+            ->setName("{$user->firstname} {$user->lastname}");
     }
 
     private function isCurrentUserRoomAdmin(): bool
@@ -87,25 +85,25 @@ class EnterRoomPage
         return \has_capability(Capability::ROOM_ADMIN, $this->moduleContext);
     }
 
-    private function ensurePresentUpdatedRoomMember(
-        AvailableRoomMember $roomMember
-    ): self {
-        if ($this->api->hasRoomMember(
+    private function makeRoomMemberAvailableAndUpdated(
+        PossibleRoomMember $roomMember
+    ): AvailableRoomMember {
+        if (!$this->api->hasRoomMember(
             $this->instance->address,
             $roomMember->getPhone()
         )) {
-            $roomMember = $this->api->updateRoomMember(
+            return $this->api->createRoomMember(
                 $this->instance->address,
                 $roomMember
             );
         } else {
-            $roomMember = $this->api->createRoomMember(
+            return $this->api->updateRoomMember(
                 $this->instance->address,
-                $roomMember
+                Member\Mapper::possibleRoomMemberToAvailableRoomMember(
+                    $roomMember
+                )
             );
         }
-
-        return $this;
     }
 
     protected function configure(): self

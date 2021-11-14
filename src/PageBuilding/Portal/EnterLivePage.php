@@ -3,8 +3,14 @@
 namespace Gharar\MoodleModGharar\PageBuilding\Portal;
 
 use Gharar\MoodleModGharar\LanguageString\StringId;
-use Gharar\MoodleModGharar\ServiceApi\AuthToken;
-use Gharar\MoodleModGharar\ServiceApi\Member\AvailableLiveMember;
+use Gharar\MoodleModGharar\ServiceApi\{
+    AuthToken,
+    Member,
+};
+use Gharar\MoodleModGharar\ServiceApi\Member\{
+    AvailableLiveMember,
+    PossibleLiveMember,
+};
 use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 use Gharar\MoodleModGharar\Moodle\Globals;
 use Gharar\MoodleModGharar\Traits as RootTraits;
@@ -66,10 +72,8 @@ class EnterLivePage
 
     protected function prepare(): self
     {
-        $this->ensurePresentLiveMember(
-            $liveMember = $this->generateLiveMember(
-                Globals::getUser()
-            )
+        $liveMember = $this->makeLiveMemberAvailable(
+            $this->buildLiveMember(Globals::getUser())
         );
 
         $this->authToken = $this->api->generateAuthToken($liveMember);
@@ -77,32 +81,30 @@ class EnterLivePage
         return $this;
     }
 
-    private function generateLiveMember(stdClass $user): AvailableLiveMember
+    private function buildLiveMember(stdClass $user): PossibleLiveMember
     {
-        $liveMember = new AvailableLiveMember(
+        return (new PossibleLiveMember(
             Util::generateVirtualPhoneNumberFromId($user->id)
-        );
-        $liveMember->setName(
-            "{$user->firstname} {$user->lastname}"
-        );
-
-        return $liveMember;
+        ))
+            ->setName("{$user->firstname} {$user->lastname}");
     }
 
-    private function ensurePresentLiveMember(
-        AvailableLiveMember $liveMember
-    ): self {
+    private function makeLiveMemberAvailable(
+        PossibleLiveMember $liveMember
+    ): AvailableLiveMember {
         if (!$this->api->hasLiveMember(
             $this->instance->address,
             $liveMember->getPhone()
         )) {
-            $liveMember = $this->api->createLiveMember(
+            return $this->api->createLiveMember(
                 $this->instance->address,
                 $liveMember
             );
+        } else {
+            return Member\Mapper::possibleLiveMemberToAvailableLiveMember(
+                $liveMember
+            );
         }
-
-        return $this;
     }
 
     protected function configure(): self
