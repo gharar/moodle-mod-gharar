@@ -62,7 +62,7 @@ class EnterRoomPage
         return $this;
     }
 
-    private function assertUserCanBePresenterIfRoomHavingLive()
+    private function assertUserCanBePresenterIfRoomHavingLive(): self
     {
         if ($this->roomInfo->hasLive() && !\has_capability(
             Capability::LIVE_PRESENTER,
@@ -71,6 +71,8 @@ class EnterRoomPage
             // TODO: Maybe add a message for it?
             throw new required_capability_exception();
         }
+
+        return $this;
     }
 
     protected function prepare(): self
