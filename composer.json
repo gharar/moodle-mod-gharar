@@ -2,7 +2,7 @@
     "name": "gharar/moodle-mod-gharar",
     "description": "Gharar plugin (activity module) for Moodle",
     "type": "library",
-    "license": "GPLv3",
+    "license": "GPL-3.0",
     "homepage": "https://github.com/gharar/moodle-mod-gharar",
     "authors": [
         {

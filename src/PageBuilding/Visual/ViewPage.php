@@ -190,7 +190,7 @@ class ViewPage
 
         foreach ($userRoles as $userRole) {
             if (\in_array(
-                $userRole->id,
+                $userRole->roleid,
                 $this->instance->roles_can_view_recordings
             )) {
                 return true;
