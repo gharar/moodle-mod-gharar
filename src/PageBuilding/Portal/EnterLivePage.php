@@ -3,20 +3,20 @@
 namespace Gharar\MoodleModGharar\PageBuilding\Portal;
 
 use Gharar\MoodleModGharar\LanguageString\StringId;
-use Gharar\MoodleModGharar\ServiceApi\{
-    AuthToken,
-    Member,
-};
+use Gharar\MoodleModGharar\Moodle\Globals;
+use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 use Gharar\MoodleModGharar\ServiceApi\Member\{
     AvailableLiveMember,
     PossibleLiveMember,
 };
-use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
-use Gharar\MoodleModGharar\Moodle\Globals;
+use Gharar\MoodleModGharar\ServiceApi\{
+    AuthToken,
+    Member,
+};
 use Gharar\MoodleModGharar\Traits as RootTraits;
 use Gharar\MoodleModGharar\{
     Plugin,
-    Util
+    Util,
 };
 use stdClass;
 

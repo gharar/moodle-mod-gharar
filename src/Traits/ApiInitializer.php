@@ -2,8 +2,8 @@
 
 namespace Gharar\MoodleModGharar\Traits;
 
-use Gharar\MoodleModGharar\ServiceApi\Api;
 use Gharar\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
+use Gharar\MoodleModGharar\ServiceApi\Api;
 use Gharar\MoodleModGharar\Util;
 
 trait ApiInitializer

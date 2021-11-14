@@ -2,23 +2,24 @@
 
 namespace Gharar\MoodleModGharar\PageBuilding\Portal;
 
-use required_capability_exception;
 use Gharar\MoodleModGharar\LanguageString\StringId;
-
-use Gharar\MoodleModGharar\ServiceApi\AuthToken;
-use Gharar\MoodleModGharar\ServiceApi\Member;
+use Gharar\MoodleModGharar\Moodle\Globals;
+use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
 use Gharar\MoodleModGharar\ServiceApi\Member\{
     AvailableRoomMember,
     PossibleRoomMember,
 };
-use Gharar\MoodleModGharar\Moodle\Globals;
-use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
+use Gharar\MoodleModGharar\ServiceApi\{
+    AuthToken,
+    Member,
+};
 use Gharar\MoodleModGharar\Traits as RootTraits;
 use Gharar\MoodleModGharar\{
     Capability,
     Plugin,
-    Util
+    Util,
 };
+use required_capability_exception;
 use stdClass;
 
 class EnterRoomPage

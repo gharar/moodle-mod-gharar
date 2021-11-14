@@ -2,6 +2,24 @@
 
 namespace Gharar\MoodleModGharar\ServiceApi;
 
+use Gharar\MoodleModGharar\ServiceApi\Exception\{
+    DuplicatedRoomNameException,
+    TimeoutException,
+    UnauthorizedException,
+    UnhandledException,
+};
+use Gharar\MoodleModGharar\ServiceApi\Member\{
+    AvailableLiveMember,
+    AvailableRoomMember,
+    Interfaces\AvailableMember,
+    PossibleLiveMember,
+    PossibleRoomMember,
+};
+use Gharar\MoodleModGharar\ServiceApi\Room\{
+    AvailableRoom,
+    PossibleRoom,
+};
+use Gharar\MoodleModGharar\ServiceApi\{Member, Room};
 use GuzzleHttp\Exception\{
     ConnectException,
     RequestException,
@@ -10,25 +28,6 @@ use GuzzleHttp\Exception\{
 use GuzzleHttp\{
     Client,
     RequestOptions
-};
-use Gharar\MoodleModGharar\ServiceApi\Exception\{
-    DuplicatedRoomNameException,
-    TimeoutException,
-    UnauthorizedException,
-    UnhandledException,
-};
-use Gharar\MoodleModGharar\ServiceApi\Member;
-use Gharar\MoodleModGharar\ServiceApi\Member\{
-    AvailableLiveMember,
-    AvailableRoomMember,
-    PossibleLiveMember,
-    PossibleRoomMember,
-    Interfaces\AvailableMember,
-};
-use Gharar\MoodleModGharar\ServiceApi\Room;
-use Gharar\MoodleModGharar\ServiceApi\Room\{
-    AvailableRoom,
-    PossibleRoom,
 };
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;

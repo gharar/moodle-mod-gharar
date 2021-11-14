@@ -2,15 +2,10 @@
 
 namespace Gharar\MoodleModGharar;
 
-use const CAP_ALLOW;
-use const CONTEXT_COURSE;
-use const CONTEXT_MODULE;
-use const RISK_XSS;
-
 use Gharar\MoodleModGharar\Capability\{
     Property,
-    Type,
     Role,
+    Type,
 };
 
 class Capability
@@ -23,12 +18,12 @@ class Capability
     public const DEFINITIONS = [
         self::ADD_INSTANCE => [
             Property::TYPE => Type::WRITE,
-            Property::RISK_BITMASK => RISK_XSS,
-            Property::CONTEXT_LEVEL => CONTEXT_COURSE,
+            Property::RISK_BITMASK => \RISK_XSS,
+            Property::CONTEXT_LEVEL => \CONTEXT_COURSE,
             Property::ARCHE_TYPES => [
-                Role::MANAGER => CAP_ALLOW,
-                Role::COURSE_CREATOR => CAP_ALLOW,
-                Role::EDITING_TEACHER => CAP_ALLOW,
+                Role::MANAGER => \CAP_ALLOW,
+                Role::COURSE_CREATOR => \CAP_ALLOW,
+                Role::EDITING_TEACHER => \CAP_ALLOW,
             ],
             Property::CLONE_PERMISSIONS_FROM =>
                 "moodle/course:manageactivities",
@@ -36,33 +31,33 @@ class Capability
 
         self::VIEW_INSTANCE => [
             Property::TYPE => Type::READ,
-            Property::CONTEXT_LEVEL => CONTEXT_MODULE,
+            Property::CONTEXT_LEVEL => \CONTEXT_MODULE,
             Property::ARCHE_TYPES => [
-                Role::MANAGER => CAP_ALLOW,
-                Role::COURSE_CREATOR => CAP_ALLOW,
-                Role::EDITING_TEACHER => CAP_ALLOW,
-                Role::TEACHER => CAP_ALLOW,
-                Role::STUDENT => CAP_ALLOW,
+                Role::MANAGER => \CAP_ALLOW,
+                Role::COURSE_CREATOR => \CAP_ALLOW,
+                Role::EDITING_TEACHER => \CAP_ALLOW,
+                Role::TEACHER => \CAP_ALLOW,
+                Role::STUDENT => \CAP_ALLOW,
             ],
         ],
 
         self::ROOM_ADMIN => [
             Property::TYPE => Type::READ,
-            Property::CONTEXT_LEVEL => CONTEXT_MODULE,
+            Property::CONTEXT_LEVEL => \CONTEXT_MODULE,
             Property::ARCHE_TYPES => [
-                Role::MANAGER => CAP_ALLOW,
-                Role::EDITING_TEACHER => CAP_ALLOW,
-                Role::TEACHER => CAP_ALLOW,
+                Role::MANAGER => \CAP_ALLOW,
+                Role::EDITING_TEACHER => \CAP_ALLOW,
+                Role::TEACHER => \CAP_ALLOW,
             ],
         ],
 
         self::LIVE_PRESENTER => [
             Property::TYPE => Type::READ,
-            Property::CONTEXT_LEVEL => CONTEXT_MODULE,
+            Property::CONTEXT_LEVEL => \CONTEXT_MODULE,
             Property::ARCHE_TYPES => [
-                Role::MANAGER => CAP_ALLOW,
-                Role::EDITING_TEACHER => CAP_ALLOW,
-                Role::TEACHER => CAP_ALLOW,
+                Role::MANAGER => \CAP_ALLOW,
+                Role::EDITING_TEACHER => \CAP_ALLOW,
+                Role::TEACHER => \CAP_ALLOW,
             ],
         ],
     ];

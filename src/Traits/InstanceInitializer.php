@@ -2,9 +2,11 @@
 
 namespace Gharar\MoodleModGharar\Traits;
 
-use Gharar\MoodleModGharar\Database;
-use Gharar\MoodleModGharar\Util;
 use Gharar\MoodleModGharar\Moodle\Globals;
+use Gharar\MoodleModGharar\{
+    Database,
+    Util,
+};
 
 trait InstanceInitializer
 {

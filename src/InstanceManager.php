@@ -2,12 +2,12 @@
 
 namespace Gharar\MoodleModGharar;
 
+use Gharar\MoodleModGharar\Moodle\Globals;
 use Gharar\MoodleModGharar\ServiceApi\Api;
 use Gharar\MoodleModGharar\ServiceApi\Room\{
     AvailableRoom,
     PossibleRoom
 };
-use Gharar\MoodleModGharar\Moodle\Globals;
 use stdClass;
 
 class InstanceManager

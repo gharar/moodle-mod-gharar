@@ -2,8 +2,6 @@
 
 namespace Gharar\MoodleModGharar\PageBuilding\Visual;
 
-use Gharar\MoodleModGharar\Capability;
-use Gharar\MoodleModGharar\ServiceApi\Recording;
 use Gharar\MoodleModGharar\LanguageString\StringId;
 use Gharar\MoodleModGharar\Moodle\Globals;
 use Gharar\MoodleModGharar\PageBuilding\Portal\{
@@ -11,7 +9,11 @@ use Gharar\MoodleModGharar\PageBuilding\Portal\{
     EnterRoomPage,
 };
 use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
-use Gharar\MoodleModGharar\Traits as RootTraits;
+use Gharar\MoodleModGharar\ServiceApi\Recording;
+use Gharar\MoodleModGharar\{
+    Capability,
+    Traits as RootTraits,
+};
 use Gharar\MoodleModGharar\{
     Plugin,
     Util,

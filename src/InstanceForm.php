@@ -3,8 +3,8 @@
 namespace Gharar\MoodleModGharar;
 
 use Gharar\MoodleModGharar\InstanceForm\{
-    FieldType,
     ElementType,
+    FieldType,
     RuleType,
     RuleValidationWhere,
 };

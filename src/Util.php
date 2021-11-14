@@ -3,8 +3,8 @@
 namespace Gharar\MoodleModGharar;
 
 use core_renderer;
-use RuntimeException;
 use Gharar\MoodleModGharar\Moodle\Globals;
+use RuntimeException;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 class Util
