@@ -51,7 +51,8 @@ class EnterRoomPage
             ->initModuleContext($this->instanceId)
             ->initApi()
             ->initRoomInfo($this->api, $this->instance->address)
-            ->assertRoomIsActive($this->roomInfo);
+            ->assertRoomIsActive($this->roomInfo)
+            ->assertUserCanBePresenterIfRoomHavingLive();
     }
 
     private function initParams(): self
@@ -61,11 +62,11 @@ class EnterRoomPage
         return $this;
     }
 
-    private function assertUserIsPresenterIfRoomHavingLive()
+    private function assertUserCanBePresenterIfRoomHavingLive()
     {
         if ($this->roomInfo->hasLive() && !\has_capability(
             Capability::LIVE_PRESENTER,
-            $this->moduleContext,
+            $this->moduleContext
         )) {
             // TODO: Maybe add a message for it?
             throw new required_capability_exception();
