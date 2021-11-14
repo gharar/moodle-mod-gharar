@@ -3,6 +3,8 @@
 namespace Gharar\MoodleModGharar\PageBuilding\Portal;
 
 use required_capability_exception;
+use Gharar\MoodleModGharar\LanguageString\StringId;
+
 use Gharar\MoodleModGharar\ServiceApi\AuthToken;
 use Gharar\MoodleModGharar\ServiceApi\Member;
 use Gharar\MoodleModGharar\ServiceApi\Member\{
@@ -68,8 +70,12 @@ class EnterRoomPage
             Capability::LIVE_PRESENTER,
             $this->moduleContext
         )) {
-            // TODO: Maybe add a message for it?
-            throw new required_capability_exception();
+            throw new required_capability_exception(
+                $this->moduleContext,
+                Capability::LIVE_PRESENTER,
+                Util::getString(StringId::ERROR_ACCESS_DENIED),
+                ""
+            );
         }
 
         return $this;

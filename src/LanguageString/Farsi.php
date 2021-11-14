@@ -18,7 +18,7 @@ class Farsi
         StringId::CAPABILITY_ADD_INSTANCE => "افزودن فعالیت قرار",
         StringId::CAPABILITY_VIEW_INSTANCE => "مشاهده‌ی فعالیت قرار",
         StringId::CAPABILITY_ROOM_ADMIN => "مدیر اتاق‌ها بودن",
-        StringId::CAPABILITY_LIVE_PRESENTER => "رفتن به اتاق ارائه در وبینارها",
+        StringId::CAPABILITY_LIVE_PRESENTER => "ارائه‌دهنده بودن در وبینارها",
 
         StringId::FORM_INSTANCE_FIELD_NAME => "نام",
         StringId::FORM_INSTANCE_FIELD_ROOM_NAME => "نام اتاق",
@@ -50,5 +50,7 @@ class Farsi
         StringId::ERROR_ROOM_HAS_NO_LIVE => "این اتاق دارای وبینار نیست، یا " .
             "وبینار آن غیرفعال شده است.",
         StringId::ERROR_ROOM_IS_INACTIVE => "اتاق موردنظر فعال نیست.",
+
+        StringId::ERROR_ACCESS_DENIED => "دسترسی غیرمجاز!",
     ];
 }

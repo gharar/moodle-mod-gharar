@@ -53,5 +53,7 @@ class English
 
         StringId::ERROR_ROOM_HAS_NO_LIVE => self::NONE,
         StringId::ERROR_ROOM_IS_INACTIVE => self::NONE,
+
+        StringId::ERROR_ACCESS_DENIED => self::NONE,
     ];
 }
