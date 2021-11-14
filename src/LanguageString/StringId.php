@@ -52,4 +52,5 @@ class StringId
     public const ERROR_API_UNHANDLED = "error_api_unhandled";
     public const ERROR_API_DUPLICATED_ROOM_NAME =
         "error_api_duplicated_room_name";
+    public const ERROR_ROOM_HAS_NO_LIVE = "error_room_has_no_live";
 }

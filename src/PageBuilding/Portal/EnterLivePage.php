@@ -2,6 +2,7 @@
 
 namespace Gharar\MoodleModGharar\PageBuilding\Portal;
 
+use Gharar\MoodleModGharar\LanguageString\StringId;
 use Gharar\MoodleModGharar\ServiceApi\AuthToken;
 use Gharar\MoodleModGharar\ServiceApi\Member\AvailableLiveMember;
 use Gharar\MoodleModGharar\PageBuilding\Traits as BaseTraits;
@@ -42,7 +43,7 @@ class EnterLivePage
             ->initInstance($this->moduleInfo->instance)
             ->initApi()
             ->initRoomInfo($this->api, $this->instance->address)
-            ->validateRoomHavingLive();
+            ->assertRoomHavingLive();
     }
 
     private function initParams(): self
@@ -52,11 +53,10 @@ class EnterLivePage
         return $this;
     }
 
-    private function validateRoomHavingLive(): self
+    private function assertRoomHavingLive(): self
     {
-        // TODO: Improve error message
         if (!$this->roomInfo->hasLive()) {
-            throw new \Exception();
+            throw new \RuntimeException(StringId::ERROR_ROOM_HAS_NO_LIVE);
         }
 
         return $this;

@@ -50,5 +50,6 @@ class English
         StringId::ERROR_API_UNAUTHORIZED => self::NONE,
         StringId::ERROR_API_UNHANDLED => self::NONE,
         StringId::ERROR_API_DUPLICATED_ROOM_NAME => self::NONE,
+        StringId::ERROR_ROOM_HAS_NO_LIVE => self::NONE,
     ];
 }
