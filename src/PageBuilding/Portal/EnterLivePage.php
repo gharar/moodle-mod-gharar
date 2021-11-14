@@ -50,8 +50,8 @@ class EnterLivePage
             ->initInstance($this->moduleInfo->instance)
             ->initApi()
             ->initRoomInfo($this->api, $this->instance->address)
-            ->assertRoomHavingLive()
-            ->assertRoomIsActive($this->roomInfo);
+            ->assertRoomIsActive($this->roomInfo)
+            ->assertRoomHavingLive();
     }
 
     private function initParams(): self

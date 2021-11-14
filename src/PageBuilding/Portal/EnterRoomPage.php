@@ -2,6 +2,7 @@
 
 namespace Gharar\MoodleModGharar\PageBuilding\Portal;
 
+use required_capability_exception;
 use Gharar\MoodleModGharar\ServiceApi\AuthToken;
 use Gharar\MoodleModGharar\ServiceApi\Member;
 use Gharar\MoodleModGharar\ServiceApi\Member\{
@@ -58,6 +59,17 @@ class EnterRoomPage
         $this->instanceId = \required_param("id", \PARAM_INT);
 
         return $this;
+    }
+
+    private function assertUserIsPresenterIfRoomHavingLive()
+    {
+        if ($this->roomInfo->hasLive() && !\has_capability(
+            Capability::LIVE_PRESENTER,
+            $this->moduleContext,
+        )) {
+            // TODO: Maybe add a message for it?
+            throw new required_capability_exception();
+        }
     }
 
     protected function prepare(): self
