@@ -10,8 +10,6 @@ use Gharar\MoodleModGharar\InstanceForm\{
 };
 use Gharar\MoodleModGharar\LanguageString\StringId;
 use Gharar\MoodleModGharar\Moodle\Globals;
-use Gharar\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
-use Gharar\MoodleModGharar\ServiceApi\Api;
 use Gharar\MoodleModGharar\Util;
 
 /*

@@ -8,7 +8,6 @@ use Gharar\MoodleModGharar\ServiceApi\Room\{
     PossibleRoom
 };
 use Gharar\MoodleModGharar\Moodle\Globals;
-use Gharar\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
 use stdClass;
 
 class InstanceManager
