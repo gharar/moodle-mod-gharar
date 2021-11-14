@@ -17,6 +17,7 @@ use stdClass;
 class EnterLivePage
 {
     use Traits\PageBuilder;
+    use Traits\RoomIsActiveAssertion;
     use BaseTraits\MoodleConfigLoader;
     use BaseTraits\CourseAndModuleInfoInitializer;
     use BaseTraits\RoomInfoInitializer;
@@ -43,7 +44,8 @@ class EnterLivePage
             ->initInstance($this->moduleInfo->instance)
             ->initApi()
             ->initRoomInfo($this->api, $this->instance->address)
-            ->assertRoomHavingLive();
+            ->assertRoomHavingLive()
+            ->assertRoomIsActive($this->roomInfo);
     }
 
     private function initParams(): self
@@ -64,8 +66,6 @@ class EnterLivePage
 
     protected function prepare(): self
     {
-        // TODO: See if the room is active or not.
-
         $this->ensurePresentLiveMember(
             $liveMember = $this->generateLiveMember(
                 Globals::getUser()

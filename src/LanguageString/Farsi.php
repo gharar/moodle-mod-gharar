@@ -46,7 +46,9 @@ class Farsi
             "{\$a->message}؛ کد وضعیت: {\$a->statusCode}",
         StringId::ERROR_API_DUPLICATED_ROOM_NAME => "نام اتاق تکراری است (" .
             "اتاقی با این نام از قبل هست).",
+
         StringId::ERROR_ROOM_HAS_NO_LIVE => "این اتاق دارای وبینار نیست، یا " .
             "وبینار آن غیرفعال شده است.",
+        StringId::ERROR_ROOM_IS_INACTIVE => "اتاق موردنظر فعال نیست.",
     ];
 }
