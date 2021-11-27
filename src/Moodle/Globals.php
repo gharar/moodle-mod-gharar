@@ -1,25 +1,20 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\Moodle;
+namespace Gharar\MoodleModGharar\Moodle;
 
-use moodle_database;
-use stdClass;
-use bootstrap_renderer;
-use moodle_page;
 use admin_root;
+use moodle_database;
+use moodle_page;
+use stdClass;
 
 /**
- * For using $CFG global.
+ * For using $CFG global (and possibly other globals as well).
  * @psalm-suppress MissingFile
  */
 require_once __DIR__ . "/../../../../config.php";
 
 class Globals
 {
-    private function __construct()
-    {
-    }
-
     public static function getDatabase(): moodle_database
     {
         global $DB;
@@ -30,12 +25,6 @@ class Globals
     {
         global $CFG;
         return $CFG;
-    }
-
-    public static function getOutput(): bootstrap_renderer
-    {
-        global $OUTPUT;
-        return $OUTPUT;
     }
 
     public static function getPage(): moodle_page

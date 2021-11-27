@@ -1,40 +1,40 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\PluginUpgrade;
+namespace Gharar\MoodleModGharar\PluginUpgrade;
 
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
-use MAChitgarha\MoodleModGharar\Database;
+use Gharar\MoodleModGharar\Database;
+use Gharar\MoodleModGharar\ServiceApi\Api;
 
 class From0o1To0o2 extends AbstractBase
 {
     private const NEW_FIELD_ROOM_NAME = [
-        self::FIELD_ATTR_NAME => "room_name",
-        self::FIELD_ATTR_TYPE => \XMLDB_TYPE_CHAR,
-        self::FIELD_ATTR_PRECISION => 255,
-        self::FIELD_ATTR_NOT_NULL => true,
+        self::FIELD_NAME => "room_name",
+        self::FIELD_TYPE => \XMLDB_TYPE_CHAR,
+        self::FIELD_LENGTH => 255,
+        self::FIELD_NOT_NULL => true,
     ];
     private const NEW_FIELD_ADDRESS = [
-        self::FIELD_ATTR_NAME => "address",
-        self::FIELD_ATTR_TYPE => \XMLDB_TYPE_CHAR,
-        self::FIELD_ATTR_PRECISION => 44,
-        self::FIELD_ATTR_NOT_NULL => false,
+        self::FIELD_NAME => "address",
+        self::FIELD_TYPE => \XMLDB_TYPE_CHAR,
+        self::FIELD_LENGTH => 44,
+        self::FIELD_NOT_NULL => false,
     ];
 
     private const OLD_FIELD_LINK = [
-        self::FIELD_ATTR_NAME => "link",
-        self::FIELD_ATTR_TYPE => \XMLDB_TYPE_CHAR,
-        self::FIELD_ATTR_PRECISION => 512,
-        self::FIELD_ATTR_NOT_NULL => true,
-        self::FIELD_ATTR_SEQUENCE => false,
+        self::FIELD_NAME => "link",
+        self::FIELD_TYPE => \XMLDB_TYPE_CHAR,
+        self::FIELD_LENGTH => 512,
+        self::FIELD_NOT_NULL => true,
+        self::FIELD_SEQUENCE => false,
     ];
 
     private const NEW_INDEX_ROOM_NAME = [
-        self::FIELD_INDEX_NAME => "room_name",
-        self::FIELD_INDEX_UNIQUE => true,
+        self::INDEX_NAME => "room_name",
+        self::INDEX_UNIQUE => true,
     ];
     private const NEW_INDEX_ADDRESS = [
-        self::FIELD_INDEX_NAME => "address",
-        self::FIELD_INDEX_UNIQUE => true,
+        self::INDEX_NAME => "address",
+        self::INDEX_UNIQUE => true,
     ];
 
     protected const TABLE_MAIN_NEW_FIELDS = [
@@ -62,7 +62,7 @@ class From0o1To0o2 extends AbstractBase
         if (
             $record->address === null ||
             $this->database->record_exists(
-                Database::TABLE_MAIN,
+                Database\Table::MAIN,
                 ["address" => $record->address]
             )
         ) {
@@ -110,7 +110,7 @@ class From0o1To0o2 extends AbstractBase
     private function makeRoomNameUnique(string $roomName): string
     {
         if (!$this->database->record_exists(
-            Database::TABLE_MAIN,
+            Database\Table::MAIN,
             ["room_name" => $roomName]
         )) {
             return $roomName;

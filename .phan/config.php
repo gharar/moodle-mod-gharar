@@ -10,6 +10,6 @@ return [
         "vendor/",
     ],
     "suppress_issue_types" => [
-        "PhanUndeclaredConstant",
+        "PhanTypeInvalidTraitReturn",
     ],
 ];

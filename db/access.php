@@ -2,9 +2,8 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use MAChitgarha\MoodleModGharar\Util;
-use MAChitgarha\MoodleModGharar\Plugin;
+use Gharar\MoodleModGharar\{Capability, Util};
 
 Util::forbidNonMoodleAccess();
 
-$capabilities = Plugin::CAPABILITIES;
+$capabilities = Capability::DEFINITIONS;

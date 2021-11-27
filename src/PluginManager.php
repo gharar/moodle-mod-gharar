@@ -1,9 +1,8 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar;
+namespace Gharar\MoodleModGharar;
 
-use MAChitgarha\MoodleModGharar\PluginUpgrade\VersionMapper;
-use MAChitgarha\MoodleModGharar\PluginUpgrade\From0o1To0o2;
+use Gharar\MoodleModGharar\PluginUpgrade\VersionMapper;
 
 class PluginManager
 {
@@ -13,17 +12,42 @@ class PluginManager
             $oldVersionNumber
         );
 
-        /*
-         * Updates are incremental. Meaning, for example, if the plugin is being
-         * upgraded from 0.1.0 to 0.3.0, it initially will be upgraded from
-         * 0.2.0, and then upgraded to 0.3.0.
-         */
-        if ($currentVersion === VersionMapper::VERSION_0_1) {
-            (new From0o1To0o2())->upgrade();
-            $currentVersion = VersionMapper::VERSION_0_2;
+        foreach (VersionMapper::INCREMENTAL_UPGRADE_INFO as $srcVersion => [
+            $upgraderClass,
+            $targetVersion,
+        ]) {
+            if ($currentVersion === $srcVersion) {
+                try {
+                    (new $upgraderClass())->upgrade();
+                    $currentVersion = $targetVersion;
+                } catch (\Throwable $e) {
+                    // Unstable state, upgrade process failed
+                    self::upgradeModuleSavepoint(false, $targetVersion);
+                    throw $e;
+                }
+
+                // Tell plugin stable state to Moodle
+                self::upgradeModuleSavepoint(true, $targetVersion);
+            }
         }
 
         return true;
+    }
+
+    private static function upgradeModuleSavepoint(
+        bool $state,
+        int $targetVersion
+    ): void {
+        // For the testing phase, i.e. when the next version number is unknown
+        if ($targetVersion === VersionMapper::VERSION_UNKNOWN) {
+            return;
+        }
+
+        upgrade_mod_savepoint(
+            $state,
+            (string)(VersionMapper::makeVersionNumberFromDate($targetVersion)),
+            Plugin::MODULE_NAME
+        );
     }
 
     public static function uninstall(): bool

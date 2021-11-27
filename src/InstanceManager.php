@@ -1,27 +1,25 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar;
+namespace Gharar\MoodleModGharar;
 
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\API;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\AvailableRoom;
-use MAChitgarha\MoodleModGharar\GhararServiceAPI\Room\ToBeCreatedRoom;
-use MAChitgarha\MoodleModGharar\Moodle\Globals;
-use MAChitgarha\MoodleModGharar\Database;
-use MAChitgarha\MoodleModGharar\PageBuilding\AdminSettingsBuilder;
+use Gharar\MoodleModGharar\Moodle\Globals;
+use Gharar\MoodleModGharar\ServiceApi\Api;
+use Gharar\MoodleModGharar\ServiceApi\Room\{
+    AvailableRoom,
+    PossibleRoom
+};
+use stdClass;
 
 class InstanceManager
 {
+    use Traits\ApiInitializer;
+
     /** @var ?self */
     private static $instance = null;
 
-    /** @var API */
-    private $api;
-
     private function __construct()
     {
-        $this->api = new API(
-            Util::getConfig(AdminSettingsBuilder::CONFIG_ACCESS_TOKEN_NAME)
-        );
+        $this->initApi();
     }
 
     public static function getInstance(): self
@@ -37,22 +35,45 @@ class InstanceManager
      */
     public function add(object $instance)
     {
-        $room = $this->api->createRoom(new ToBeCreatedRoom(
-            $instance->room_name,
-            $instance->is_private
-        ));
+        /*
+         * One can inject room address into the hidden address field in data
+         * form to make use of existing room, instead of creating a new one.
+         */
+        if (!$this->isSetAddress($instance)) {
+            $room = $this->createNewRoom($instance);
+            $instance->address = $room->getAddress();
+        }
 
-        $newRecord = $instance;
-        $newRecord->address = $room->getAddress();
+        $this->setRolesCanViewRecordings($instance);
 
         /*
          * Here, if a record with the same "room_name" or "address" exists,
          * because of them being unique fields, an error is occurred.
          */
         $id = Globals::getDatabase()
-            ->insert_record(Database::TABLE_MAIN, $newRecord);
+            ->insert_record(Database\Table::MAIN, $instance);
 
         return $id;
+    }
+
+    private function isSetAddress(object $instance): bool
+    {
+        return (bool)(\preg_match(API::REGEX_ROOM_ADDRESS, $instance->address));
+    }
+
+    private function createNewRoom(object $instance): AvailableRoom
+    {
+        return $this->api->createRoom(new PossibleRoom(
+            $instance->room_name,
+            $instance->is_private
+        ));
+    }
+
+    private function setRolesCanViewRecordings(stdClass $instance): void
+    {
+        $instance->roles_can_view_recordings = Util::jsonEncode(
+            $instance->roles_can_view_recordings_select
+        );
     }
 
     /**
@@ -60,34 +81,33 @@ class InstanceManager
      */
     public function update(object $instance): bool
     {
-        // Important: The id is not stored in the "id" field, but the
-        // "instance" one
+        /*
+         * Important: The id is not stored in the "id" field, but the
+         * "instance" one.
+         */
         $instance->id = $instance->instance;
-
-        $oldRecord = Globals::getDatabase()
-            ->get_record(
-                Database::TABLE_MAIN,
-                ["id" => $instance->id],
-                "*",
-                \MUST_EXIST
-            );
 
         $room = new AvailableRoom(
             $instance->room_name,
-            $oldRecord->address
+            $instance->address
         );
         $room->setIsPrivate($instance->is_private);
         $room->setIsActive(true);
 
         $room = $this->api->updateRoom($room);
 
-        $newRecord = $instance;
-        $newRecord->address = $room->getAddress();
+        $this->setRolesCanViewRecordings($instance);
+        $this->unsetIntroFormat($instance);
 
         $result = Globals::getDatabase()
-            ->update_record(Database::TABLE_MAIN, $instance);
+            ->update_record(Database\Table::MAIN, $instance);
 
         return $result;
+    }
+
+    private function unsetIntroFormat(stdClass $instance): void
+    {
+        unset($instance->introformat);
     }
 
     /**
@@ -99,7 +119,7 @@ class InstanceManager
         $database = Globals::getDatabase();
 
         $record = $database->get_record(
-            Database::TABLE_MAIN,
+            Database\Table::MAIN,
             ["id" => $recordId]
         );
 
@@ -108,11 +128,15 @@ class InstanceManager
         }
 
         $deleteResult = $database->delete_records(
-            Database::TABLE_MAIN,
+            Database\Table::MAIN,
             ["id" => $recordId]
         );
 
-        $this->api->destroyRoom($record->address);
+        /*
+         * We don't destroy the room, as the user may have recordings on it, or
+         * simply need it. In the future, a confirmation make be taken from the
+         * user to do so.
+         */
 
         return $deleteResult;
     }

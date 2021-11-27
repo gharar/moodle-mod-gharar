@@ -1,6 +1,11 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar;
+namespace Gharar\MoodleModGharar;
+
+use core_renderer;
+use Gharar\MoodleModGharar\Moodle\Globals;
+use RuntimeException;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 class Util
 {
@@ -17,19 +22,46 @@ class Util
     }
 
     /**
-     * @param mixed ...$otherArgs
+     * @param string|object|array $fields
+     * @return string
      */
-    public static function getString(string $which, ...$otherArgs): string
-    {
-        return \get_string($which, Plugin::COMPONENT_NAME, ...$otherArgs);
+    public static function getString(
+        string $id,
+        $fields = null,
+        bool $lazyLoad = false
+    ): string {
+        return \get_string($id, Plugin::COMPONENT_NAME, $fields, $lazyLoad);
     }
 
     /**
      * @todo Throw exceptions in the case of config name not found?
      * @return mixed|false
      */
-    public static function getConfig(string $which)
+    public static function getConfig(string $name)
     {
-        return \get_config(Plugin::COMPONENT_NAME, $which);
+        return \get_config(Plugin::COMPONENT_NAME, $name);
+    }
+
+    public static function getPageRenderer(): core_renderer
+    {
+        $renderer = Globals::getPage()->get_renderer("core");
+
+        if ($renderer instanceof core_renderer) {
+            return $renderer;
+        }
+
+        throw new RuntimeException(
+            "Expected the renderer from Moodle to be core_renderer"
+        );
+    }
+
+    public static function jsonEncode($data): string
+    {
+        return (new JsonEncoder())->encode($data, "");
+    }
+
+    public static function jsonDecode(string $data)
+    {
+        return (new JsonEncoder())->decode($data, "");
     }
 }

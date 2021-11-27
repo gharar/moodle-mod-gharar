@@ -1,0 +1,36 @@
+<style>
+    .btn-margin-top {
+        margin-top: 5px;
+    }
+
+    #heading_recordings {
+        margin-top: 20px;
+    }
+</style>
+
+{{#section_enter_live}}
+    <a class="btn btn-primary btn-margin-top" target="_blank"
+        href="{{url_enter_live}}">
+        {{enter_live}}
+    </a>
+{{/section_enter_live}}
+
+{{#section_enter_room}}
+    <a class="btn btn-primary btn-margin-top" target="_blank"
+        href="{{url_enter_room}}">
+        {{enter_room}}
+    </a>
+{{/section_enter_room}}
+
+{{#section_recordings}}
+    <h3 id="heading_recordings">{{heading_recordings}}</h3>
+    {{#list_recordings}}
+        <a target="_blank"
+            href="{{url}}">
+            {{name}}
+        </a>
+    {{/list_recordings}}
+    {{^list_recordings}}
+        <p>{{no_recordings_available}}</p>
+    {{/list_recordings}}
+{{/section_recordings}}

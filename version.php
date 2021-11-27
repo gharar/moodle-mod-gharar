@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-use MAChitgarha\MoodleModGharar\Util;
+use Gharar\MoodleModGharar\Util;
 
 Util::forbidNonMoodleAccess();
 
@@ -18,8 +18,8 @@ Util::forbidNonMoodleAccess();
  * release, and update the version number as described.
  */
 $plugin->component = "mod_gharar";
-$plugin->version = 2021092403;
-$plugin->release = "0.3.1";
+$plugin->version = 2021102603;
+$plugin->release = "0.4.0";
 $plugin->maturity = MATURITY_STABLE;
 
 // Minimum Moodle version is 3.9.0

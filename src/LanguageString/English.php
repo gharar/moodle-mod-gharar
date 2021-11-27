@@ -1,48 +1,59 @@
 <?php
 
-namespace MAChitgarha\MoodleModGharar\LanguageString;
+namespace Gharar\MoodleModGharar\LanguageString;
 
 /**
  * Although the support for English language is not in priority, and may not be
- * actively maintained (i.e. it may contain empty stub strings), but it is
- * required for language strings of other languages (i.e. Persian here) to work.
+ * actively maintained (i.e. it may contain stub strings), but it is required
+ * for language strings of other languages (e.g. Persian) to work.
  */
 class English
 {
+    /** Stub string that should be implemented in the future. */
+    private const NONE = "-";
+
     private const PLUGIN_NAME = "Gharar";
     private const PLUGIN_NAME_PLURAL = self::PLUGIN_NAME . "s";
 
     public const STRING = [
-        // Moodle-specific {
-        "modulename" => self::PLUGIN_NAME,
-        "pluginname" => self::PLUGIN_NAME,
-        "modulenameplural" => self::PLUGIN_NAME_PLURAL,
+        StringId::MODULE_NAME => self::PLUGIN_NAME,
+        StringId::PLUGIN_NAME => self::PLUGIN_NAME,
+        StringId::MODULE_NAME_PLURAL => self::PLUGIN_NAME_PLURAL,
+        StringId::PLUGIN_NAME_PLURAL => self::PLUGIN_NAME_PLURAL,
 
-        "pluginadministration" => self::PLUGIN_NAME . " administration",
+        StringId::PLUGIN_ADMINISTRATION =>
+            self::PLUGIN_NAME . " administration",
 
-        "gharar:addinstance" => "-",
-        "gharar:view" => "-",
-        "gharar:enter_room_as_admin" => "-",
-        // }
+        StringId::CAPABILITY_ADD_INSTANCE => self::NONE,
+        StringId::CAPABILITY_VIEW_INSTANCE => self::NONE,
+        StringId::CAPABILITY_ROOM_ADMIN => self::NONE,
+        StringId::CAPABILITY_LIVE_PRESENTER => self::NONE,
 
-        "plugin_name" => self::PLUGIN_NAME,
-        "plugin_name_plural" => self::PLUGIN_NAME_PLURAL,
+        StringId::FORM_INSTANCE_FIELD_NAME => "Name",
+        StringId::FORM_INSTANCE_FIELD_ROOM_NAME => "Room name",
+        StringId::FORM_INSTANCE_FIELD_IS_PRIVATE => "Private",
+        StringId::FORM_INSTANCE_FIELD_ROLES_CAN_VIEW_RECORDINGS =>
+            "Visible for (roles)",
+        StringId::FORM_INSTANCE_BLOCK_ROOM_SETTINGS => "Room Settings",
+        StringId::FORM_INSTANCE_BLOCK_RECORDINGS => "Recordings",
 
-        "name" => "Name",
-        "room_name" => "Room name",
-        "is_private" => "Private",
+        StringId::CONFIG_ACCESS_TOKEN => "Access token",
+        StringId::CONFIG_ACCESS_TOKEN_DESCRIPTION => self::NONE,
 
-        "room_settings" => "Room Settings",
+        StringId::PAGE_VIEW_ENTER => "Enter",
+        StringId::PAGE_VIEW_ENTER_ROOM => self::NONE,
+        StringId::PAGE_VIEW_ENTER_LIVE => self::NONE,
+        StringId::PAGE_VIEW_NO_RECORDINGS_AVAILABLE => self::NONE,
+        StringId::PAGE_VIEW_HEADING_RECORDINGS => self::NONE,
 
-        "access_token" => "Access token",
-        "access_token_description" => "-",
+        StringId::ERROR_API_TIMEOUT => self::NONE,
+        StringId::ERROR_API_UNAUTHORIZED => self::NONE,
+        StringId::ERROR_API_UNHANDLED => self::NONE,
+        StringId::ERROR_API_DUPLICATED_ROOM_NAME => self::NONE,
 
-        "enter_room" => "Enter the virtual class",
-        "enter_live" => "-",
+        StringId::ERROR_ROOM_HAS_NO_LIVE => self::NONE,
+        StringId::ERROR_ROOM_IS_INACTIVE => self::NONE,
 
-        "error_api_request_timeout" => "-",
-        "error_api_request_unauthorized" => "-",
-        "error_api_request_unhandled" => "-",
-        "error_api_request_duplicated_room_name" => "-",
+        StringId::ERROR_ACCESS_DENIED => self::NONE,
     ];
 }

@@ -2,3 +2,6 @@
 moodle-mod-gharar.zip
 
 /vendor/
+
+# Cache files
+.php-cs-fixer.cache

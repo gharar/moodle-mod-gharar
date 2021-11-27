@@ -1,30 +1,33 @@
 {
-    "name": "machitgarha/moodle-mod-gharar",
-    "description": "Gharar plugin for Moodle",
+    "name": "gharar/moodle-mod-gharar",
+    "description": "Gharar plugin (activity module) for Moodle",
     "type": "library",
-    "license": "GPLv3",
+    "license": "GPL-3.0",
+    "homepage": "https://github.com/gharar/moodle-mod-gharar",
     "authors": [
         {
             "name": "Mohammad Amin Chitgarha",
             "email": "machitgarha@outlook.com",
             "homepage": "https://github.com/machitgarha",
-            "role": "Creator"
+            "role": "Creator & Maintainer"
         }
     ],
     "require": {
-        "php": "7.2 - 7.4",
+        "php": ">=7.2",
         "guzzlehttp/guzzle": "^7.3",
-        "webmozart/json": "^1.2",
-        "webmozart/assert": "^1.10"
+        "symfony/serializer": "^5.3",
+        "symfony/property-access": "^5.3"
     },
     "require-dev": {
+        "php": ">=7.2",
         "vimeo/psalm": "^4.9",
         "phan/phan": "^5.2",
-        "machitgarha/bimoo": "3.9.*"
+        "machitgarha/bimoo": "3.9.*",
+        "friendsofphp/php-cs-fixer": "^3.2"
     },
     "autoload": {
         "psr-4": {
-            "MAChitgarha\\MoodleModGharar\\": "src"
+            "Gharar\\MoodleModGharar\\": "src"
         }
     }
 }
