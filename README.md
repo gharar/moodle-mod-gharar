@@ -51,7 +51,7 @@
 
 ### حمایت مالی
 
-<a href="https://coffeebede.ir/buycoffee/machitgarha"><img class="img-fluid" alt="کافی بده!" width="250px" src="https://coffeebede.ir/DashboardTemplateV2/app-assets/images/banner/default-yellow.svg" /></a>
+<p dir="rtl"><a href="https://coffeebede.ir/buycoffee/machitgarha"><img class="img-fluid" alt="کافی بده!" width="250px" src="https://coffeebede.ir/DashboardTemplateV2/app-assets/images/banner/default-yellow.svg" /></a></p>
 
 ## گواهی‌نامه
 
