@@ -49,10 +49,6 @@
 
 **برای انجام**: ایجاد مستندات چگونگی مشارکت در توسعه‌ی افزونه.
 
-### حمایت مالی
-
-<p dir="rtl"><a href="https://coffeebede.ir/buycoffee/machitgarha"><img class="img-fluid" alt="کافی بده!" width="250px" src="https://coffeebede.ir/DashboardTemplateV2/app-assets/images/banner/default-yellow.svg" /></a></p>
-
 ## گواهی‌نامه
 
 این پروژه، تحت [جی‌پی‌ال۳](./LICENSE.md) گواهی شده است.
